@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" style="background-color: #f9f9f9;">
+  <!-- Title -->
+  <text x="450" y="30" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Pull Request(PR) 워크플로우</text>
+
+  <!-- Step 1: Fork & Clone -->
+  <g>
+    <rect x="50" y="80" width="150" height="80" fill="#667eea" fill-opacity="0.1" stroke="#667eea" stroke-width="2" rx="4"/>
+    <text x="125" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#667eea">1단계: Fork & Clone</text>
+    <text x="125" y="125" font-size="11" text-anchor="middle" fill="#333">원본 저장소</text>
+    <text x="125" y="140" font-size="11" text-anchor="middle" fill="#333">복사본 생성</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <path d="M 200 120 L 270 120" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 2: Feature Branch -->
+  <g>
+    <rect x="270" y="80" width="150" height="80" fill="#2196F3" fill-opacity="0.1" stroke="#2196F3" stroke-width="2" rx="4"/>
+    <text x="345" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#2196F3">2단계: Feature Branch</text>
+    <text x="345" y="125" font-size="11" text-anchor="middle" fill="#333">새 브랜치 생성</text>
+    <text x="345" y="140" font-size="11" text-anchor="middle" fill="#333">코드 작성</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <path d="M 420 120 L 490 120" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 3: Push & PR -->
+  <g>
+    <rect x="490" y="80" width="150" height="80" fill="#FF9800" fill-opacity="0.1" stroke="#FF9800" stroke-width="2" rx="4"/>
+    <text x="565" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#FF9800">3단계: Push & PR</text>
+    <text x="565" y="125" font-size="11" text-anchor="middle" fill="#333">브랜치 Push</text>
+    <text x="565" y="140" font-size="11" text-anchor="middle" fill="#333">Pull Request 생성</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <path d="M 640 120 L 710 120" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 4: Review -->
+  <g>
+    <rect x="710" y="80" width="140" height="80" fill="#9C27B0" fill-opacity="0.1" stroke="#9C27B0" stroke-width="2" rx="4"/>
+    <text x="780" y="105" font-size="12" font-weight="bold" text-anchor="middle" fill="#9C27B0">4단계: 코드 리뷰</text>
+    <text x="780" y="125" font-size="11" text-anchor="middle" fill="#333">팀원이 검토</text>
+    <text x="780" y="140" font-size="11" text-anchor="middle" fill="#333">피드백 반영</text>
+  </g>
+
+  <!-- Lower flow -->
+  <!-- Arrow down from review -->
+  <path d="M 780 160 L 780 200" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 5: Approve & Merge -->
+  <g>
+    <rect x="650" y="200" width="260" height="80" fill="#4CAF50" fill-opacity="0.1" stroke="#4CAF50" stroke-width="2" rx="4"/>
+    <text x="780" y="225" font-size="12" font-weight="bold" text-anchor="middle" fill="#4CAF50">5단계: Approve & Merge</text>
+    <text x="780" y="245" font-size="11" text-anchor="middle" fill="#333">승인 후 master에 병합</text>
+    <text x="780" y="260" font-size="11" text-anchor="middle" fill="#333">자동 배포 가능 (CI/CD)</text>
+  </g>
+
+  <!-- Left side: Detail steps -->
+  <g>
+    <text x="60" y="220" font-size="13" font-weight="bold" fill="#333">리뷰 과정에서 가능한 일들:</text>
+
+    <rect x="50" y="240" width="200" height="60" fill="#FFF9C4" stroke="#FBC02D" stroke-width="1" rx="4"/>
+    <circle cx="65" cy="255" r="4" fill="#FBC02D"/>
+    <text x="75" y="258" font-size="11" fill="#333">수정 요청 (Changes Requested)</text>
+    <circle cx="65" cy="275" r="4" fill="#FBC02D"/>
+    <text x="75" y="278" font-size="11" fill="#333">댓글로 피드백 제공</text>
+    <circle cx="65" cy="295" r="4" fill="#FBC02D"/>
+    <text x="75" y="298" font-size="11" fill="#333">승인 (Approve)</text>
+
+    <text x="60" y="340" font-size="13" font-weight="bold" fill="#333">피드백 후:</text>
+
+    <rect x="50" y="360" width="200" height="80" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1" rx="4"/>
+    <circle cx="65" cy="375" r="4" fill="#4CAF50"/>
+    <text x="75" y="378" font-size="11" fill="#333">로컬에서 수정</text>
+    <circle cx="65" cy="395" r="4" fill="#4CAF50"/>
+    <text x="75" y="398" font-size="11" fill="#333">같은 브랜치에 commit</text>
+    <circle cx="65" cy="415" r="4" fill="#4CAF50"/>
+    <text x="75" y="418" font-size="11" fill="#333">Push (PR 자동 갱신)</text>
+    <circle cx="65" cy="435" r="4" fill="#4CAF50"/>
+    <text x="75" y="438" font-size="11" fill="#333">다시 리뷰 요청</text>
+  </g>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+</svg>

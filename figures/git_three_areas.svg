@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" style="background-color: #f9f9f9;">
+  <!-- Title -->
+  <text x="450" y="30" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Git의 3가지 영역</text>
+
+  <!-- Working Directory -->
+  <rect x="50" y="80" width="200" height="150" fill="#667eea" fill-opacity="0.1" stroke="#667eea" stroke-width="2" rx="8"/>
+  <text x="150" y="105" font-size="16" font-weight="bold" text-anchor="middle" fill="#667eea">Working Directory</text>
+  <text x="150" y="130" font-size="12" text-anchor="middle" fill="#333">프로젝트 폴더</text>
+  <text x="150" y="150" font-size="12" text-anchor="middle" fill="#333">파일 수정</text>
+  <text x="150" y="170" font-size="12" text-anchor="middle" fill="#333">상태: Untracked</text>
+  <text x="150" y="190" font-size="12" text-anchor="middle" fill="#333">또는 Modified</text>
+
+  <!-- Arrow 1: git add -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+
+  <path d="M 250 155 L 320 155" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="285" y="145" font-size="11" fill="#666" font-weight="bold">git add</text>
+
+  <!-- Staging Area -->
+  <rect x="320" y="80" width="200" height="150" fill="#2196F3" fill-opacity="0.1" stroke="#2196F3" stroke-width="2" rx="8"/>
+  <text x="420" y="105" font-size="16" font-weight="bold" text-anchor="middle" fill="#2196F3">Staging Area</text>
+  <text x="420" y="130" font-size="12" text-anchor="middle" fill="#333">커밋할 파일</text>
+  <text x="420" y="150" font-size="12" text-anchor="middle" fill="#333">목록 준비</text>
+  <text x="420" y="170" font-size="12" text-anchor="middle" fill="#333">상태: Staged</text>
+  <text x="420" y="190" font-size="12" text-anchor="middle" fill="#333">또는 Index</text>
+
+  <!-- Arrow 2: git commit -->
+  <path d="M 520 155 L 590 155" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="555" y="145" font-size="11" fill="#666" font-weight="bold">git commit</text>
+
+  <!-- Repository -->
+  <rect x="590" y="80" width="200" height="150" fill="#FF9800" fill-opacity="0.1" stroke="#FF9800" stroke-width="2" rx="8"/>
+  <text x="690" y="105" font-size="16" font-weight="bold" text-anchor="middle" fill="#FF9800">Repository</text>
+  <text x="690" y="130" font-size="12" text-anchor="middle" fill="#333">.git 폴더</text>
+  <text x="690" y="150" font-size="12" text-anchor="middle" fill="#333">커밋 히스토리</text>
+  <text x="690" y="170" font-size="12" text-anchor="middle" fill="#333">상태: Committed</text>
+  <text x="690" y="190" font-size="12" text-anchor="middle" fill="#333">영구 저장</text>
+
+  <!-- Arrow 3: git push (optional) -->
+  <path d="M 690 240 L 690 260" stroke="#999" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
+  <text x="750" y="260" font-size="11" fill="#999">git push → Remote</text>
+</svg>
