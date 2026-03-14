@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3장: 협업하기 - 입문 교재</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+
+        .nav a {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #FF9800;
+            color: #FF9800;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: #FF9800;
+            color: white;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            color: #FF9800;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #FF9800;
+        }
+
+        section h3 {
+            color: #E65100;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .code-block code {
+            color: #d63384;
+        }
+
+        .step {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .step strong {
+            color: #E65100;
+        }
+
+        .tip {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            color: #2e7d32;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            margin-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            border-top: 1px solid #eee;
+        }
+
+        .footer a {
+            color: #FF9800;
+            text-decoration: none;
+        }
+
+        .progress {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #FF9800 0%, #F57C00 100%);
+            height: 100%;
+            width: 60%;
+        }
+
+        .emoji {
+            font-size: 1.3em;
+            margin-right: 5px;
+        }
+
+        .branch-diagram {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 2px dashed #FF9800;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #FF9800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress">
+            <div class="progress-bar" style="width: 60%;"></div>
+        </div>
+
+        <header>
+            <h1>3️⃣ 협업하기 - 브랜치와 머지</h1>
+            <p>팀과 함께 효율적으로 작업하기!</p>
+        </header>
+
+        <div class="nav">
+            <a href="chapter2.html">← 이전 장</a>
+            <a href="chapter4.html">다음 장 →</a>
+        </div>
+
+        <!-- 3.1 브랜치란 -->
+        <section>
+            <h2><span class="emoji">🌿</span>3.1 브랜치란 무엇인가?</h2>
+
+            <p>브랜치(Branch)는 독립적인 작업 경로입니다. 나무의 가지처럼, 메인 가지에서 새로운 가지를 만들어 작업한 후 다시 합칠 수 있습니다.</p>
+
+            <h3>브랜치가 필요한 이유</h3>
+            <ul>
+                <li><strong>병렬 작업:</strong> 여러 기능을 동시에 개발</li>
+                <li><strong>안전성:</strong> 메인 코드에 영향을 주지 않음</li>
+                <li><strong>코드 리뷰:</strong> 다른 팀원이 확인 후 병합</li>
+                <li><strong>실험:</strong> 새로운 아이디어를 테스트</li>
+            </ul>
+
+            <div class="branch-diagram">master (메인 브랜치)
+    |
+    |-- feature/login (로그인 기능)
+    |-- feature/payment (결제 기능)
+    |-- bugfix/header (헤더 버그 수정)
+            </div>
+
+            <h3>기본 개념</h3>
+            <table>
+                <tr>
+                    <th>용어</th>
+                    <th>설명</th>
+                </tr>
+                <tr>
+                    <td><strong>master/main</strong></td>
+                    <td>기본 브랜치, 항상 안정적인 코드</td>
+                </tr>
+                <tr>
+                    <td><strong>feature 브랜치</strong></td>
+                    <td>새로운 기능 개발용</td>
+                </tr>
+                <tr>
+                    <td><strong>bugfix 브랜치</strong></td>
+                    <td>버그 수정용</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- 3.2 브랜치 생성과 전환 -->
+        <section>
+            <h2><span class="emoji">✨</span>3.2 브랜치 만들고 전환하기</h2>
+
+            <h3>따라하기</h3>
+
+            <div class="step">
+                <strong>Step 1: 새 브랜치 생성</strong>
+                <div class="code-block">
+                    <code>git branch feature/login</code>
+                </div>
+                <p style="margin-top: 10px;">이 명령어는 "feature/login"이라는 브랜치를 만듭니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 브랜치로 이동</strong>
+                <div class="code-block">
+                    <code>git checkout feature/login</code>
+                </div>
+                <p style="margin-top: 10px;">이제 이 브랜치에서 작업합니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 확인하기</strong>
+                <div class="code-block">
+                    <code>git branch</code>
+                </div>
+                <p style="margin-top: 10px;">현재 브랜치 앞에 "*" 기호가 붙습니다.</p>
+            </div>
+
+            <h3>한 번에 생성과 이동</h3>
+            <p>이 두 작업을 한 번에 할 수도 있습니다:</p>
+            <div class="code-block">
+                <code>git checkout -b feature/login</code>
+            </div>
+
+            <p>또는 최신 Git에서는:</p>
+            <div class="code-block">
+                <code>git switch -c feature/login</code>
+            </div>
+
+            <div class="tip">
+                <strong>💡 브랜치 이름 짓는 팁</strong><br/>
+                ✅ feature/login, bugfix/header, docs/readme<br/>
+                ❌ asdf, new, test, update
+            </div>
+
+            <h3>현재 브랜치에서 작업하기</h3>
+
+            <div class="step">
+                <strong>Step 1: 파일 수정</strong>
+                <div class="code-block">
+                    <code>echo "Login page" > login.html</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 커밋</strong>
+                <div class="code-block">
+                    <code>git add .<br/>
+                    git commit -m "Add login page"</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 마스터로 돌아가기</strong>
+                <div class="code-block">
+                    <code>git checkout master</code>
+                </div>
+                <p style="margin-top: 10px;">마스터에는 login.html 파일이 없습니다! (아직)</p>
+            </div>
+
+            <div class="highlight">
+                <strong>📌 브랜치의 독립성</strong><br/>
+                각 브랜치는 독립적입니다. 한 브랜치에서의 변경이 다른 브랜치에 영향을 주지 않습니다.
+            </div>
+        </section>
+
+        <!-- 3.3 브랜치 병합하기 -->
+        <section>
+            <h2><span class="emoji">🔗</span>3.3 브랜치 병합하기 (Merge)</h2>
+
+            <p>브랜치에서 작업을 완료했으면, 이를 마스터 브랜치에 합쳐야 합니다. 이것을 "병합(Merge)"이라고 합니다.</p>
+
+            <h3>따라하기</h3>
+
+            <div class="step">
+                <strong>Step 1: 마스터 브랜치로 이동</strong>
+                <div class="code-block">
+                    <code>git checkout master</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: feature/login 브랜치 병합</strong>
+                <div class="code-block">
+                    <code>git merge feature/login</code>
+                </div>
+                <p style="margin-top: 10px;">마스터 브랜치에 feature/login의 변경사항이 포함됩니다!</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 확인하기</strong>
+                <div class="code-block">
+                    <code>git log --oneline</code>
+                </div>
+                <p style="margin-top: 10px;">이제 login.html 파일이 마스터에도 있습니다!</p>
+            </div>
+
+            <h3>브랜치 삭제하기</h3>
+            <p>병합이 완료된 브랜치는 삭제해도 됩니다:</p>
+            <div class="code-block">
+                <code>git branch -d feature/login</code>
+            </div>
+
+            <div class="highlight">
+                <strong>🎯 병합 흐름</strong><br/>
+                1. feature 브랜치 생성 (git branch)<br/>
+                2. 기능 개발 (git add, git commit)<br/>
+                3. master로 이동 (git checkout master)<br/>
+                4. feature 병합 (git merge feature/...)<br/>
+                5. feature 삭제 (git branch -d)
+            </div>
+        </section>
+
+        <!-- 3.4 충돌 해결 -->
+        <section>
+            <h2><span class="emoji">⚠️</span>3.4 충돌 해결하기 (Conflict)</h2>
+
+            <p>두 브랜치에서 같은 파일의 같은 부분을 수정했을 때 "충돌(Conflict)"이 발생합니다. 이를 수동으로 해결해야 합니다.</p>
+
+            <h3>충돌이 발생하는 상황</h3>
+            <ul>
+                <li>같은 파일의 같은 부분을 다르게 수정했을 때</li>
+                <li>한 브랜치에서 파일을 삭제했을 때</li>
+            </ul>
+
+            <h3>충돌 해결 방법</h3>
+
+            <div class="step">
+                <strong>Step 1: 충돌 발생 시 git merge 다시 시도</strong>
+                <div class="code-block">
+                    <code>git merge other-branch</code>
+                </div>
+                <p style="margin-top: 10px;">Git에서 충돌을 알립니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 충돌한 파일 확인</strong>
+                <div class="code-block">
+                    <code>git status</code>
+                </div>
+                <p style="margin-top: 10px;">"both modified" 파일을 찾습니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 파일 편집</strong>
+                <p>파일을 열면 다음과 같이 보입니다:</p>
+                <div class="code-block">
+                    <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br/>
+                    현재 브랜치의 코드<br/>
+                    =======<br/>
+                    다른 브랜치의 코드<br/>
+                    &gt;&gt;&gt;&gt;&gt;&gt;&gt; other-branch</code>
+                </div>
+                <p style="margin-top: 10px;">이 표시들과 필요없는 코드를 모두 삭제하고, 최종 코드만 남깁니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: 해결 후 커밋</strong>
+                <div class="code-block">
+                    <code>git add .<br/>
+                    git commit -m "Resolve merge conflict"</code>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 충돌 피하기</strong><br/>
+                - 작은 단위로 자주 커밋하기<br/>
+                - 브랜치 병합 전에 pull 하기<br/>
+                - 팀원과 어느 파일을 수정할지 미리 논의하기
+            </div>
+        </section>
+
+        <!-- 3.5 Pull Request -->
+        <section>
+            <h2><span class="emoji">🔀</span>3.5 Pull Request와 협업 워크플로우</h2>
+
+            <p>실제 팀 프로젝트에서는 보통 "Pull Request(PR)"를 통해 코드 리뷰 후에 병합합니다.</p>
+
+            <h3>Pull Request란?</h3>
+            <p>PR은 "내 변경사항을 검토해주세요"라는 요청입니다. GitHub, GitLab 같은 사이트에서 사용합니다.</p>
+
+            <h3>협업 워크플로우 (GitHub 기준)</h3>
+
+            <div class="step">
+                <strong>Step 1: feature 브랜치에서 작업</strong>
+                <div class="code-block">
+                    <code>git checkout -b feature/new-page<br/>
+                    # 파일 수정<br/>
+                    git add .<br/>
+                    git commit -m "Add new page"</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 원격에 push</strong>
+                <div class="code-block">
+                    <code>git push origin feature/new-page</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: GitHub에서 Pull Request 생성</strong>
+                <p>GitHub 웹사이트에서:</p>
+                <ul>
+                    <li>브랜치 선택</li>
+                    <li>"Create Pull Request" 클릭</li>
+                    <li>제목과 설명 작성</li>
+                    <li>"Create Pull Request" 완료</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: 코드 리뷰 (팀원)</strong>
+                <p>팀원들이 코드를 검토하고 의견을 댓글로 남깁니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 5: 수정 및 재push (필요시)</strong>
+                <div class="code-block">
+                    <code>git add .<br/>
+                    git commit -m "Address review comments"<br/>
+                    git push origin feature/new-page</code>
+                </div>
+                <p style="margin-top: 10px;">PR이 자동으로 업데이트됩니다!</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 6: 병합</strong>
+                <p>리뷰가 완료되면 GitHub에서 "Merge Pull Request" 클릭!</p>
+            </div>
+
+            <h3>확인해보기</h3>
+            <div class="code-block">
+                <code>git checkout master<br/>
+                git pull origin master<br/>
+                # feature 브랜치 삭제<br/>
+                git branch -d feature/new-page</code>
+            </div>
+
+            <div class="highlight">
+                <strong>🎯 PR의 장점</strong><br/>
+                ✅ 코드 품질 관리<br/>
+                ✅ 지식 공유<br/>
+                ✅ 버그 예방<br/>
+                ✅ 협업 기록
+            </div>
+        </section>
+
+        <div class="nav">
+            <a href="chapter2.html">← 이전 장</a>
+            <a href="chapter4.html">다음 장 →</a>
+        </div>
+
+        <div class="footer">
+            <p>🎓 3장 완료! 이제 문제 상황을 해결하는 방법을 배워봅시다! <a href="chapter4.html">4장 - 문제 해결</a></p>
+        </div>
+    </div>
+</body>
+</html>

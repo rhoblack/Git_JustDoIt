@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git 입문 교재 - 완전 가이드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .chapters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .chapter-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .chapter-header h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .chapter-level {
+            font-size: 0.85em;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .chapter-content {
+            padding: 25px;
+        }
+
+        .chapter-content p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .topics {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .topics li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .topics li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .level-1 { border-top: 4px solid #4CAF50; }
+        .level-2 { border-top: 4px solid #2196F3; }
+        .level-3 { border-top: 4px solid #FF9800; }
+        .level-4 { border-top: 4px solid #f44336; }
+        .level-5 { border-top: 4px solid #9C27B0; }
+
+        .level-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .badge-1 { background: #E8F5E9; color: #2E7D32; }
+        .badge-2 { background: #E3F2FD; color: #1565C0; }
+        .badge-3 { background: #FFF3E0; color: #E65100; }
+        .badge-4 { background: #FFEBEE; color: #C62828; }
+        .badge-5 { background: #F3E5F5; color: #6A1B9A; }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255,255,255,0.2);
+            opacity: 0.9;
+        }
+
+        .toc-intro {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .toc-intro h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .chapters {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Git 입문 교재</h1>
+            <p>초보자부터 협업 전문가까지 - 완전한 가이드</p>
+        </header>
+
+        <div class="toc-intro">
+            <h3>이 교재는 어떻게 구성되어 있나요?</h3>
+            <p>Git의 기초부터 협업, 그리고 복잡한 상황까지 단계별로 배워볼 수 있습니다.<br>
+            각 장에서 "따라하기" 예제를 통해 직접 경험하며 학습하세요!</p>
+        </div>
+
+        <div class="chapters">
+            <!-- 1장: 시작하기 -->
+            <div class="chapter-card level-1">
+                <div class="chapter-header">
+                    <h2>1️⃣ 시작하기</h2>
+                    <span class="chapter-level">기초 (초보자 필수)</span>
+                </div>
+                <div class="chapter-content">
+                    <p>Git을 처음 사용하시나요? 여기서 시작하세요!</p>
+                    <ul class="topics">
+                        <li>Git이란 무엇인가?</li>
+                        <li>설치 방법 (모든 환경)</li>
+                        <li>사용자 정보 설정</li>
+                        <li>첫 저장소 만들기</li>
+                    </ul>
+                    <span class="level-badge badge-1">🟢 입문</span>
+                    <a href="chapter1.html" class="btn">학습 시작</a>
+                </div>
+            </div>
+
+            <!-- 2장: 기본 작업 -->
+            <div class="chapter-card level-2">
+                <div class="chapter-header">
+                    <h2>2️⃣ 기본 작업</h2>
+                    <span class="chapter-level">일상 사용 (반드시 알아야 함)</span>
+                </div>
+                <div class="chapter-content">
+                    <p>매일 사용하는 기본 명령어들을 배워봅시다.</p>
+                    <ul class="topics">
+                        <li>파일 추가하기 (add)</li>
+                        <li>변경사항 저장하기 (commit)</li>
+                        <li>상태 확인하기</li>
+                        <li>Push & Pull</li>
+                    </ul>
+                    <span class="level-badge badge-2">🔵 초급</span>
+                    <a href="chapter2.html" class="btn">학습 시작</a>
+                </div>
+            </div>
+
+            <!-- 3장: 협업하기 -->
+            <div class="chapter-card level-3">
+                <div class="chapter-header">
+                    <h2>3️⃣ 협업하기</h2>
+                    <span class="chapter-level">팀 작업 (중급)</span>
+                </div>
+                <div class="chapter-content">
+                    <p>팀원들과 함께 효율적으로 협업하는 방법을 배워봅시다.</p>
+                    <ul class="topics">
+                        <li>브랜치 이해하기</li>
+                        <li>브랜치 만들고 전환하기</li>
+                        <li>브랜치 병합하기 (merge)</li>
+                        <li>충돌 해결하기</li>
+                    </ul>
+                    <span class="level-badge badge-3">🟠 중급</span>
+                    <a href="chapter3.html" class="btn">학습 시작</a>
+                </div>
+            </div>
+
+            <!-- 4장: 문제 해결 -->
+            <div class="chapter-card level-4">
+                <div class="chapter-header">
+                    <h2>4️⃣ 문제 해결</h2>
+                    <span class="chapter-level">심화 (고급 기술)</span>
+                </div>
+                <div class="chapter-content">
+                    <p>실수를 바로잡고 더 깔끔한 히스토리를 만드는 방법입니다.</p>
+                    <ul class="topics">
+                        <li>커밋 되돌리기</li>
+                        <li>변경사항 임시 저장</li>
+                        <li>히스토리 정리하기</li>
+                        <li>특정 커밋 선택 적용</li>
+                    </ul>
+                    <span class="level-badge badge-4">🔴 고급</span>
+                    <a href="chapter4.html" class="btn">학습 시작</a>
+                </div>
+            </div>
+
+            <!-- 5장: 실전 상황 -->
+            <div class="chapter-card level-5">
+                <div class="chapter-header">
+                    <h2>5️⃣ 실전 상황</h2>
+                    <span class="chapter-level">현실의 문제들 (종합)</span>
+                </div>
+                <div class="chapter-content">
+                    <p>실제로 마주치는 상황들과 그 해결 방법들입니다.</p>
+                    <ul class="topics">
+                        <li>실수로 커밋한 파일 제거</li>
+                        <li>이전 버전으로 되돌리기</li>
+                        <li>변경사항 일부만 가져오기</li>
+                        <li>최신 코드 유지하기</li>
+                    </ul>
+                    <span class="level-badge badge-5">🟣 종합</span>
+                    <a href="chapter5.html" class="btn">학습 시작</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>💡 팁: 각 장을 순서대로 따라가며 직접 명령어를 입력해보세요!</p>
+            <p style="margin-top: 15px; opacity: 0.8;">Git 입문 교재 © 2026 - 초보자부터 전문가까지 한 번에!</p>
+        </footer>
+    </div>
+</body>
+</html>

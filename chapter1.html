@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1장: Git 시작하기 - 입문 교재</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+
+        .nav a {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .nav a:first-child {
+            background: #667eea;
+            color: white;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        section h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .code-block code {
+            color: #d63384;
+            font-weight: 500;
+        }
+
+        .step {
+            background: #f0f8ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .step strong {
+            color: #1976D2;
+        }
+
+        .tip {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            color: #2e7d32;
+        }
+
+        .tip strong {
+            color: #1b5e20;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            margin-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            border-top: 1px solid #eee;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .progress {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 20%;
+        }
+
+        .emoji {
+            font-size: 1.3em;
+            margin-right: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        table tr:hover {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress">
+            <div class="progress-bar" style="width: 20%;"></div>
+        </div>
+
+        <header>
+            <h1>1️⃣ 시작하기 - Git의 기초</h1>
+            <p>Git을 처음 만나는 초보자를 위한 완벽한 시작 가이드</p>
+        </header>
+
+        <div class="nav">
+            <a href="index.html">← 목차로 돌아가기</a>
+            <a href="chapter2.html">다음 장 →</a>
+        </div>
+
+        <!-- 1.1 Git이란 무엇인가? -->
+        <section>
+            <h2><span class="emoji">📖</span>1.1 Git이란 무엇인가?</h2>
+
+            <p>Git은 <strong>버전 관리 시스템(Version Control System)</strong>입니다. 쉽게 말해, 파일의 변경 이력을 기록하고 관리해주는 도구입니다.</p>
+
+            <div class="highlight">
+                <strong>🤔 버전 관리란?</strong><br>
+                Word 파일을 "보고서_v1.docx", "보고서_v2.docx", "보고서_최종.docx" 이렇게 여러 개 저장해본 경험이 있나요?
+                Git은 이런 방식 대신 파일의 모든 변경 기록을 효율적으로 관리해줍니다!
+            </div>
+
+            <h3>Git을 사용하면 어떤 장점이 있을까?</h3>
+            <ul>
+                <li><strong>변경 기록 관리:</strong> 누가, 언제, 무엇을 바꿨는지 모두 기록</li>
+                <li><strong>이전 버전 복구:</strong> 실수로 삭제했거나 망친 코드를 언제든 복구 가능</li>
+                <li><strong>협업 용이:</strong> 여러 사람이 같은 프로젝트에서 효율적으로 작업</li>
+                <li><strong>브랜치 기능:</strong> 병렬로 여러 작업을 동시에 진행 가능</li>
+            </ul>
+
+            <h3>Git의 구조</h3>
+            <table>
+                <tr>
+                    <th>요소</th>
+                    <th>설명</th>
+                </tr>
+                <tr>
+                    <td><strong>로컬 저장소</strong></td>
+                    <td>내 컴퓨터에 있는 파일과 변경 기록</td>
+                </tr>
+                <tr>
+                    <td><strong>원격 저장소</strong></td>
+                    <td>인터넷 서버(GitHub 등)에 있는 파일과 변경 기록</td>
+                </tr>
+                <tr>
+                    <td><strong>커밋</strong></td>
+                    <td>파일의 변경 사항을 저장하는 행위</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- 1.2 Git 설치하기 -->
+        <section>
+            <h2><span class="emoji">💻</span>1.2 Git 설치하기</h2>
+
+            <h3>Windows에서 설치</h3>
+            <ol>
+                <li><a href="https://git-scm.com/" target="_blank">https://git-scm.com/</a> 방문</li>
+                <li>"Download for Windows" 클릭</li>
+                <li>다운로드된 설치 파일 실행</li>
+                <li>기본 설정으로 "Next" 클릭하며 설치 완료</li>
+            </ol>
+
+            <h3>macOS에서 설치</h3>
+            <p>터미널에서 다음 명령어 실행:</p>
+            <div class="code-block">
+                <code>brew install git</code>
+            </div>
+
+            <h3>Linux에서 설치</h3>
+            <p><strong>Ubuntu/Debian:</strong></p>
+            <div class="code-block">
+                <code>sudo apt-get install git</code>
+            </div>
+
+            <p><strong>Fedora:</strong></p>
+            <div class="code-block">
+                <code>sudo yum install git</code>
+            </div>
+
+            <h3>설치 확인하기</h3>
+            <p>설치가 완료되었는지 확인하려면 터미널/명령프롬프트에서:</p>
+            <div class="code-block">
+                <code>git --version</code>
+            </div>
+
+            <div class="tip">
+                <strong>✅ 성공!</strong> "git version X.X.X" 라는 메시지가 나타나면 설치가 완료된 것입니다!
+            </div>
+        </section>
+
+        <!-- 1.3 사용자 정보 설정 -->
+        <section>
+            <h2><span class="emoji">⚙️</span>1.3 사용자 정보 설정</h2>
+
+            <p>Git을 사용하기 전에 가장 먼저 해야 할 일은 "나는 누구인가"를 알려주는 것입니다. 이 정보는 커밋할 때마다 기록됩니다.</p>
+
+            <h3>따라하기</h3>
+
+            <div class="step">
+                <strong>Step 1: 사용자 이름 설정</strong>
+                <div class="code-block">
+                    <code>git config --global user.name "당신의이름"</code>
+                </div>
+                <p style="margin-top: 10px;">예: <code style="background: #f0f0f0; padding: 2px 5px;">git config --global user.name "Kim Min-ho"</code></p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 이메일 설정</strong>
+                <div class="code-block">
+                    <code>git config --global user.email "당신의이메일@example.com"</code>
+                </div>
+                <p style="margin-top: 10px;">예: <code style="background: #f0f0f0; padding: 2px 5px;">git config --global user.email "kim@gmail.com"</code></p>
+            </div>
+
+            <h3>설정 확인하기</h3>
+            <div class="code-block">
+                <code>git config --list</code>
+            </div>
+
+            <p>또는 개별로 확인:</p>
+            <div class="code-block">
+                <code>git config user.name</code>
+            </div>
+            <div class="code-block">
+                <code>git config user.email</code>
+            </div>
+
+            <div class="tip">
+                <strong>💡 전역 vs 로컬 설정</strong><br>
+                <code>--global</code> 옵션은 컴퓨터 전체에 적용됩니다. 특정 프로젝트마다 다른 정보를 사용하려면 <code>--global</code>을 빼세요.
+            </div>
+        </section>
+
+        <!-- 1.4 첫 저장소 만들기 -->
+        <section>
+            <h2><span class="emoji">🎯</span>1.4 첫 번째 저장소 만들기</h2>
+
+            <p>이제 실제로 Git 저장소를 만들어봅시다! 저장소(Repository)는 Git이 파일의 변경 이력을 기록하는 폴더입니다.</p>
+
+            <h3>따라하기</h3>
+
+            <div class="step">
+                <strong>Step 1: 폴더 생성</strong>
+                <p>터미널/명령프롬프트에서:</p>
+                <div class="code-block">
+                    <code>mkdir my-first-project</code>
+                </div>
+                <p style="margin-top: 10px;">이 명령어는 "my-first-project"이라는 새로운 폴더를 만듭니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 폴더로 이동</strong>
+                <div class="code-block">
+                    <code>cd my-first-project</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: Git 저장소 초기화</strong>
+                <div class="code-block">
+                    <code>git init</code>
+                </div>
+                <p style="margin-top: 10px;">이 명령어는 폴더를 Git 저장소로 만듭니다. ".git"이라는 숨김 폴더가 생성됩니다.</p>
+            </div>
+
+            <h3>확인해보기</h3>
+            <p>저장소가 제대로 만들어졌는지 확인:</p>
+            <div class="code-block">
+                <code>git status</code>
+            </div>
+
+            <p>다음과 같은 메시지가 나타나면 성공입니다:</p>
+            <div class="code-block">
+                <code>On branch master<br/>
+                No commits yet<br/>
+                nothing to commit</code>
+            </div>
+
+            <div class="tip">
+                <strong>✅ 완성!</strong> 축하합니다! 첫 번째 Git 저장소를 만들었습니다!
+            </div>
+
+            <h3>다음 단계</h3>
+            <ul>
+                <li>이제 파일을 추가하고 변경사항을 기록해보세요!</li>
+                <li>2장에서 기본 명령어들을 배워봅시다.</li>
+            </ul>
+        </section>
+
+        <div class="nav">
+            <a href="index.html">← 목차로 돌아가기</a>
+            <a href="chapter2.html">다음 장 →</a>
+        </div>
+
+        <div class="footer">
+            <p>🎓 1장 완료! 기초를 잘 다졌으니 이제 <a href="chapter2.html">2장 - 기본 작업</a>으로 넘어가세요!</p>
+        </div>
+    </div>
+</body>
+</html>
