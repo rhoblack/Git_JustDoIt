@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git 입문 교재 - 2장 워크북</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .problem {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .problem-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .problem-type {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .difficulty {
+            font-size: 14px;
+            color: #ff9800;
+        }
+        .question {
+            margin-top: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        .options {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .option {
+            margin: 8px 0;
+        }
+        .blank {
+            border-bottom: 2px solid #333;
+            display: inline-block;
+            width: 400px;
+            margin: 0 5px;
+        }
+        .step {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        .answer {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            border-radius: 3px;
+            display: none;
+        }
+        .answer.show {
+            display: block;
+        }
+        .page-break {
+            page-break-after: always;
+            margin: 50px 0;
+        }
+        @media print {
+            .problem { page-break-inside: avoid; }
+            .page-break { page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+    <h1>✏️ 2장 워크북</h1>
+    <p>다음 문제들을 풀고 자신의 이해도를 점검하세요.</p>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q1. git add의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 파일을 저장소에 저장</div>
+            <div class="option">B. 변경사항을 스테이징 영역에 추가</div>
+            <div class="option">C. 파일을 원격 저장소에 업로드</div>
+            <div class="option">D. 브랜치를 생성</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">단답형</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q2. 모든 변경사항을 스테이징 영역에 추가하는 명령어는?</div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> git add .</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q3. git commit의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 파일 생성</div>
+            <div class="option">B. 스테이징 된 변경사항을 저장소에 저장</div>
+            <div class="option">C. 파일 삭제</div>
+            <div class="option">D. 브랜치 생성</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">실습</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q4. 파일 수정 및 커밋하기</div>
+        <div class="step"><strong>실습 단계:</strong></div>
+        <div class="options">
+            <div class="option">□ README.md 파일 생성</div>
+            <div class="option">□ git add README.md</div>
+            <div class="option">□ git commit -m '초기 커밋'</div>
+            <div class="option">□ git log로 확인</div>
+        </div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">단답형</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q5. 원격 저장소로 코드를 업로드하는 명령어는?</div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> git push</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q6. git pull의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 파일을 삭제</div>
+            <div class="option">B. 원격 저장소의 최신 코드를 가져오기</div>
+            <div class="option">C. 커밋 생성</div>
+            <div class="option">D. 브랜치 생성</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q7. add, commit, push의 순서와 각각의 역할을 설명하세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: 스테이징 → 저장 → 업로드</small>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">단답형</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q8. 커밋 메시지를 남기면서 커밋하는 명령어는?</div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> git commit -m '메시지'</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q9. git log의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 파일 생성</div>
+            <div class="option">B. 커밋 이력 확인</div>
+            <div class="option">C. 파일 수정</div>
+            <div class="option">D. 저장소 삭제</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">실습</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q10. 원격 저장소와 연결하기</div>
+        <div class="step"><strong>실습 단계:</strong></div>
+        <div class="options">
+            <div class="option">□ GitHub에 저장소 생성</div>
+            <div class="option">□ git remote add origin <URL></div>
+            <div class="option">□ git push -u origin main</div>
+            <div class="option">□ git status로 확인</div>
+        </div>
+    </div>
+
+</body>
+</html>

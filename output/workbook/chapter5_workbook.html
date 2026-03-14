@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git 입문 교재 - 5장 워크북</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .problem {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .problem-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .problem-type {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .difficulty {
+            font-size: 14px;
+            color: #ff9800;
+        }
+        .question {
+            margin-top: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        .options {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .option {
+            margin: 8px 0;
+        }
+        .blank {
+            border-bottom: 2px solid #333;
+            display: inline-block;
+            width: 400px;
+            margin: 0 5px;
+        }
+        .step {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        .answer {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            border-radius: 3px;
+            display: none;
+        }
+        .answer.show {
+            display: block;
+        }
+        .page-break {
+            page-break-after: always;
+            margin: 50px 0;
+        }
+        @media print {
+            .problem { page-break-inside: avoid; }
+            .page-break { page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+    <h1>✏️ 5장 워크북</h1>
+    <p>다음 문제들을 풀고 자신의 이해도를 점검하세요.</p>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐⭐⭐</span>
+        </div>
+        <div class="question">Q1. 상황: 실수로 main에 merge했을 때 복구 방법을 설명하세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: git revert 또는 git reset</small>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">시뮬레이션</span>
+            <span class="difficulty">⭐⭐⭐</span>
+        </div>
+        <div class="question">Q2. 여러 커밋을 하나로 정리해야 할 때의 방법은?</div>
+        <div class="options">
+            <div class="option">A. git rebase -i</div>
+            <div class="option">B. git cherry-pick</div>
+            <div class="option">C. git stash</div>
+            <div class="option">D. git reset</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> A</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q3. 파일을 실수로 삭제했을 때 복구하는 방법을 설명하세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: git checkout 또는 이전 커밋 복구</small>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">시뮬레이션</span>
+            <span class="difficulty">⭐⭐⭐</span>
+        </div>
+        <div class="question">Q4. 브랜치를 실수로 삭제했을 때 복구 방법은?</div>
+        <div class="options">
+            <div class="option">A. git reflog</div>
+            <div class="option">B. git log</div>
+            <div class="option">C. git status</div>
+            <div class="option">D. git branch</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> A</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">실습</span>
+            <span class="difficulty">⭐⭐⭐</span>
+        </div>
+        <div class="question">Q5. cherry-pick으로 특정 커밋 적용하기</div>
+        <div class="step"><strong>실습 단계:</strong></div>
+        <div class="options">
+            <div class="option">□ git log에서 적용할 커밋 해시 확인</div>
+            <div class="option">□ git cherry-pick <커밋해시></div>
+            <div class="option">□ git log로 확인</div>
+        </div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐⭐⭐</span>
+        </div>
+        <div class="question">Q6. 대규모 프로젝트에서 협업할 때 주의할 사항 3가지를 쓰세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: 병합, 충돌, 커밋 메시지</small>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">시뮬레이션</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q7. 원격 저장소와 로컬이 동기화되지 않았을 때 해결 방법은?</div>
+        <div class="options">
+            <div class="option">A. git pull</div>
+            <div class="option">B. git fetch</div>
+            <div class="option">C. git reset</div>
+            <div class="option">D. git status</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> A</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q8. 좋은 커밋 메시지의 작성 기준 3가지를 설명하세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: 명확한 제목, 상세한 설명, 일관성</small>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">실습</span>
+            <span class="difficulty">⭐⭐⭐</span>
+        </div>
+        <div class="question">Q9. 협업 시나리오: 두 명이 같은 파일 수정</div>
+        <div class="step"><strong>실습 단계:</strong></div>
+        <div class="options">
+            <div class="option">□ 브랜치 A, B 생성</div>
+            <div class="option">□ 각각 파일 수정 및 커밋</div>
+            <div class="option">□ main에 merge</div>
+            <div class="option">□ conflict 해결</div>
+        </div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q10. 자신이 배운 Git의 가장 유용한 기능 3가지와 이유를 작성하세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: 자유로운 작성</small>
+    </div>
+
+</body>
+</html>

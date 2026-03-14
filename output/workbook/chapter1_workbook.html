@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git 입문 교재 - 1장 워크북</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .problem {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .problem-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .problem-type {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .difficulty {
+            font-size: 14px;
+            color: #ff9800;
+        }
+        .question {
+            margin-top: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        .options {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .option {
+            margin: 8px 0;
+        }
+        .blank {
+            border-bottom: 2px solid #333;
+            display: inline-block;
+            width: 400px;
+            margin: 0 5px;
+        }
+        .step {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        .answer {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            border-radius: 3px;
+            display: none;
+        }
+        .answer.show {
+            display: block;
+        }
+        .page-break {
+            page-break-after: always;
+            margin: 50px 0;
+        }
+        @media print {
+            .problem { page-break-inside: avoid; }
+            .page-break { page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+    <h1>✏️ 1장 워크북</h1>
+    <p>다음 문제들을 풀고 자신의 이해도를 점검하세요.</p>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q1. Git의 가장 기본적인 역할은 무엇인가요?</div>
+        <div class="options">
+            <div class="option">A. 파일 압축</div>
+            <div class="option">B. 버전 관리</div>
+            <div class="option">C. 파일 복사</div>
+            <div class="option">D. 프로그래밍 언어</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">단답형</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q2. Git을 설치하고 버전을 확인하는 명령어는?</div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> git --version</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q3. git config --global user.name의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 컴퓨터 이름 설정</div>
+            <div class="option">B. 사용자 이름 전역 설정</div>
+            <div class="option">C. 파일명 설정</div>
+            <div class="option">D. 저장소 이름 설정</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">실습</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q4. 첫 번째 Git 저장소 만들기</div>
+        <div class="step"><strong>실습 단계:</strong></div>
+        <div class="options">
+            <div class="option">□ mkdir git-practice</div>
+            <div class="option">□ cd git-practice</div>
+            <div class="option">□ git init</div>
+            <div class="option">□ git status로 확인</div>
+        </div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q5. Local Repository와 Remote Repository의 차이를 설명하세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: 로컬은 내 컴퓨터, 리모트는...</small>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q6. 다음 중 Git을 사용하는 가장 큰 이유는?</div>
+        <div class="options">
+            <div class="option">A. 프로그래밍을 쉽게</div>
+            <div class="option">B. 변경 이력 관리</div>
+            <div class="option">C. 컴퓨터 성능 향상</div>
+            <div class="option">D. 파일 크기 감소</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">단답형</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q7. 새로운 Git 저장소를 초기화하는 명령어는?</div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> git init</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q8. git status 명령어의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 파일 삭제</div>
+            <div class="option">B. 저장소 상태 확인</div>
+            <div class="option">C. 파일 이동</div>
+            <div class="option">D. 커밋</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+
+</body>
+</html>

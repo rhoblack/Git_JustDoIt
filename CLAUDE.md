@@ -206,7 +206,7 @@ d:/dev/AI/claude/08.Git-JustDoIt/
 | 5장 실전 상황 | ✅ 완성 | 실제 문제 5가지 해결 |
 | SVG 다이어그램 | 🔄 필요 | 주요 개념별 시각화 |
 | 품질 검증 | 🔄 진행중 | 7명 팀 리뷰 예정 |
-| 산출물 생성 | 🔄 예정 | PPT, 워크북, Word |
+| 산출물 생성 | ✅ 완성 | PPT (24 슬라이드), 워크북 (46 문제), Word |
 
 ---
 
@@ -227,14 +227,17 @@ d:/dev/AI/claude/08.Git-JustDoIt/
 - [x] CLAUDE.md 작성
 - [ ] README.md 작성
 - [ ] TABLE_OF_CONTENTS.md 작성
-- [ ] agents/ 7개 정의 파일 생성
-- [ ] workflows/ 문서 작성
+- [x] agents/ 7개 정의 파일 생성
+- [x] workflows/ 문서 작성
 - [ ] SVG 다이어그램 작성
 - [ ] 품질 검증 실행
-- [ ] 산출물 생성
+- [x] 산출물 생성
+  - [x] PPT 생성 (generate_ppt.py) - 24개 슬라이드
+  - [x] 워크북 생성 (generate_workbook.py) - 46개 문제 + 정답지
+  - [x] Word 생성 (generate_docx.py) - 36개 섹션
 
 ---
 
 **Updated**: 2026-03-14
-**Version**: 1.0
-**Status**: 구조화 진행 중
+**Version**: 1.1
+**Status**: 산출물 생성 완료

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git 입문 교재 - 3장 워크북</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .problem {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .problem-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .problem-type {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .difficulty {
+            font-size: 14px;
+            color: #ff9800;
+        }
+        .question {
+            margin-top: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        .options {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .option {
+            margin: 8px 0;
+        }
+        .blank {
+            border-bottom: 2px solid #333;
+            display: inline-block;
+            width: 400px;
+            margin: 0 5px;
+        }
+        .step {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        .answer {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            border-radius: 3px;
+            display: none;
+        }
+        .answer.show {
+            display: block;
+        }
+        .page-break {
+            page-break-after: always;
+            margin: 50px 0;
+        }
+        @media print {
+            .problem { page-break-inside: avoid; }
+            .page-break { page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+    <h1>✏️ 3장 워크북</h1>
+    <p>다음 문제들을 풀고 자신의 이해도를 점검하세요.</p>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q1. 브랜치의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 파일 삭제</div>
+            <div class="option">B. 독립적인 작업 공간 생성</div>
+            <div class="option">C. 코드 압축</div>
+            <div class="option">D. 파일 이동</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">단답형</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q2. 새로운 브랜치를 생성하는 명령어는?</div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> git branch <브랜치명></div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">실습</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q3. 브랜치 생성 및 전환하기</div>
+        <div class="step"><strong>실습 단계:</strong></div>
+        <div class="options">
+            <div class="option">□ git branch feature</div>
+            <div class="option">□ git checkout feature</div>
+            <div class="option">□ 파일 수정</div>
+            <div class="option">□ git status로 확인</div>
+        </div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q4. git merge의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 브랜치 생성</div>
+            <div class="option">B. 다른 브랜치의 변경사항을 현재 브랜치에 병합</div>
+            <div class="option">C. 파일 복사</div>
+            <div class="option">D. 저장소 삭제</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐⭐⭐</span>
+        </div>
+        <div class="question">Q5. merge conflict가 발생했을 때 해결하는 방법을 설명하세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: 파일을 열어서 충돌 부분을 수정</small>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">단답형</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q6. 현재 브랜치를 확인하는 명령어는?</div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> git branch</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">객관식</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q7. Pull Request(PR)의 역할은?</div>
+        <div class="options">
+            <div class="option">A. 파일 생성</div>
+            <div class="option">B. 코드 리뷰 및 병합 요청</div>
+            <div class="option">C. 브랜치 삭제</div>
+            <div class="option">D. 저장소 생성</div>
+        </div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> B</div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">실습</span>
+            <span class="difficulty">⭐⭐</span>
+        </div>
+        <div class="question">Q8. 브랜치 병합하기</div>
+        <div class="step"><strong>실습 단계:</strong></div>
+        <div class="options">
+            <div class="option">□ git checkout main</div>
+            <div class="option">□ git merge feature</div>
+            <div class="option">□ git log로 확인</div>
+            <div class="option">□ git branch -d feature로 브랜치 삭제</div>
+        </div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">단답형</span>
+            <span class="difficulty">⭐</span>
+        </div>
+        <div class="question">Q9. 특정 브랜치로 전환하는 명령어는?</div>
+        <div class="blank"></div>
+        <div class="answer"><strong>정답:</strong> git checkout <브랜치명></div>
+    </div>
+    <div class="problem">
+        <div class="problem-title">
+            <span class="problem-type">서술형</span>
+            <span class="difficulty">⭐⭐⭐</span>
+        </div>
+        <div class="question">Q10. 협업 시 브랜치 전략의 중요성을 설명하세요.</div>
+        <div style="margin: 10px 0; height: 100px; border: 1px solid #ddd; padding: 10px;"></div>
+        <small style="color: #999;">💡 힌트: 동시 작업, 충돌 방지</small>
+    </div>
+
+</body>
+</html>
