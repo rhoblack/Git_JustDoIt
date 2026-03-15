@@ -99,6 +99,27 @@
             margin-bottom: 15px;
         }
 
+        .learning-objectives {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0 30px 0;
+        }
+
+        .learning-objectives h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .learning-objectives ul {
+            margin-bottom: 0;
+        }
+
+        .learning-objectives li {
+            color: #444;
+        }
+
         .highlight {
             background: #fff3cd;
             border-left: 4px solid #ffc107;
@@ -108,8 +129,8 @@
         }
 
         .code-block {
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
+            background: #1e1e1e;
+            border: 1px solid #333;
             border-radius: 5px;
             padding: 15px;
             margin: 15px 0;
@@ -119,8 +140,16 @@
         }
 
         .code-block code {
-            color: #d63384;
+            color: #d4d4d4;
             font-weight: 500;
+        }
+
+        .code-block .prompt {
+            color: #6A9955;
+        }
+
+        .code-block .output {
+            color: #9cdcfe;
         }
 
         .step {
@@ -146,6 +175,19 @@
 
         .tip strong {
             color: #1b5e20;
+        }
+
+        .term {
+            background: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .term h4 {
+            color: #7B1FA2;
+            margin-bottom: 8px;
         }
 
         ul, ol {
@@ -210,6 +252,57 @@
         table tr:hover {
             background: #f9f9f9;
         }
+
+        .os-tabs {
+            display: flex;
+            gap: 0;
+            margin-top: 15px;
+        }
+
+        .os-tab {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .os-tab:first-child {
+            border-radius: 5px 0 0 0;
+        }
+
+        .os-tab:last-child {
+            border-radius: 0 5px 0 0;
+        }
+
+        .os-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .os-content {
+            border: 1px solid #ccc;
+            border-top: none;
+            padding: 20px;
+            border-radius: 0 0 5px 5px;
+            margin-bottom: 15px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .success-box strong {
+            color: #2e7d32;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -219,202 +312,475 @@
         </div>
 
         <header>
-            <h1>1️⃣ 시작하기 - Git의 기초</h1>
-            <p>Git을 처음 만나는 초보자를 위한 완벽한 시작 가이드</p>
+            <h1>1장: Git 시작하기</h1>
+            <p>Git을 처음 만나는 분을 위한 완벽한 시작 가이드</p>
         </header>
 
-        <div class="nav">
-            <a href="index.html">← 목차로 돌아가기</a>
-            <a href="chapter2.html">다음 장 →</a>
+        <div class="learning-objectives">
+            <h3>🎯 이 장을 마치면 다음을 할 수 있습니다:</h3>
+            <ul>
+                <li>터미널(명령 프롬프트)을 열고 기본 명령어를 입력할 수 있다</li>
+                <li>Git이 무엇이고 왜 필요한지 설명할 수 있다</li>
+                <li>내 컴퓨터에 Git을 설치하고 확인할 수 있다</li>
+                <li>첫 번째 Git 저장소를 만들고 상태를 확인할 수 있다</li>
+            </ul>
         </div>
 
-        <!-- 1.1 Git이란 무엇인가? -->
-        <section>
-            <h2><span class="emoji">📖</span>1.1 Git이란 무엇인가?</h2>
+        <div class="nav">
+            <a href="index.html">&larr; 목차로 돌아가기</a>
+            <a href="chapter2.html">다음 장 &rarr;</a>
+        </div>
 
-            <p>Git은 <strong>버전 관리 시스템(Version Control System)</strong>입니다. 쉽게 말해, 파일의 변경 이력을 기록하고 관리해주는 도구입니다.</p>
+        <!-- 1.1 왜 배우나요? -->
+        <section id="intro">
+            <h2><span class="emoji">💡</span>왜 Git을 배우나요?</h2>
+
+            <p>이런 경험 있으신가요?</p>
+
+            <div class="code-block">
+                <code>
+보고서_v1.docx<br/>
+보고서_v2.docx<br/>
+보고서_최종.docx<br/>
+보고서_진짜최종.docx<br/>
+보고서_진짜진짜최종_수정.docx
+                </code>
+            </div>
+
+            <p>파일을 수정할 때마다 새 이름으로 저장하면, 어떤 파일이 최신인지 헷갈리고 이전 내용으로 돌아가기도 어렵습니다.</p>
+
+            <p><strong>Git은 이 문제를 해결합니다.</strong> 파일 하나만 유지하면서, 모든 변경 이력을 자동으로 기록해줍니다. 마치 문서의 "실행 취소" 기능이 무한대로 확장된 것과 같습니다.</p>
 
             <div class="highlight">
-                <strong>🤔 버전 관리란?</strong><br>
-                Word 파일을 "보고서_v1.docx", "보고서_v2.docx", "보고서_최종.docx" 이렇게 여러 개 저장해본 경험이 있나요?
-                Git은 이런 방식 대신 파일의 모든 변경 기록을 효율적으로 관리해줍니다!
+                <strong>📌 Git은 전 세계 개발자의 90% 이상이 사용하는 도구입니다.</strong><br/>
+                개발자뿐 아니라 디자이너, 기획자, 문서 작업자도 활용할 수 있습니다.
+            </div>
+        </section>
+
+        <!-- 1.2 터미널이란? -->
+        <section id="terminal">
+            <h2><span class="emoji">🖥️</span>1.1 터미널 알아보기</h2>
+
+            <div class="term">
+                <h4>📌 용어: 터미널 / 명령 프롬프트</h4>
+                <p><strong>한글 정의:</strong> 컴퓨터에게 글자로 명령을 내리는 창입니다.</p>
+                <p><strong>일상 비유:</strong> 음성 비서(시리, 빅스비)에게 말로 명령하는 것처럼, 터미널은 컴퓨터에게 <em>글자로</em> 명령하는 도구입니다. "폴더 만들어줘", "파일 목록 보여줘" 같은 명령을 타이핑합니다.</p>
+                <p><strong>왜 필요한가?</strong> Git은 터미널에서 명령어를 입력해 사용합니다. 마우스 클릭 대신 직접 명령을 치면, 더 빠르고 정확하게 작업할 수 있습니다.</p>
+            </div>
+
+            <h3>운영체제별 터미널 열기</h3>
+
+            <div class="step">
+                <strong>Windows에서 터미널 열기</strong>
+                <ol>
+                    <li><strong>방법 1:</strong> 키보드에서 <code style="background: #f0f0f0; padding: 2px 5px;">Windows 키 + R</code>을 누르고, <code style="background: #f0f0f0; padding: 2px 5px;">cmd</code> 입력 후 Enter</li>
+                    <li><strong>방법 2:</strong> 시작 메뉴에서 "명령 프롬프트" 또는 "PowerShell" 검색</li>
+                    <li><strong>방법 3 (추천):</strong> Git 설치 후 바탕화면에서 마우스 우클릭 &rarr; "Git Bash Here"</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <strong>macOS에서 터미널 열기</strong>
+                <ol>
+                    <li><code style="background: #f0f0f0; padding: 2px 5px;">Command + Space</code>를 눌러 Spotlight 열기</li>
+                    <li>"터미널" 또는 "Terminal" 입력 후 Enter</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <strong>Linux에서 터미널 열기</strong>
+                <ol>
+                    <li><code style="background: #f0f0f0; padding: 2px 5px;">Ctrl + Alt + T</code> 단축키 (대부분의 배포판)</li>
+                    <li>또는 프로그램 메뉴에서 "Terminal" 검색</li>
+                </ol>
+            </div>
+
+            <h3>직접 해보기: 터미널 기본 명령어</h3>
+
+            <p>터미널을 열었다면, 다음 명령어를 하나씩 입력해보세요. 각 명령어 입력 후 Enter를 누릅니다.</p>
+
+            <div class="step">
+                <strong>Step 1: 현재 위치 확인하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> pwd</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">/Users/사용자이름</span></code>
+                </div>
+                <p>이 명령어는 "Print Working Directory"의 약자로, 지금 내가 어디에 있는지 알려줍니다. Windows 명령 프롬프트에서는 <code style="background: #f0f0f0; padding: 2px 5px;">cd</code>만 입력하면 동일한 결과를 얻을 수 있습니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 폴더 안의 파일 목록 보기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> ls</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">Desktop  Documents  Downloads  Music  Pictures</span></code>
+                </div>
+                <p>현재 폴더에 있는 파일과 폴더 목록이 나타납니다. Windows 명령 프롬프트에서는 <code style="background: #f0f0f0; padding: 2px 5px;">dir</code>을 사용합니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 새 폴더 만들기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> mkdir test-folder</code>
+                </div>
+                <p>"test-folder"라는 폴더가 만들어집니다. <code style="background: #f0f0f0; padding: 2px 5px;">mkdir</code>은 "Make Directory"의 약자입니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: 폴더로 이동하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> cd test-folder</code>
+                </div>
+                <p>"test-folder" 안으로 이동합니다. <code style="background: #f0f0f0; padding: 2px 5px;">cd</code>는 "Change Directory"의 약자입니다.</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                터미널에서 폴더를 만들고 이동했습니다! 이제 Git을 사용할 준비가 되었습니다.
+            </div>
+
+            <div class="tip">
+                <strong>💡 터미널이 어렵게 느껴지나요?</strong><br/>
+                처음에는 누구나 그렇습니다. 지금은 위의 4개 명령어(pwd, ls, mkdir, cd)만 기억하면 충분합니다. Git을 배우면서 자연스럽게 익숙해질 거예요.
+            </div>
+        </section>
+
+        <!-- 1.3 Git이란? -->
+        <section id="concept">
+            <h2><span class="emoji">📖</span>1.2 Git이란 무엇인가?</h2>
+
+            <p>Git은 <strong>버전 관리 시스템(Version Control System)</strong>입니다. 쉽게 말하면, 파일의 변경 이력을 자동으로 기록하고 관리해주는 도구입니다.</p>
+
+            <div class="term">
+                <h4>📌 용어: 버전 관리 시스템</h4>
+                <p><strong>한글 정의:</strong> 파일의 변경 내역을 시간순으로 기록하고, 언제든 이전 상태로 되돌릴 수 있게 해주는 시스템입니다.</p>
+                <p><strong>일상 비유:</strong> Google Docs에서 "버전 기록"을 클릭하면, 문서의 모든 수정 이력이 보이죠? Git은 이와 같은 기능을 모든 종류의 파일에 제공합니다.</p>
             </div>
 
             <h3>Git을 사용하면 어떤 장점이 있을까?</h3>
             <ul>
                 <li><strong>변경 기록 관리:</strong> 누가, 언제, 무엇을 바꿨는지 모두 기록</li>
-                <li><strong>이전 버전 복구:</strong> 실수로 삭제했거나 망친 코드를 언제든 복구 가능</li>
+                <li><strong>이전 버전 복구:</strong> 실수로 삭제했거나 망친 파일을 언제든 복구 가능</li>
                 <li><strong>협업 용이:</strong> 여러 사람이 같은 프로젝트에서 효율적으로 작업</li>
-                <li><strong>브랜치 기능:</strong> 병렬로 여러 작업을 동시에 진행 가능</li>
+                <li><strong>안전한 실험:</strong> 새로운 시도를 해보고, 마음에 안 들면 되돌리기</li>
             </ul>
 
-            <h3>Git의 구조</h3>
+            <h3>핵심 용어 알아보기</h3>
+
+            <div class="term">
+                <h4>📌 용어: 저장소 (Repository)</h4>
+                <p><strong>한글 정의:</strong> Git이 파일의 변경 이력을 기록하는 폴더입니다.</p>
+                <p><strong>일상 비유:</strong> 일반 폴더는 파일만 저장하는 서랍이라면, Git 저장소는 모든 파일의 변경 일지까지 함께 기록하는 "스마트 서랍"입니다.</p>
+                <p><strong>왜 필요한가?</strong> 저장소를 만들어야 Git이 그 폴더의 변경사항을 추적하기 시작합니다.</p>
+            </div>
+
+            <div class="term">
+                <h4>📌 용어: 커밋 (Commit)</h4>
+                <p><strong>한글 정의:</strong> 변경사항을 저장소에 기록하는 행위입니다. "저장 버튼"과 비슷합니다.</p>
+                <p><strong>일상 비유:</strong> Word에서 Ctrl+S로 저장하는 것과 같습니다. 다만 Git의 커밋은 "어떤 내용이 바뀌었는지" 메모도 함께 남깁니다.</p>
+                <p><strong>왜 필요한가?</strong> 커밋이 있어야 나중에 "지난주 화요일 상태로 되돌려줘"가 가능합니다.</p>
+            </div>
+
             <table>
                 <tr>
                     <th>요소</th>
                     <th>설명</th>
+                    <th>비유</th>
                 </tr>
                 <tr>
                     <td><strong>로컬 저장소</strong></td>
-                    <td>내 컴퓨터에 있는 파일과 변경 기록</td>
+                    <td>내 컴퓨터에 있는 Git 저장소</td>
+                    <td>내 컴퓨터의 스마트 서랍</td>
                 </tr>
                 <tr>
                     <td><strong>원격 저장소</strong></td>
-                    <td>인터넷 서버(GitHub 등)에 있는 파일과 변경 기록</td>
+                    <td>인터넷 서버(GitHub 등)에 있는 저장소</td>
+                    <td>클라우드 백업 서랍</td>
                 </tr>
                 <tr>
                     <td><strong>커밋</strong></td>
-                    <td>파일의 변경 사항을 저장하는 행위</td>
+                    <td>변경 사항을 기록하는 행위</td>
+                    <td>Ctrl+S 저장 + 메모</td>
                 </tr>
             </table>
         </section>
 
-        <!-- 1.2 Git 설치하기 -->
-        <section>
-            <h2><span class="emoji">💻</span>1.2 Git 설치하기</h2>
+        <!-- 1.4 Git 설치하기 -->
+        <section id="install">
+            <h2><span class="emoji">💻</span>1.3 Git 설치하기</h2>
 
-            <h3>Windows에서 설치</h3>
-            <ol>
-                <li><a href="https://git-scm.com/" target="_blank">https://git-scm.com/</a> 방문</li>
-                <li>"Download for Windows" 클릭</li>
-                <li>다운로드된 설치 파일 실행</li>
-                <li>기본 설정으로 "Next" 클릭하며 설치 완료</li>
-            </ol>
+            <p>지금부터 실제로 Git을 설치해봅시다. 아래에서 본인의 운영체제를 찾아 따라하세요.</p>
 
-            <h3>macOS에서 설치</h3>
-            <p>터미널에서 다음 명령어 실행:</p>
-            <div class="code-block">
-                <code>brew install git</code>
+            <h3>Windows에서 설치하기</h3>
+            <div class="step">
+                <strong>Step 1: 설치 파일 다운로드</strong>
+                <ol>
+                    <li>웹 브라우저에서 <strong>git-scm.com</strong>에 접속합니다</li>
+                    <li>"Download for Windows" 버튼을 클릭합니다</li>
+                    <li>다운로드된 설치 파일(.exe)을 실행합니다</li>
+                </ol>
             </div>
 
-            <h3>Linux에서 설치</h3>
-            <p><strong>Ubuntu/Debian:</strong></p>
-            <div class="code-block">
-                <code>sudo apt-get install git</code>
+            <div class="step">
+                <strong>Step 2: 설치 진행</strong>
+                <ol>
+                    <li>설치 창이 열리면, 모든 항목을 기본값으로 두고 "Next"를 클릭합니다</li>
+                    <li>마지막에 "Install"을 클릭하면 설치가 완료됩니다</li>
+                </ol>
+                <p style="margin-top: 10px;">설치가 완료되면 "Git Bash"라는 프로그램이 함께 설치됩니다. 이것이 Windows에서 Git을 사용하는 터미널입니다.</p>
             </div>
 
-            <p><strong>Fedora:</strong></p>
-            <div class="code-block">
-                <code>sudo yum install git</code>
+            <h3>macOS에서 설치하기</h3>
+            <div class="step">
+                <strong>터미널에서 한 줄 입력:</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> brew install git</code>
+                </div>
+                <p style="margin-top: 10px;">Homebrew가 없다면, 터미널에서 <code style="background: #f0f0f0; padding: 2px 5px;">xcode-select --install</code>을 입력하면 Git이 함께 설치됩니다.</p>
             </div>
 
-            <h3>설치 확인하기</h3>
-            <p>설치가 완료되었는지 확인하려면 터미널/명령프롬프트에서:</p>
-            <div class="code-block">
-                <code>git --version</code>
+            <h3>Linux에서 설치하기</h3>
+            <div class="step">
+                <strong>Ubuntu/Debian:</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> sudo apt-get install git</code>
+                </div>
+                <strong>Fedora:</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> sudo yum install git</code>
+                </div>
             </div>
 
-            <div class="tip">
-                <strong>✅ 성공!</strong> "git version X.X.X" 라는 메시지가 나타나면 설치가 완료된 것입니다!
+            <h3>직접 해보기: 설치 확인</h3>
+
+            <div class="step">
+                <strong>Step 1: 설치 확인 명령어 입력</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git --version</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">git version 2.43.0</span></code>
+                </div>
+                <p>(버전 숫자는 다를 수 있습니다. 숫자가 나오면 성공입니다!)</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                Git이 내 컴퓨터에 설치되었습니다!
             </div>
         </section>
 
-        <!-- 1.3 사용자 정보 설정 -->
-        <section>
-            <h2><span class="emoji">⚙️</span>1.3 사용자 정보 설정</h2>
+        <!-- 1.5 사용자 정보 설정 -->
+        <section id="config">
+            <h2><span class="emoji">⚙️</span>1.4 사용자 정보 설정하기</h2>
 
-            <p>Git을 사용하기 전에 가장 먼저 해야 할 일은 "나는 누구인가"를 알려주는 것입니다. 이 정보는 커밋할 때마다 기록됩니다.</p>
+            <p>Git을 사용하기 전에 "나는 누구인가"를 알려줘야 합니다. 이 정보는 변경사항을 기록(커밋)할 때마다 자동으로 기록됩니다.</p>
 
-            <h3>따라하기</h3>
+            <div class="highlight">
+                <strong>📌 왜 설정해야 하나요?</strong><br/>
+                팀 프로젝트에서 누가 어떤 변경을 했는지 알아야 하기 때문입니다. "김민호가 로그인 기능을 추가했다"처럼 기록됩니다.
+            </div>
+
+            <h3>직접 해보기</h3>
 
             <div class="step">
                 <strong>Step 1: 사용자 이름 설정</strong>
                 <div class="code-block">
-                    <code>git config --global user.name "당신의이름"</code>
+                    <code><span class="prompt">$</span> git config --global user.name "당신의이름"</code>
                 </div>
-                <p style="margin-top: 10px;">예: <code style="background: #f0f0f0; padding: 2px 5px;">git config --global user.name "Kim Min-ho"</code></p>
+                <p style="margin-top: 10px;">예시:</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git config --global user.name "Kim Min-ho"</code>
+                </div>
             </div>
 
             <div class="step">
                 <strong>Step 2: 이메일 설정</strong>
                 <div class="code-block">
-                    <code>git config --global user.email "당신의이메일@example.com"</code>
+                    <code><span class="prompt">$</span> git config --global user.email "당신의이메일@example.com"</code>
                 </div>
-                <p style="margin-top: 10px;">예: <code style="background: #f0f0f0; padding: 2px 5px;">git config --global user.email "kim@gmail.com"</code></p>
+                <p style="margin-top: 10px;">예시:</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git config --global user.email "kim@gmail.com"</code>
+                </div>
             </div>
 
-            <h3>설정 확인하기</h3>
-            <div class="code-block">
-                <code>git config --list</code>
+            <div class="step">
+                <strong>Step 3: 설정 확인하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git config user.name</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">Kim Min-ho</span></code>
+                </div>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git config user.email</code>
+                </div>
+                <p>📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">kim@gmail.com</span></code>
+                </div>
             </div>
 
-            <p>또는 개별로 확인:</p>
-            <div class="code-block">
-                <code>git config user.name</code>
-            </div>
-            <div class="code-block">
-                <code>git config user.email</code>
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                Git에 내 이름과 이메일을 등록했습니다!
             </div>
 
             <div class="tip">
-                <strong>💡 전역 vs 로컬 설정</strong><br>
-                <code>--global</code> 옵션은 컴퓨터 전체에 적용됩니다. 특정 프로젝트마다 다른 정보를 사용하려면 <code>--global</code>을 빼세요.
+                <strong>💡 전역 vs 로컬 설정</strong><br/>
+                <code>--global</code> 옵션은 컴퓨터 전체에 적용됩니다. 특정 프로젝트마다 다른 이름/이메일을 사용하려면 해당 프로젝트 폴더에서 <code>--global</code>을 빼고 입력하면 됩니다.
             </div>
         </section>
 
-        <!-- 1.4 첫 저장소 만들기 -->
-        <section>
-            <h2><span class="emoji">🎯</span>1.4 첫 번째 저장소 만들기</h2>
+        <!-- 1.6 첫 저장소 만들기 -->
+        <section id="practice">
+            <h2><span class="emoji">🎯</span>1.5 첫 번째 Git 저장소 만들기</h2>
 
-            <p>이제 실제로 Git 저장소를 만들어봅시다! 저장소(Repository)는 Git이 파일의 변경 이력을 기록하는 폴더입니다.</p>
+            <p>이제 실제로 Git 저장소를 만들어봅시다! 이것이 오늘의 하이라이트입니다.</p>
 
-            <h3>따라하기</h3>
-
-            <div class="step">
-                <strong>Step 1: 폴더 생성</strong>
-                <p>터미널/명령프롬프트에서:</p>
-                <div class="code-block">
-                    <code>mkdir my-first-project</code>
-                </div>
-                <p style="margin-top: 10px;">이 명령어는 "my-first-project"이라는 새로운 폴더를 만듭니다.</p>
+            <div class="term">
+                <h4>📌 용어: git init</h4>
+                <p><strong>한글 정의:</strong> 일반 폴더를 Git 저장소로 만드는 명령어입니다. "initialize(초기화)"의 줄임말입니다.</p>
+                <p><strong>일상 비유:</strong> 새 노트를 꺼내서 첫 페이지에 "변경 일지"라고 쓰는 것과 같습니다. 이제부터 이 폴더에서 일어나는 모든 변경을 기록할 준비가 됩니다.</p>
             </div>
 
+            <h3>직접 해보기</h3>
+
             <div class="step">
-                <strong>Step 2: 폴더로 이동</strong>
+                <strong>Step 1: 프로젝트 폴더 만들기</strong>
                 <div class="code-block">
-                    <code>cd my-first-project</code>
+                    <code><span class="prompt">$</span> mkdir my-first-project</code>
                 </div>
+                <p style="margin-top: 10px;">"my-first-project"이라는 새 폴더가 만들어집니다.</p>
             </div>
 
             <div class="step">
-                <strong>Step 3: Git 저장소 초기화</strong>
+                <strong>Step 2: 폴더로 이동하기</strong>
                 <div class="code-block">
-                    <code>git init</code>
+                    <code><span class="prompt">$</span> cd my-first-project</code>
                 </div>
-                <p style="margin-top: 10px;">이 명령어는 폴더를 Git 저장소로 만듭니다. ".git"이라는 숨김 폴더가 생성됩니다.</p>
             </div>
 
-            <h3>확인해보기</h3>
-            <p>저장소가 제대로 만들어졌는지 확인:</p>
-            <div class="code-block">
-                <code>git status</code>
+            <div class="step">
+                <strong>Step 3: Git 저장소 만들기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git init</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">Initialized empty Git repository in /Users/.../my-first-project/.git/</span></code>
+                </div>
+                <p>이 메시지가 나오면 성공입니다! 폴더 안에 <code>.git</code>이라는 숨김 폴더가 생겼습니다. 이 폴더가 모든 변경 기록을 보관합니다.</p>
             </div>
 
-            <p>다음과 같은 메시지가 나타나면 성공입니다:</p>
-            <div class="code-block">
-                <code>On branch master<br/>
-                No commits yet<br/>
-                nothing to commit</code>
+            <div class="step">
+                <strong>Step 4: 상태 확인하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git status</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">On branch master<br/>
+<br/>
+No commits yet<br/>
+<br/>
+nothing to commit</span></code>
+                </div>
+                <p>이 메시지는 "Git 저장소가 준비되었지만, 아직 아무것도 저장하지 않았다"는 뜻입니다.</p>
             </div>
 
-            <div class="tip">
-                <strong>✅ 완성!</strong> 축하합니다! 첫 번째 Git 저장소를 만들었습니다!
+            <div class="step">
+                <strong>Step 5: 첫 번째 파일 만들고 저장해보기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> echo "Hello, Git!" > hello.txt</code>
+                </div>
+                <p style="margin-top: 10px;">"Hello, Git!"이라는 내용이 담긴 hello.txt 파일이 만들어집니다.</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git status</code>
+                </div>
+                <p>📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">Untracked files:<br/>
+  hello.txt</span></code>
+                </div>
+                <p>"Untracked"는 "Git이 아직 추적하지 않는 파일"이라는 뜻입니다. 다음 장에서 이 파일을 Git에 등록하는 방법을 배웁니다!</p>
             </div>
 
-            <h3>다음 단계</h3>
-            <ul>
-                <li>이제 파일을 추가하고 변경사항을 기록해보세요!</li>
-                <li>2장에서 기본 명령어들을 배워봅시다.</li>
-            </ul>
+            <div class="success-box">
+                <strong>✅ 축하합니다!</strong><br/>
+                첫 번째 Git 저장소를 만들고, 파일까지 생성했습니다!<br/>
+                이것이 Git 작업의 시작점입니다.
+            </div>
+        </section>
+
+        <!-- 요약 -->
+        <section id="summary">
+            <h2><span class="emoji">📚</span>1장 핵심 요약</h2>
+
+            <table>
+                <tr>
+                    <th>명령어</th>
+                    <th>역할</th>
+                    <th>일상 비유</th>
+                </tr>
+                <tr>
+                    <td><strong>pwd</strong></td>
+                    <td>현재 위치 확인</td>
+                    <td>"나 지금 어디 있지?"</td>
+                </tr>
+                <tr>
+                    <td><strong>ls</strong></td>
+                    <td>폴더 내 파일 목록</td>
+                    <td>서랍 열어보기</td>
+                </tr>
+                <tr>
+                    <td><strong>mkdir 이름</strong></td>
+                    <td>새 폴더 만들기</td>
+                    <td>새 서랍 만들기</td>
+                </tr>
+                <tr>
+                    <td><strong>cd 이름</strong></td>
+                    <td>폴더로 이동</td>
+                    <td>서랍으로 들어가기</td>
+                </tr>
+                <tr>
+                    <td><strong>git init</strong></td>
+                    <td>Git 저장소 만들기</td>
+                    <td>변경 일지 시작하기</td>
+                </tr>
+                <tr>
+                    <td><strong>git status</strong></td>
+                    <td>현재 상태 확인</td>
+                    <td>"지금 뭐가 바뀌었지?"</td>
+                </tr>
+                <tr>
+                    <td><strong>git --version</strong></td>
+                    <td>Git 설치 확인</td>
+                    <td>설치 확인</td>
+                </tr>
+            </table>
+
+            <div class="highlight">
+                <strong>🎯 다음 장 미리보기</strong><br/>
+                2장에서는 파일을 Git에 등록하고(add), 변경사항을 저장하고(commit), GitHub에 올리는(push) 방법을 배웁니다. 지금 만든 저장소에서 바로 이어서 실습합니다!
+            </div>
         </section>
 
         <div class="nav">
-            <a href="index.html">← 목차로 돌아가기</a>
-            <a href="chapter2.html">다음 장 →</a>
+            <a href="index.html">&larr; 목차로 돌아가기</a>
+            <a href="chapter2.html">다음 장 &rarr;</a>
         </div>
 
         <div class="footer">
-            <p>🎓 1장 완료! 기초를 잘 다졌으니 이제 <a href="chapter2.html">2장 - 기본 작업</a>으로 넘어가세요!</p>
+            <p>1장 완료! 기초를 잘 다졌습니다. 이제 <a href="chapter2.html">2장 - 기본 작업</a>으로 넘어가세요!</p>
         </div>
     </div>
 </body>

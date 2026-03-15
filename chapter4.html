@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4장: 문제 해결 - 입문 교재</title>
+    <title>4장: 실수 바로잡기 - 입문 교재</title>
     <style>
         * {
             margin: 0;
@@ -41,6 +41,29 @@
         header p {
             font-size: 1.1em;
             opacity: 0.95;
+        }
+
+        .learning-objectives {
+            background: linear-gradient(135deg, #f4433615, #d32f2f15);
+            border: 2px solid #f44336;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0 30px 0;
+        }
+
+        .learning-objectives h3 {
+            color: #f44336;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .learning-objectives ul {
+            margin-bottom: 0;
+        }
+
+        .learning-objectives li {
+            color: #444;
         }
 
         .nav {
@@ -95,8 +118,8 @@
         }
 
         .code-block {
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
+            background: #1e1e1e;
+            border: 1px solid #333;
             border-radius: 5px;
             padding: 15px;
             margin: 15px 0;
@@ -106,7 +129,15 @@
         }
 
         .code-block code {
-            color: #d63384;
+            color: #d4d4d4;
+        }
+
+        .code-block .prompt {
+            color: #6A9955;
+        }
+
+        .code-block .output {
+            color: #9cdcfe;
         }
 
         .step {
@@ -130,6 +161,10 @@
             color: #2e7d32;
         }
 
+        .tip strong {
+            color: #1b5e20;
+        }
+
         .highlight {
             background: #fff3cd;
             border-left: 4px solid #ffc107;
@@ -138,13 +173,81 @@
             border-radius: 5px;
         }
 
-        .warning {
-            background: #ffe0b2;
-            border-left: 4px solid #ff6f00;
+        .term {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
             padding: 15px;
             margin: 15px 0;
             border-radius: 5px;
+        }
+
+        .term h4 {
+            color: #c62828;
+            margin-bottom: 8px;
+        }
+
+        .safety-box {
+            background: #e3f2fd;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .safety-box h4 {
+            color: #1565C0;
+            margin-bottom: 10px;
+        }
+
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            color: #E65100;
+        }
+
+        .warning strong {
             color: #bf360c;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .success-box strong {
+            color: #2e7d32;
+            font-size: 1.2em;
+        }
+
+        .difficulty-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .difficulty-easy {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .difficulty-medium {
+            background: #fff3e0;
+            color: #E65100;
+        }
+
+        .difficulty-hard {
+            background: #ffebee;
+            color: #c62828;
         }
 
         ul, ol {
@@ -214,174 +317,417 @@
         </div>
 
         <header>
-            <h1>4️⃣ 문제 해결 - 고급 기술</h1>
-            <p>실수를 바로잡고 깔끔한 히스토리 만들기!</p>
+            <h1>4장: 실수 바로잡기</h1>
+            <p>누구나 실수합니다. Git은 실수를 되돌리는 강력한 도구를 제공합니다!</p>
         </header>
 
-        <div class="nav">
-            <a href="chapter3.html">← 이전 장</a>
-            <a href="chapter5.html">다음 장 →</a>
+        <div class="learning-objectives">
+            <h3>🎯 이 장을 마치면 다음을 할 수 있습니다:</h3>
+            <ul>
+                <li>git revert로 안전하게 커밋을 되돌릴 수 있다</li>
+                <li>git reset으로 로컬 커밋을 취소할 수 있다</li>
+                <li>git stash로 작업 중인 내용을 임시 저장할 수 있다</li>
+                <li>git rebase로 커밋 기록을 정리할 수 있다</li>
+                <li>git reflog로 실수를 복구할 수 있다</li>
+            </ul>
         </div>
 
-        <!-- 4.1 커밋 되돌리기 -->
-        <section>
-            <h2><span class="emoji">↩️</span>4.1 실수한 커밋 되돌리기</h2>
+        <div class="nav">
+            <a href="chapter3.html">&larr; 이전 장</a>
+            <a href="chapter5.html">다음 장 &rarr;</a>
+        </div>
 
-            <p>잘못된 커밋을 했을 때 이를 취소하는 방법은 여러 가지입니다. 상황에 따라 다릅니다.</p>
+        <!-- 왜 배우나요? -->
+        <section id="intro">
+            <h2><span class="emoji">💡</span>왜 배우나요?</h2>
 
-            <h3>git revert - 안전한 되돌리기</h3>
-            <p>이미 공개된 커밋을 되돌릴 때 사용합니다. 새로운 커밋을 만들어서 변경을 되돌립니다.</p>
+            <p>코딩을 하다 보면 이런 상황이 생깁니다:</p>
+            <ul>
+                <li>"방금 커밋한 것을 취소하고 싶어요"</li>
+                <li>"급한 버그 수정을 해야 하는데, 작업 중인 코드를 잠시 치워놓고 싶어요"</li>
+                <li>"커밋 메시지를 잘못 썼어요"</li>
+                <li>"아까 삭제한 코드가 필요해요"</li>
+            </ul>
+            <p>Git은 이 모든 상황에 대한 해결책을 가지고 있습니다.</p>
+
+            <div class="safety-box">
+                <h4>안심하세요</h4>
+                <p><strong>처음에는 revert만 기억하면 됩니다.</strong> 이 장에서 여러 도구를 배우지만, 가장 안전하고 간단한 것부터 시작합니다. 나머지는 필요할 때 다시 찾아보면 됩니다.</p>
+            </div>
+
+            <div class="highlight">
+                <strong>📌 난이도 안내</strong><br/>
+                이 장의 도구들을 난이도 순으로 배웁니다:<br/>
+                <span class="difficulty-indicator difficulty-easy">쉬움</span> revert, stash<br/>
+                <span class="difficulty-indicator difficulty-medium">중간</span> reset, amend<br/>
+                <span class="difficulty-indicator difficulty-hard">심화</span> rebase, cherry-pick
+            </div>
+        </section>
+
+        <!-- 4.1 revert - 안전한 되돌리기 -->
+        <section id="revert">
+            <h2><span class="emoji">↩️</span>4.1 안전하게 되돌리기 (git revert) <span class="difficulty-indicator difficulty-easy">쉬움</span></h2>
+
+            <div class="term">
+                <h4>📌 용어: git revert</h4>
+                <p><strong>한글 정의:</strong> 특정 커밋의 변경사항을 취소하는 새로운 커밋을 만듭니다.</p>
+                <p><strong>일상 비유:</strong> 이미 보낸 이메일을 "취소 메일"로 정정하는 것과 같습니다. 원래 이메일(커밋)은 기록에 남지만, "이전 내용을 취소합니다"라는 새 이메일이 추가됩니다.</p>
+                <p><strong>왜 필요한가?</strong> 이미 GitHub에 push한 커밋도 안전하게 되돌릴 수 있습니다. 기록이 모두 남으므로 팀 작업에서 가장 안전합니다.</p>
+            </div>
+
+            <h3>직접 해보기</h3>
 
             <div class="step">
-                <strong>Step 1: 커밋 로그 확인</strong>
+                <strong>Step 1: 되돌릴 실습용 커밋 만들기</strong>
                 <div class="code-block">
-                    <code>git log --oneline</code>
+                    <code><span class="prompt">$</span> echo "This is a mistake!" > mistake.txt<br/>
+<span class="prompt">$</span> git add mistake.txt<br/>
+<span class="prompt">$</span> git commit -m "Add mistake file (oops!)"</code>
                 </div>
             </div>
 
             <div class="step">
-                <strong>Step 2: 특정 커밋 되돌리기</strong>
+                <strong>Step 2: 커밋 해시값 확인</strong>
                 <div class="code-block">
-                    <code>git revert abc1234</code>
+                    <code><span class="prompt">$</span> git log --oneline -3</code>
                 </div>
-                <p style="margin-top: 10px;">"abc1234"는 커밋의 해시값입니다. 해당 커밋의 변경을 취소하는 새로운 커밋이 만들어집니다.</p>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">e5f6a7b (HEAD -> master) Add mistake file (oops!)<br/>
+d4e5f6a Resolve merge conflict in greeting.txt<br/>
+c3d4e5f Add greeting from master</span></code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: revert로 되돌리기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git revert e5f6a7b</code>
+                </div>
+                <p style="margin-top: 10px;">에디터가 열리면 기본 메시지를 그대로 두고 저장합니다. (vi 에디터에서는 <code>:wq</code> 입력 후 Enter)</p>
+                <p>📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">[master f6a7b8c] Revert "Add mistake file (oops!)"<br/>
+ 1 file changed, 1 deletion(-)<br/>
+ delete mode 100644 mistake.txt</span></code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: 확인하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> ls</code>
+                </div>
+                <p style="margin-top: 10px;">mistake.txt가 사라졌습니다!</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git log --oneline -3</code>
+                </div>
+                <p>📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">f6a7b8c (HEAD -> master) Revert "Add mistake file (oops!)"<br/>
+e5f6a7b Add mistake file (oops!)<br/>
+d4e5f6a Resolve merge conflict in greeting.txt</span></code>
+                </div>
+                <p>원래 커밋도 기록에 남아있고, "되돌리기 커밋"이 추가되었습니다. 완벽한 기록!</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                revert로 안전하게 커밋을 되돌렸습니다! 이것이 가장 안전한 방법입니다.
+            </div>
+        </section>
+
+        <!-- 4.2 stash - 임시 저장 -->
+        <section id="stash">
+            <h2><span class="emoji">📦</span>4.2 임시 저장하기 (git stash) <span class="difficulty-indicator difficulty-easy">쉬움</span></h2>
+
+            <div class="term">
+                <h4>📌 용어: git stash</h4>
+                <p><strong>한글 정의:</strong> 작업 중인 변경사항을 임시로 보관하고, 나중에 다시 꺼내 쓸 수 있는 기능입니다.</p>
+                <p><strong>일상 비유:</strong> 책상 위에서 작업하다가 급한 일이 생겼을 때, 서류를 서랍에 잠시 넣어두는 것과 같습니다. 급한 일을 처리한 후 서랍에서 다시 꺼내면 됩니다.</p>
+                <p><strong>왜 필요한가?</strong> 브랜치를 전환해야 하는데 아직 커밋할 준비가 안 된 코드가 있을 때 유용합니다.</p>
+            </div>
+
+            <h3>직접 해보기</h3>
+
+            <div class="step">
+                <strong>Step 1: 작업 중인 상태 만들기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> echo "Work in progress..." >> hello.txt<br/>
+<span class="prompt">$</span> git status</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과: hello.txt가 "modified" 상태입니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 임시 저장하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git stash</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">Saved working directory and index state WIP on master: f6a7b8c Revert "Add mistake file"</span></code>
+                </div>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git status</code>
+                </div>
+                <p>📊 예상 결과: <code>nothing to commit, working tree clean</code> - 깨끗해졌습니다!</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 다른 작업 수행 (예: 급한 버그 수정)</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> echo "Bug fixed!" > bugfix.txt<br/>
+<span class="prompt">$</span> git add bugfix.txt<br/>
+<span class="prompt">$</span> git commit -m "Fix urgent bug"</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: 임시 저장한 작업 복구하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git stash pop</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">On branch master<br/>
+Changes not staged for commit:<br/>
+  modified:   hello.txt<br/>
+<br/>
+Dropped refs/stash@{0}</span></code>
+                </div>
+                <p>hello.txt의 수정사항이 다시 돌아왔습니다!</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                작업을 잠시 치워두고 급한 일을 처리한 후 다시 복구했습니다!
+            </div>
+
+            <h3>stash 추가 명령어</h3>
+            <div class="code-block">
+                <code><span class="prompt">$</span> git stash list           <span style="color: #6A9955;"># 저장된 stash 목록 보기</span><br/>
+<span class="prompt">$</span> git stash apply          <span style="color: #6A9955;"># 복구하되 stash 유지</span><br/>
+<span class="prompt">$</span> git stash drop           <span style="color: #6A9955;"># stash 삭제</span><br/>
+<span class="prompt">$</span> git stash save "설명"    <span style="color: #6A9955;"># 설명 붙여서 저장</span></code>
             </div>
 
             <div class="tip">
-                <strong>✅ revert의 특징</strong><br/>
-                - 이력이 남으므로 협업에 안전<br/>
-                - 이미 push한 커밋을 되돌릴 때 사용<br/>
-                - 새로운 커밋이 생성됨
+                <strong>💡 stash vs commit의 차이</strong><br/>
+                - <strong>stash:</strong> 임시 저장. 기록에 남지 않음. 잠깐 치워둘 때 사용.<br/>
+                - <strong>commit:</strong> 영구 저장. 기록에 남음. 작업 완료 후 사용.
+            </div>
+        </section>
+
+        <!-- 4.3 reset - 강력한 되돌리기 -->
+        <section id="reset">
+            <h2><span class="emoji">⏪</span>4.3 커밋 취소하기 (git reset) <span class="difficulty-indicator difficulty-medium">중간</span></h2>
+
+            <div class="term">
+                <h4>📌 용어: git reset</h4>
+                <p><strong>한글 정의:</strong> 커밋을 취소하고 이전 상태로 되돌립니다. revert와 달리 커밋 자체를 삭제합니다.</p>
+                <p><strong>일상 비유:</strong> 일기를 쓰다가 마지막 페이지를 찢어버리는 것과 같습니다. 그 페이지가 있었다는 사실도 사라집니다.</p>
+                <p><strong>왜 필요한가?</strong> 아직 push하지 않은 로컬 커밋을 깔끔하게 취소할 때 사용합니다.</p>
             </div>
 
-            <h3>git reset - 강력한 되돌리기</h3>
-            <p>아직 push하지 않은 로컬 커밋을 완전히 삭제합니다.</p>
-
-            <div class="step">
-                <strong>Step 1: 이전 커밋으로 돌아가기</strong>
-                <div class="code-block">
-                    <code>git reset --soft HEAD~1</code>
-                </div>
-                <p style="margin-top: 10px;">마지막 커밋을 취소하지만 파일 변경사항은 유지합니다.</p>
+            <div class="safety-box">
+                <h4>안심하세요</h4>
+                <p>reset은 <strong>아직 push하지 않은 로컬 커밋</strong>에만 사용하면 안전합니다. 이미 push한 커밋은 revert를 사용하세요.</p>
+                <p>만약 실수로 reset을 잘못 사용했더라도, <strong>git reflog</strong>(4.5절에서 배웁니다)로 복구할 수 있습니다!</p>
             </div>
 
-            <h3>reset의 세 가지 옵션</h3>
+            <h3>reset의 세 가지 모드</h3>
             <table>
                 <tr>
                     <th>옵션</th>
-                    <th>효과</th>
-                    <th>파일 변경사항</th>
+                    <th>커밋</th>
+                    <th>스테이징</th>
+                    <th>파일</th>
+                    <th>비유</th>
                 </tr>
                 <tr>
                     <td><strong>--soft</strong></td>
-                    <td>커밋만 취소</td>
-                    <td>유지 (staged)</td>
+                    <td>취소</td>
+                    <td>유지</td>
+                    <td>유지</td>
+                    <td>택배 발송만 취소, 물건은 포장 대기 테이블에</td>
                 </tr>
                 <tr>
-                    <td><strong>--mixed (기본값)</strong></td>
-                    <td>커밋 + staging 취소</td>
-                    <td>유지 (unstaged)</td>
+                    <td><strong>--mixed</strong> (기본값)</td>
+                    <td>취소</td>
+                    <td>취소</td>
+                    <td>유지</td>
+                    <td>발송 취소 + 포장 풀기, 물건은 그대로</td>
                 </tr>
                 <tr>
                     <td><strong>--hard</strong></td>
-                    <td>커밋 + 파일 변경사항 모두 삭제</td>
-                    <td>완전히 삭제</td>
+                    <td>취소</td>
+                    <td>취소</td>
+                    <td>삭제</td>
+                    <td>발송 취소 + 포장 풀기 + 물건도 버리기</td>
                 </tr>
             </table>
 
+            <h3>직접 해보기</h3>
+
+            <div class="step">
+                <strong>Step 1: 먼저 stash한 변경사항 커밋하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git add hello.txt<br/>
+<span class="prompt">$</span> git commit -m "Add work in progress (will reset this)"</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: soft reset - 커밋만 취소</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git reset --soft HEAD~1</code>
+                </div>
+                <p style="margin-top: 10px;"><code>HEAD~1</code>은 "현재 위치에서 1개 전 커밋"을 의미합니다.</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git status</code>
+                </div>
+                <p>📊 예상 결과: 파일은 스테이징된 상태로 남아있습니다. 커밋만 취소되었습니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 다시 커밋한 후 mixed reset 시도</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git commit -m "Add work in progress (will reset again)"<br/>
+<span class="prompt">$</span> git reset HEAD~1</code>
+                </div>
+                <p style="margin-top: 10px;">(<code>--mixed</code>가 기본값이므로 생략 가능합니다)</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git status</code>
+                </div>
+                <p>📊 예상 결과: 파일 변경사항은 있지만 스테이징되지 않은 상태입니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: 정리 - 변경사항을 다시 커밋</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git add hello.txt<br/>
+<span class="prompt">$</span> git commit -m "Update hello.txt with progress"</code>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                reset으로 커밋을 취소하고 다시 만드는 방법을 배웠습니다!
+            </div>
+
             <div class="warning">
-                <strong>⚠️ --hard 주의!</strong><br/>
-                <code>git reset --hard</code>는 변경사항을 완전히 삭제합니다. 신중하게 사용하세요!
+                <strong>⚠️ --hard 사용 시 주의</strong><br/>
+                <code>git reset --hard</code>는 파일 변경사항까지 모두 삭제합니다.<br/>
+                <strong>로컬에서만 사용하세요.</strong> 이미 push한 커밋에는 사용하지 마세요.<br/>
+                실수해도 <code>git reflog</code>로 복구할 수 있습니다 (4.5절 참조).
             </div>
 
-            <h3>언제 어떤 것을 사용할까?</h3>
-            <ul>
-                <li><strong>이미 push한 커밋:</strong> git revert</li>
-                <li><strong>로컬에만 있는 커밋:</strong> git reset</li>
-                <li><strong>마지막 커밋 메시지 수정:</strong> git commit --amend</li>
-            </ul>
+            <h3>커밋 메시지만 수정하기</h3>
+            <p>마지막 커밋의 메시지만 바꾸고 싶다면:</p>
+            <div class="code-block">
+                <code><span class="prompt">$</span> git commit --amend -m "새로운 커밋 메시지"</code>
+            </div>
+            <p>아직 push하지 않은 마지막 커밋에만 사용하세요.</p>
         </section>
 
-        <!-- 4.2 변경사항 임시 저장 -->
-        <section>
-            <h2><span class="emoji">📦</span>4.2 변경사항 임시 저장하기 (Stash)</h2>
+        <!-- 4.4 rebase - 히스토리 정리 -->
+        <section id="rebase">
+            <h2><span class="emoji">✂️</span>4.4 커밋 기록 정리하기 (git rebase) <span class="difficulty-indicator difficulty-hard">심화</span></h2>
 
-            <p>작업 중인 변경사항을 임시로 저장하고 나중에 다시 불러올 수 있습니다.</p>
+            <div class="term">
+                <h4>📌 용어: git rebase</h4>
+                <p><strong>한글 정의:</strong> 커밋 기록을 재정렬하거나, 여러 커밋을 하나로 합칠 수 있는 기능입니다.</p>
+                <p><strong>일상 비유:</strong> 일기장에서 3일치 일기를 한 페이지로 요약하거나, 날짜 순서를 바꾸는 것과 같습니다.</p>
+                <p><strong>왜 필요한가?</strong> "typo 수정", "다시 수정", "진짜 수정" 같은 불필요한 커밋들을 하나로 합쳐서 깔끔한 기록을 만들 수 있습니다.</p>
+            </div>
 
-            <h3>사용 상황</h3>
-            <ul>
-                <li>브랜치를 전환해야 하는데 커밋할 준비가 안 됨</li>
-                <li>다른 일을 먼저 해야 할 때 현재 작업을 보관</li>
-                <li>실험적인 변경사항을 나중에 적용</li>
-            </ul>
+            <div class="safety-box">
+                <h4>안심하세요</h4>
+                <p>rebase는 <strong>아직 push하지 않은 로컬 커밋</strong>에만 사용하면 안전합니다. 이미 push한 커밋을 rebase하면 팀원과 충돌이 생길 수 있으므로, 로컬에서만 사용하세요.</p>
+                <p>이 기능이 어려우면 건너뛰어도 됩니다. 나중에 필요할 때 다시 찾아보세요!</p>
+            </div>
 
-            <h3>따라하기</h3>
+            <h3>직접 해보기: 커밋 합치기 (squash)</h3>
 
             <div class="step">
-                <strong>Step 1: 현재 변경사항 stash</strong>
+                <strong>Step 1: 실습용 커밋 3개 만들기</strong>
                 <div class="code-block">
-                    <code>git stash</code>
-                </div>
-                <p style="margin-top: 10px;">또는 설명을 붙여서:</p>
-                <div class="code-block">
-                    <code>git stash save "작업 설명"</code>
+                    <code><span class="prompt">$</span> echo "line 1" > rebase-test.txt<br/>
+<span class="prompt">$</span> git add rebase-test.txt<br/>
+<span class="prompt">$</span> git commit -m "Add rebase test file"<br/>
+<br/>
+<span class="prompt">$</span> echo "line 2" >> rebase-test.txt<br/>
+<span class="prompt">$</span> git add rebase-test.txt<br/>
+<span class="prompt">$</span> git commit -m "Fix typo in rebase test"<br/>
+<br/>
+<span class="prompt">$</span> echo "line 3" >> rebase-test.txt<br/>
+<span class="prompt">$</span> git add rebase-test.txt<br/>
+<span class="prompt">$</span> git commit -m "Final fix for rebase test"</code>
                 </div>
             </div>
 
             <div class="step">
-                <strong>Step 2: 다른 브랜치로 전환</strong>
+                <strong>Step 2: 최근 3개 커밋 확인</strong>
                 <div class="code-block">
-                    <code>git checkout other-branch</code>
+                    <code><span class="prompt">$</span> git log --oneline -3</code>
                 </div>
-                <p style="margin-top: 10px;">작업 디렉토리가 깨끗해집니다!</p>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">h8i9j0k Final fix for rebase test<br/>
+g7h8i9j Fix typo in rebase test<br/>
+f6g7h8i Add rebase test file</span></code>
+                </div>
+                <p>이 3개 커밋을 하나로 합쳐보겠습니다.</p>
             </div>
 
             <div class="step">
-                <strong>Step 3: 원래 브랜치로 돌아와서 복구</strong>
+                <strong>Step 3: Interactive Rebase 시작</strong>
                 <div class="code-block">
-                    <code>git stash pop</code>
+                    <code><span class="prompt">$</span> git rebase -i HEAD~3</code>
                 </div>
-                <p style="margin-top: 10px;">저장된 변경사항이 다시 나타납니다!</p>
+                <p style="margin-top: 10px;">에디터가 열리면 다음과 같이 보입니다:</p>
+                <div class="code-block">
+                    <code><span class="output">pick f6g7h8i Add rebase test file<br/>
+pick g7h8i9j Fix typo in rebase test<br/>
+pick h8i9j0k Final fix for rebase test</span></code>
+                </div>
             </div>
 
-            <h3>stash 목록 보기</h3>
-            <div class="code-block">
-                <code>git stash list</code>
+            <div class="step">
+                <strong>Step 4: 합칠 커밋 표시하기</strong>
+                <p>두 번째와 세 번째 줄의 <code>pick</code>을 <code>squash</code>(또는 줄여서 <code>s</code>)로 변경합니다:</p>
+                <div class="code-block">
+                    <code>pick f6g7h8i Add rebase test file<br/>
+squash g7h8i9j Fix typo in rebase test<br/>
+squash h8i9j0k Final fix for rebase test</code>
+                </div>
+                <p>저장하고 닫으면 (<code>:wq</code>), 새로운 커밋 메시지를 작성하는 에디터가 열립니다.</p>
             </div>
 
-            <h3>특정 stash 복구</h3>
-            <div class="code-block">
-                <code>git stash apply stash@{0}</code>
+            <div class="step">
+                <strong>Step 5: 합쳐진 커밋 메시지 작성</strong>
+                <p>기존 메시지를 모두 지우고 새 메시지를 작성합니다:</p>
+                <div class="code-block">
+                    <code>Add rebase test file with complete content</code>
+                </div>
+                <p>저장하고 닫으면 3개 커밋이 1개로 합쳐집니다!</p>
             </div>
 
-            <div class="tip">
-                <strong>💡 stash vs commit</strong><br/>
-                - stash: 임시 저장 (나중에 적용)<br/>
-                - commit: 영구 저장 (히스토리 남음)<br/>
-                완성되지 않은 작업은 stash, 완성된 작업은 commit!
-            </div>
-        </section>
-
-        <!-- 4.3 히스토리 정리 -->
-        <section>
-            <h2><span class="emoji">✂️</span>4.3 커밋 히스토리 정리하기 (Rebase)</h2>
-
-            <p>Rebase는 여러 작은 커밋들을 하나로 만들거나, 커밋 순서를 정렬할 때 사용합니다. (고급 기능)</p>
-
-            <h3>Interactive Rebase 사용</h3>
-            <p>최근 3개의 커밋을 정리하려면:</p>
-            <div class="code-block">
-                <code>git rebase -i HEAD~3</code>
+            <div class="step">
+                <strong>Step 6: 결과 확인</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git log --oneline -3</code>
+                </div>
+                <p style="margin-top: 10px;">3개 커밋이 1개로 합쳐진 것을 확인할 수 있습니다!</p>
             </div>
 
-            <p>텍스트 에디터가 열려서 다음과 같은 옵션을 보여줍니다:</p>
-            <div class="code-block">
-                <code>pick abc1234 First commit<br/>
-                pick def5678 Second commit<br/>
-                pick ghi9012 Third commit</code>
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                3개 커밋을 1개로 깔끔하게 합쳤습니다!
             </div>
 
-            <h3>Rebase 옵션</h3>
+            <h3>Rebase 주요 옵션</h3>
             <table>
                 <tr>
                     <th>명령어</th>
@@ -389,15 +735,19 @@
                 </tr>
                 <tr>
                     <td><strong>pick</strong></td>
-                    <td>커밋 유지</td>
+                    <td>커밋 유지 (변경 없이)</td>
                 </tr>
                 <tr>
                     <td><strong>reword</strong></td>
-                    <td>커밋 메시지 수정</td>
+                    <td>커밋 메시지만 수정</td>
                 </tr>
                 <tr>
                     <td><strong>squash</strong></td>
-                    <td>이전 커밋과 합치기</td>
+                    <td>이전 커밋과 합치기 (메시지도 합침)</td>
+                </tr>
+                <tr>
+                    <td><strong>fixup</strong></td>
+                    <td>이전 커밋과 합치기 (메시지는 버림)</td>
                 </tr>
                 <tr>
                     <td><strong>drop</strong></td>
@@ -405,101 +755,193 @@
                 </tr>
             </table>
 
-            <div class="warning">
-                <strong>⚠️ Rebase 주의!</strong><br/>
-                이미 push한 커밋을 rebase하면 히스토리가 충돌될 수 있습니다.
-                로컬 커밋만 rebase하세요!
-            </div>
-
             <div class="tip">
                 <strong>💡 Rebase vs Merge</strong><br/>
-                - Merge: 커밋 이력 전체 유지<br/>
-                - Rebase: 깔끔한 히스토리<br/>
-                팀 정책에 따라 사용하세요!
+                - <strong>Merge:</strong> 두 브랜치의 기록이 모두 남음. 안전하지만 기록이 복잡해질 수 있음.<br/>
+                - <strong>Rebase:</strong> 기록을 정리하여 깔끔하게 만듦. 로컬에서만 사용해야 안전.<br/>
+                팀 정책에 따라 선택하세요. 처음에는 merge를 사용하는 것이 안전합니다.
             </div>
         </section>
 
-        <!-- 4.4 특정 커밋 선택 적용 -->
-        <section>
-            <h2><span class="emoji">🎯</span>4.4 특정 커밋만 적용하기 (Cherry-pick)</h2>
+        <!-- 4.5 reflog - 실수 복구 -->
+        <section id="reflog">
+            <h2><span class="emoji">🔄</span>4.5 최후의 보험: git reflog <span class="difficulty-indicator difficulty-medium">중간</span></h2>
 
-            <p>다른 브랜치의 특정 커밋만 현재 브랜치에 적용할 때 사용합니다.</p>
+            <div class="term">
+                <h4>📌 용어: git reflog</h4>
+                <p><strong>한글 정의:</strong> Git에서 일어난 모든 작업의 기록을 보여줍니다. reset이나 rebase로 사라진 커밋도 여기서 찾을 수 있습니다.</p>
+                <p><strong>일상 비유:</strong> 엑셀의 "실행 취소(Ctrl+Z) 기록"과 같습니다. 여러분이 한 모든 작업이 시간순으로 기록되어 있어서, 아무리 심하게 꼬여도 이전 상태로 되돌릴 수 있습니다.</p>
+                <p><strong>왜 필요한가?</strong> <code>git reset --hard</code>로 커밋을 삭제했어도, reflog에는 기록이 남아있어 복구할 수 있습니다!</p>
+            </div>
 
-            <h3>사용 상황</h3>
-            <ul>
-                <li>버그 수정 커밋을 다른 브랜치에도 적용</li>
-                <li>실수로 잘못된 브랜치에 커밋한 것 옮기기</li>
-            </ul>
+            <div class="safety-box">
+                <h4>reflog는 여러분의 안전망입니다</h4>
+                <p>Git에서 무언가를 잘못했다고 느껴질 때, <strong>당황하지 마세요</strong>. reflog에 모든 기록이 있습니다. 약 90일간 보관됩니다.</p>
+            </div>
 
-            <h3>따라하기</h3>
+            <h3>직접 해보기: reflog로 복구하기</h3>
 
             <div class="step">
-                <strong>Step 1: 복사할 커밋의 해시 찾기</strong>
+                <strong>Step 1: 실수 시뮬레이션 - 중요한 파일을 커밋한 후 reset으로 삭제</strong>
                 <div class="code-block">
-                    <code>git log --oneline other-branch</code>
+                    <code><span class="prompt">$</span> echo "Very important data!" > important.txt<br/>
+<span class="prompt">$</span> git add important.txt<br/>
+<span class="prompt">$</span> git commit -m "Add important data"</code>
+                </div>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git reset --hard HEAD~1</code>
+                </div>
+                <p style="margin-top: 10px;">이제 important.txt가 사라졌습니다! 커밋도 사라진 것 같습니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: reflog에서 삭제된 커밋 찾기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git reflog</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">a1b2c3d (HEAD -> master) HEAD@{0}: reset: moving to HEAD~1<br/>
+<span style="color: #4EC9B0;">x9y8z7w HEAD@{1}: commit: Add important data</span><br/>
+a1b2c3d HEAD@{2}: rebase (finish): ...<br/>
+...</span></code>
+                </div>
+                <p>"Add important data" 커밋이 여전히 기록에 있습니다! 해시값 <code>x9y8z7w</code>를 기억하세요.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 삭제된 커밋 복구하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git reset --hard x9y8z7w</code>
+                </div>
+                <p style="margin-top: 10px;">(실제로는 reflog에서 본 해시값을 사용하세요)</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: 복구 확인</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> ls</code>
+                </div>
+                <p style="margin-top: 10px;">important.txt가 돌아왔습니다!</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> cat important.txt</code>
+                </div>
+                <p>📊 예상 결과: <code>Very important data!</code></p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                삭제된 커밋을 reflog로 복구했습니다! reflog는 여러분의 안전망입니다.
+            </div>
+        </section>
+
+        <!-- 4.6 cherry-pick -->
+        <section id="cherry-pick">
+            <h2><span class="emoji">🍒</span>4.6 특정 커밋만 가져오기 (cherry-pick) <span class="difficulty-indicator difficulty-hard">심화</span></h2>
+
+            <div class="term">
+                <h4>📌 용어: git cherry-pick</h4>
+                <p><strong>한글 정의:</strong> 다른 브랜치의 특정 커밋 하나만 현재 브랜치에 적용합니다.</p>
+                <p><strong>일상 비유:</strong> 과일 바구니에서 체리만 골라 따는 것처럼, 여러 커밋 중 원하는 것만 골라서 가져옵니다.</p>
+            </div>
+
+            <h3>직접 해보기</h3>
+
+            <div class="step">
+                <strong>Step 1: 다른 브랜치의 커밋 해시 찾기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git log --oneline other-branch</code>
                 </div>
             </div>
 
             <div class="step">
                 <strong>Step 2: 현재 브랜치에 적용</strong>
                 <div class="code-block">
-                    <code>git cherry-pick abc1234</code>
+                    <code><span class="prompt">$</span> git cherry-pick abc1234</code>
                 </div>
-                <p style="margin-top: 10px;">해당 커밋의 변경사항이 현재 브랜치에 적용됩니다!</p>
+                <p style="margin-top: 10px;">해당 커밋의 변경사항이 현재 브랜치에 새로운 커밋으로 적용됩니다.</p>
             </div>
 
             <div class="tip">
-                <strong>💡 여러 커밋 한 번에</strong><br/>
-                <code>git cherry-pick abc1234..def5678</code><br/>
-                abc1234부터 def5678까지 모든 커밋을 적용합니다.
+                <strong>💡 사용 상황</strong><br/>
+                - 버그 수정 커밋을 다른 브랜치에도 적용할 때<br/>
+                - 실수로 잘못된 브랜치에 커밋한 것을 옮길 때
             </div>
         </section>
 
         <!-- 요약 -->
-        <section>
+        <section id="summary">
             <h2><span class="emoji">📚</span>4장 핵심 요약</h2>
 
             <table>
                 <tr>
                     <th>상황</th>
-                    <th>사용 명령어</th>
-                    <th>설명</th>
+                    <th>명령어</th>
+                    <th>난이도</th>
+                    <th>안전성</th>
                 </tr>
                 <tr>
-                    <td>공개된 커밋 취소</td>
-                    <td>git revert</td>
-                    <td>새로운 커밋으로 되돌리기</td>
+                    <td>push한 커밋 되돌리기</td>
+                    <td><strong>git revert</strong></td>
+                    <td><span class="difficulty-indicator difficulty-easy">쉬움</span></td>
+                    <td>매우 안전</td>
+                </tr>
+                <tr>
+                    <td>작업 임시 저장</td>
+                    <td><strong>git stash</strong></td>
+                    <td><span class="difficulty-indicator difficulty-easy">쉬움</span></td>
+                    <td>안전</td>
                 </tr>
                 <tr>
                     <td>로컬 커밋 취소</td>
-                    <td>git reset</td>
-                    <td>커밋 완전히 삭제</td>
+                    <td><strong>git reset</strong></td>
+                    <td><span class="difficulty-indicator difficulty-medium">중간</span></td>
+                    <td>로컬만 안전</td>
                 </tr>
                 <tr>
-                    <td>임시 저장</td>
-                    <td>git stash</td>
-                    <td>나중에 복구 가능</td>
+                    <td>커밋 메시지 수정</td>
+                    <td><strong>git commit --amend</strong></td>
+                    <td><span class="difficulty-indicator difficulty-medium">중간</span></td>
+                    <td>로컬만 안전</td>
                 </tr>
                 <tr>
-                    <td>히스토리 정리</td>
-                    <td>git rebase</td>
-                    <td>커밋 순서 정렬</td>
+                    <td>실수 복구</td>
+                    <td><strong>git reflog</strong></td>
+                    <td><span class="difficulty-indicator difficulty-medium">중간</span></td>
+                    <td>안전 (읽기 전용)</td>
                 </tr>
                 <tr>
-                    <td>특정 커밋만</td>
-                    <td>git cherry-pick</td>
-                    <td>원하는 커밋만 적용</td>
+                    <td>커밋 기록 정리</td>
+                    <td><strong>git rebase -i</strong></td>
+                    <td><span class="difficulty-indicator difficulty-hard">심화</span></td>
+                    <td>로컬만 안전</td>
+                </tr>
+                <tr>
+                    <td>특정 커밋만 적용</td>
+                    <td><strong>git cherry-pick</strong></td>
+                    <td><span class="difficulty-indicator difficulty-hard">심화</span></td>
+                    <td>안전</td>
                 </tr>
             </table>
+
+            <div class="highlight">
+                <strong>📌 기억할 것 하나만!</strong><br/>
+                어떤 도구를 써야 할지 모르겠다면, <strong>revert를 사용하세요</strong>. 가장 안전하고, 대부분의 상황에서 충분합니다.
+            </div>
+
+            <div class="highlight">
+                <strong>🎯 다음 장 미리보기</strong><br/>
+                5장에서는 실제 프로젝트에서 자주 마주치는 5가지 상황과 해결 방법을 배웁니다. 실수로 민감한 파일을 커밋했을 때, 이전 버전으로 돌아가고 싶을 때 등 실전 시나리오를 직접 따라해봅시다!
+            </div>
         </section>
 
         <div class="nav">
-            <a href="chapter3.html">← 이전 장</a>
-            <a href="chapter5.html">다음 장 →</a>
+            <a href="chapter3.html">&larr; 이전 장</a>
+            <a href="chapter5.html">다음 장 &rarr;</a>
         </div>
 
         <div class="footer">
-            <p>🎓 4장 완료! 이제 실제 상황별 해결 방법을 배워봅시다! <a href="chapter5.html">5장 - 실전 상황</a></p>
+            <p>4장 완료! 이제 실전 시나리오를 배워봅시다! <a href="chapter5.html">5장 - 실전 상황</a></p>
         </div>
     </div>
 </body>

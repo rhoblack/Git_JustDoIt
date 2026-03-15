@@ -43,6 +43,29 @@
             opacity: 0.95;
         }
 
+        .learning-objectives {
+            background: linear-gradient(135deg, #9C27B015, #6A1B9A15);
+            border: 2px solid #9C27B0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0 30px 0;
+        }
+
+        .learning-objectives h3 {
+            color: #9C27B0;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .learning-objectives ul {
+            margin-bottom: 0;
+        }
+
+        .learning-objectives li {
+            color: #444;
+        }
+
         .nav {
             display: flex;
             justify-content: space-between;
@@ -95,8 +118,8 @@
         }
 
         .code-block {
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
+            background: #1e1e1e;
+            border: 1px solid #333;
             border-radius: 5px;
             padding: 15px;
             margin: 15px 0;
@@ -106,7 +129,15 @@
         }
 
         .code-block code {
-            color: #d63384;
+            color: #d4d4d4;
+        }
+
+        .code-block .prompt {
+            color: #6A9955;
+        }
+
+        .code-block .output {
+            color: #9cdcfe;
         }
 
         .scenario {
@@ -118,6 +149,18 @@
         }
 
         .scenario strong {
+            color: #6A1B9A;
+        }
+
+        .step {
+            background: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .step strong {
             color: #6A1B9A;
         }
 
@@ -135,11 +178,73 @@
         }
 
         .tip {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            color: #2e7d32;
+        }
+
+        .highlight {
             background: #fff3cd;
             border-left: 4px solid #ffc107;
             padding: 15px;
             margin: 15px 0;
             border-radius: 5px;
+        }
+
+        .safety-box {
+            background: #e3f2fd;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .safety-box h4 {
+            color: #1565C0;
+            margin-bottom: 10px;
+        }
+
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            color: #E65100;
+        }
+
+        .warning strong {
+            color: #bf360c;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .success-box strong {
+            color: #2e7d32;
+            font-size: 1.2em;
+        }
+
+        .reproduce-box {
+            background: #fafafa;
+            border: 1px dashed #9C27B0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .reproduce-box h4 {
+            color: #6A1B9A;
+            margin-bottom: 10px;
         }
 
         ul, ol {
@@ -194,6 +299,25 @@
             color: #6A1B9A;
             margin-bottom: 10px;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #9C27B0;
+        }
     </style>
 </head>
 <body>
@@ -203,320 +327,549 @@
         </div>
 
         <header>
-            <h1>5️⃣ 실전 상황 - 현실의 문제들</h1>
-            <p>실제 프로젝트에서 마주치는 상황과 그 해결책!</p>
+            <h1>5장: 실전 상황 - 현실에서 만나는 문제들</h1>
+            <p>실제 프로젝트에서 자주 마주치는 5가지 상황과 해결법!</p>
         </header>
 
+        <div class="learning-objectives">
+            <h3>🎯 이 장을 마치면 다음을 할 수 있습니다:</h3>
+            <ul>
+                <li>실수로 커밋한 민감한 파일을 제거할 수 있다</li>
+                <li>이전 버전으로 안전하게 되돌릴 수 있다</li>
+                <li>다른 브랜치의 특정 파일만 가져올 수 있다</li>
+                <li>팀 작업에서 최신 코드를 유지하는 방법을 알 수 있다</li>
+                <li>잘못된 브랜치에 커밋한 것을 옮길 수 있다</li>
+            </ul>
+        </div>
+
         <div class="nav">
-            <a href="chapter4.html">← 이전 장</a>
+            <a href="chapter4.html">&larr; 이전 장</a>
             <a href="index.html">목차로 돌아가기</a>
         </div>
 
+        <!-- 왜 배우나요? -->
+        <section id="intro">
+            <h2><span class="emoji">💡</span>왜 배우나요?</h2>
+            <p>지금까지 Git의 기본 기능을 배웠습니다. 이 장에서는 <strong>실제로 일어나는 상황</strong>을 재현하고 직접 해결해봅니다.</p>
+            <p>각 시나리오는 이런 구조로 진행됩니다:</p>
+            <ol>
+                <li><strong>상황 설명</strong> - 어떤 문제인가?</li>
+                <li><strong>상황 재현</strong> - 직접 이 문제를 만들어보기</li>
+                <li><strong>해결 방법</strong> - 단계별로 해결하기</li>
+                <li><strong>예방법</strong> - 다시 안 일어나게 하기</li>
+            </ol>
+        </section>
+
         <!-- 5.1 실수로 커밋한 파일 제거 -->
-        <section>
-            <h2><span class="emoji">🗑️</span>5.1 실수로 커밋한 파일 제거하기</h2>
+        <section id="scenario1">
+            <h2><span class="emoji">🗑️</span>시나리오 1: 실수로 비밀 파일을 커밋했어요!</h2>
 
             <div class="scenario">
-                <strong>📍 상황:</strong> 비밀번호가 적힌 config.txt 파일을 실수로 커밋했습니다.
-                이미 GitHub에 올렸으니 어떻게 해야 할까요?
+                <strong>상황:</strong> 비밀번호가 적힌 <code>config.txt</code> 파일을 실수로 커밋하고 push까지 했습니다. 이 파일을 Git에서 제거해야 합니다!
             </div>
 
-            <h3>해결책 1: 파일만 히스토리에서 제거</h3>
-            <p>파일 자체는 삭제하지 않고 Git 히스토리에서만 제거합니다:</p>
+            <div class="reproduce-box">
+                <h4>상황 재현하기 (직접 따라해보세요)</h4>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> mkdir secret-test && cd secret-test<br/>
+<span class="prompt">$</span> git init<br/>
+<span class="prompt">$</span> echo "password=1234" > config.txt<br/>
+<span class="prompt">$</span> echo "Hello World" > index.html<br/>
+<span class="prompt">$</span> git add .<br/>
+<span class="prompt">$</span> git commit -m "Initial commit with config"</code>
+                </div>
+                <p>이제 config.txt(비밀번호 포함)가 Git에 커밋된 상태입니다.</p>
+            </div>
 
+            <h3>해결 방법</h3>
+
+            <div class="step">
+                <strong>Step 1: 파일을 Git 추적에서 제거 (파일은 유지)</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git rm --cached config.txt</code>
+                </div>
+                <p style="margin-top: 10px;"><code>--cached</code>는 "Git에서만 제거하고, 실제 파일은 그대로 두겠다"는 뜻입니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: .gitignore에 추가</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> echo "config.txt" >> .gitignore</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 커밋하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git add .gitignore<br/>
+<span class="prompt">$</span> git commit -m "Remove config.txt from tracking, add to gitignore"</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: push하기 (원격 저장소가 있는 경우)</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git push</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 5: 확인하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git status</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과: config.txt가 더 이상 추적되지 않습니다.</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> ls</code>
+                </div>
+                <p>📊 예상 결과: config.txt 파일은 여전히 폴더에 있습니다. Git에서만 제거된 것입니다.</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 해결!</strong><br/>
+                비밀 파일이 더 이상 Git에 추적되지 않습니다.
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ 중요: 이미 공개된 비밀번호는 반드시 변경하세요!</strong><br/>
+                Git에서 파일을 제거해도, 이전 커밋 기록에는 남아있습니다. 한 번이라도 GitHub에 올라간 비밀번호는 <strong>반드시 새 비밀번호로 변경</strong>해야 합니다.
+            </div>
+
+            <h3>예방법</h3>
+            <p><strong>프로젝트 시작할 때 .gitignore를 먼저 만드세요!</strong></p>
             <div class="code-block">
-                <code># 파일을 스테이징에서 제거<br/>
-                git rm --cached config.txt<br/>
-                <br/>
-                # .gitignore에 추가<br/>
-                echo "config.txt" >> .gitignore<br/>
-                <br/>
-                # 커밋<br/>
-                git add .gitignore<br/>
-                git commit -m "Remove config.txt from tracking"<br/>
-                <br/>
-                # Push<br/>
-                git push</code>
-            </div>
-
-            <h3>해결책 2: 전체 히스토리에서 파일 제거 (고급)</h3>
-            <p>모든 커밋 히스토리에서 파일을 제거하려면:</p>
-
-            <div class="code-block">
-                <code>git filter-branch --tree-filter 'rm -f config.txt' HEAD</code>
-            </div>
-
-            <div class="tip">
-                <strong>💡 팁:</strong> 이 명령어는 강력하지만 복잡합니다. <br/>
-                팀원이 이미 pull했다면 나중에 충돌이 생길 수 있습니다.
-            </div>
-
-            <h3>예방책</h3>
-            <p>처음부터 이런 일을 방지하려면 .gitignore을 잘 설정하세요:</p>
-
-            <div class="code-block">
-                <code># .gitignore 파일<br/>
-                config.txt<br/>
-                *.key<br/>
-                .env<br/>
-                password.txt</code>
-            </div>
-
-            <div class="solution">
-                <strong>✅ 해결!</strong> 비밀번호 파일은 더 이상 Git에 추적되지 않습니다.
-                하지만 한 번 공개된 정보이므로 비밀번호를 반드시 변경하세요!
+                <code><span style="color: #6A9955;"># .gitignore 파일 - 프로젝트 시작 시 생성</span><br/>
+.env<br/>
+config.txt<br/>
+*.key<br/>
+*.pem<br/>
+password*</code>
             </div>
         </section>
 
         <!-- 5.2 이전 버전으로 되돌리기 -->
-        <section>
-            <h2><span class="emoji">⏮️</span>5.2 이전 버전으로 완전히 되돌리기</h2>
+        <section id="scenario2">
+            <h2><span class="emoji">⏮️</span>시나리오 2: 이전 버전으로 되돌리고 싶어요!</h2>
 
             <div class="scenario">
-                <strong>📍 상황:</strong> 지난주의 커밋이 좋았는데, 지금까지의 모든 변경사항을 취소하고 싶습니다.
+                <strong>상황:</strong> 지난주까지는 잘 작동하던 코드인데, 이후 여러 커밋을 했더니 문제가 생겼습니다. 지난주 상태로 돌아가고 싶습니다.
             </div>
 
-            <h3>Step 1: 커밋 로그 확인</h3>
-            <div class="code-block">
-                <code>git log --oneline</code>
+            <div class="reproduce-box">
+                <h4>상황 재현하기</h4>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> mkdir rollback-test && cd rollback-test<br/>
+<span class="prompt">$</span> git init<br/>
+<span class="prompt">$</span> echo "v1: Working code" > app.txt<br/>
+<span class="prompt">$</span> git add . && git commit -m "v1: Working version"<br/>
+<br/>
+<span class="prompt">$</span> echo "v2: Added feature" > app.txt<br/>
+<span class="prompt">$</span> git add . && git commit -m "v2: Add new feature"<br/>
+<br/>
+<span class="prompt">$</span> echo "v3: Broken code!" > app.txt<br/>
+<span class="prompt">$</span> git add . && git commit -m "v3: Refactor (broke something)"</code>
+                </div>
+                <p>이제 v3는 깨졌고, v1으로 돌아가고 싶은 상태입니다.</p>
             </div>
 
-            <h3>Step 2: 원하는 커밋 확인</h3>
-            <div class="code-block">
-                <code>git show abc1234</code>
+            <h3>해결 방법 A: revert로 안전하게 (추천)</h3>
+
+            <div class="safety-box">
+                <h4>이 방법이 안전한 이유</h4>
+                <p>revert는 기존 커밋을 삭제하지 않고, "되돌리는 새 커밋"을 만듭니다. 기록이 모두 남으므로 팀 작업에서 안전합니다. 이미 push한 커밋도 이 방법으로 되돌릴 수 있습니다.</p>
             </div>
 
-            <h3>Step 3: 그 커밋 상태로 되돌리기</h3>
-
-            <p><strong>옵션 A: 부드럽게 (새 커밋 생성)</strong></p>
-            <div class="code-block">
-                <code>git revert abc1234..HEAD</code>
+            <div class="step">
+                <strong>Step 1: 커밋 기록 확인</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git log --oneline</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">c3c3c3c (HEAD -> master) v3: Refactor (broke something)<br/>
+b2b2b2b v2: Add new feature<br/>
+a1a1a1a v1: Working version</span></code>
+                </div>
             </div>
-            <p style="margin-top: 10px;">이렇게 하면 변경사항 되돌리는 새로운 커밋들이 생성됩니다.</p>
 
-            <p><strong>옵션 B: 강하게 (히스토리 초기화)</strong></p>
-            <div class="code-block">
-                <code>git reset --hard abc1234</code>
+            <div class="step">
+                <strong>Step 2: v3과 v2를 되돌리기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git revert --no-commit c3c3c3c<br/>
+<span class="prompt">$</span> git revert --no-commit b2b2b2b<br/>
+<span class="prompt">$</span> git commit -m "Revert to v1 state"</code>
+                </div>
+                <p style="margin-top: 10px;"><code>--no-commit</code>은 각 revert를 개별 커밋으로 만들지 않고, 마지막에 한 번에 커밋하게 합니다.</p>
             </div>
-            <p style="margin-top: 10px;">⚠️ 주의: abc1234 이후의 모든 변경사항이 완전히 삭제됩니다!</p>
 
-            <h3>이미 Push한 경우</h3>
-            <p>옵션 B를 사용했다면 force push해야 합니다:</p>
+            <div class="step">
+                <strong>Step 3: 확인</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> cat app.txt</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과: <code>v1: Working code</code> - v1 상태로 돌아왔습니다!</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 해결!</strong><br/>
+                안전하게 이전 버전으로 되돌렸습니다. 모든 기록이 남아있습니다.
+            </div>
+
+            <h3>해결 방법 B: reset으로 강력하게 (로컬 전용)</h3>
+
+            <div class="safety-box">
+                <h4>안심하세요</h4>
+                <p>이 방법은 <strong>아직 push하지 않은 로컬 커밋</strong>에만 사용하면 안전합니다. 실수해도 <code>git reflog</code>로 복구할 수 있습니다.</p>
+            </div>
+
             <div class="code-block">
-                <code>git push origin master --force</code>
+                <code><span class="prompt">$</span> git reset --hard a1a1a1a  <span style="color: #6A9955;"># v1의 해시값</span></code>
+            </div>
+            <p>v1 이후의 모든 커밋이 삭제됩니다. <strong>push하지 않은 경우에만 사용하세요.</strong></p>
+
+            <div class="warning">
+                <strong>⚠️ 이미 push한 경우 reset + force push는 위험합니다</strong><br/>
+                이미 push한 커밋을 reset하면 <code>git push --force</code>가 필요합니다. 이는 팀원의 작업을 덮어쓸 수 있으므로, <strong>반드시 팀원에게 알리고 함께 진행</strong>하세요. 혼자 작업하는 개인 브랜치에서만 사용을 권장합니다.
+            </div>
+        </section>
+
+        <!-- 5.3 특정 파일만 가져오기 -->
+        <section id="scenario3">
+            <h2><span class="emoji">🔀</span>시나리오 3: 다른 브랜치의 파일 일부만 가져오고 싶어요!</h2>
+
+            <div class="scenario">
+                <strong>상황:</strong> <code>feature/profile</code> 브랜치에 여러 파일을 수정했는데, 그 중 <code>profile.html</code>만 master에 가져오고 싶습니다. 나머지 변경은 아직 준비가 안 됐습니다.
+            </div>
+
+            <div class="reproduce-box">
+                <h4>상황 재현하기</h4>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> mkdir partial-test && cd partial-test<br/>
+<span class="prompt">$</span> git init<br/>
+<span class="prompt">$</span> echo "Home" > index.html<br/>
+<span class="prompt">$</span> git add . && git commit -m "Initial commit"<br/>
+<br/>
+<span style="color: #6A9955;"># feature 브랜치에서 여러 파일 수정</span><br/>
+<span class="prompt">$</span> git checkout -b feature/profile<br/>
+<span class="prompt">$</span> echo "Profile page" > profile.html<br/>
+<span class="prompt">$</span> echo "Settings (not ready)" > settings.html<br/>
+<span class="prompt">$</span> git add . && git commit -m "Add profile and settings"<br/>
+<br/>
+<span style="color: #6A9955;"># master로 돌아가기</span><br/>
+<span class="prompt">$</span> git checkout master</code>
+                </div>
+                <p>이제 master에서 profile.html만 가져오고 싶습니다.</p>
+            </div>
+
+            <h3>해결 방법: 특정 파일만 가져오기</h3>
+
+            <div class="step">
+                <strong>Step 1: 다른 브랜치에서 특정 파일 가져오기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git checkout feature/profile -- profile.html</code>
+                </div>
+                <p style="margin-top: 10px;"><code>--</code> 뒤에 파일명을 적으면 해당 파일만 가져옵니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 확인하고 커밋</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> ls</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과: <code>index.html</code>과 <code>profile.html</code>이 있습니다. <code>settings.html</code>은 없습니다!</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git add profile.html<br/>
+<span class="prompt">$</span> git commit -m "Add profile page from feature branch"</code>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 해결!</strong><br/>
+                원하는 파일만 선택적으로 가져왔습니다.
             </div>
 
             <div class="tip">
-                <strong>⚠️ Force Push 주의!</strong><br/>
-                팀 프로젝트에서는 반드시 팀원에게 알리고 force push하세요.
-                다른 사람의 작업을 덮어쓸 수 있습니다!
-            </div>
-
-            <div class="solution">
-                <strong>✅ 해결!</strong> 프로젝트가 이전 상태로 되돌려졌습니다.
+                <strong>💡 여러 파일 가져오기</strong><br/>
+                <code>git checkout feature/profile -- file1.html file2.css file3.js</code><br/>
+                파일명을 공백으로 구분하여 여러 개를 한 번에 가져올 수 있습니다.
             </div>
         </section>
 
-        <!-- 5.3 다른 브랜치의 변경사항 일부만 가져오기 -->
-        <section>
-            <h2><span class="emoji">🔀</span>5.3 특정 파일만 다른 브랜치에서 가져오기</h2>
+        <!-- 5.4 최신 코드 유지하기 -->
+        <section id="scenario4">
+            <h2><span class="emoji">🔄</span>시나리오 4: 내 브랜치가 master와 너무 달라졌어요!</h2>
 
             <div class="scenario">
-                <strong>📍 상황:</strong> feature/profile 브랜치의 수정된 파일들 중 몇 개만 내 현재 브랜치에 적용하고 싶습니다.
+                <strong>상황:</strong> feature 브랜치에서 일주일째 작업 중인데, 팀원들이 계속 master에 코드를 올리고 있습니다. 나중에 병합할 때 충돌이 너무 많을 것 같아 걱정됩니다.
             </div>
 
-            <h3>방법 1: 특정 파일을 다른 브랜치에서 가져오기</h3>
-            <div class="code-block">
-                <code>git checkout feature/profile -- profile.html profile.css</code>
+            <div class="reproduce-box">
+                <h4>상황 재현하기</h4>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> mkdir sync-test && cd sync-test<br/>
+<span class="prompt">$</span> git init<br/>
+<span class="prompt">$</span> echo "Original" > app.txt<br/>
+<span class="prompt">$</span> git add . && git commit -m "Initial"<br/>
+<br/>
+<span style="color: #6A9955;"># feature 브랜치에서 작업</span><br/>
+<span class="prompt">$</span> git checkout -b feature/mywork<br/>
+<span class="prompt">$</span> echo "My feature" > feature.txt<br/>
+<span class="prompt">$</span> git add . && git commit -m "Add my feature"<br/>
+<br/>
+<span style="color: #6A9955;"># master에서 다른 사람이 작업 (시뮬레이션)</span><br/>
+<span class="prompt">$</span> git checkout master<br/>
+<span class="prompt">$</span> echo "Team update" > team.txt<br/>
+<span class="prompt">$</span> git add . && git commit -m "Team added new file"</code>
+                </div>
+                <p>이제 master와 feature 브랜치가 각각 다른 변경사항을 가지고 있습니다.</p>
             </div>
 
-            <h3>방법 2: 특정 커밋의 변경사항만 가져오기</h3>
-            <div class="code-block">
-                <code>git cherry-pick abc1234</code>
+            <h3>해결 방법: 정기적으로 master 합치기 (추천)</h3>
+
+            <div class="step">
+                <strong>Step 1: feature 브랜치에서 master를 합치기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git checkout feature/mywork<br/>
+<span class="prompt">$</span> git merge master</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">Merge made by the 'ort' strategy.<br/>
+ team.txt | 1 +<br/>
+ 1 file changed, 1 insertion(+)</span></code>
+                </div>
             </div>
 
-            <h3>방법 3: 부분 병합 (병합의 일부만)</h3>
-            <div class="code-block">
-                <code># 먼저 다른 브랜치의 변경사항을 확인<br/>
-                git diff feature/profile -- profile.html<br/>
-                <br/>
-                # 파일을 수동으로 편집한 후<br/>
-                git add profile.html<br/>
-                git commit -m "Merge profile.html from feature/profile"</code>
+            <div class="step">
+                <strong>Step 2: 확인하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> ls</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과: <code>app.txt</code>, <code>feature.txt</code>, <code>team.txt</code> 모두 있습니다! master의 최신 코드가 내 브랜치에 반영되었습니다.</p>
             </div>
 
-            <div class="solution">
-                <strong>✅ 해결!</strong> 원하는 파일들만 가져왔습니다.
-            </div>
-        </section>
-
-        <!-- 5.4 협업할 때 최신 코드 유지하기 -->
-        <section>
-            <h2><span class="emoji">🔄</span>5.4 협업할 때 최신 코드 유지하기</h2>
-
-            <div class="scenario">
-                <strong>📍 상황:</strong> 팀원들이 계속 코드를 push하는데,
-                내 feature 브랜치는 마스터와 점점 멀어지고 있습니다.
-                나중에 병합할 때 충돌이 많을 것 같아요.
-            </div>
-
-            <h3>방법 1: Pull로 항상 최신 유지</h3>
-            <p>매일 마스터의 최신 코드를 pull합니다:</p>
-            <div class="code-block">
-                <code>git checkout master<br/>
-                git pull origin master<br/>
-                git checkout feature/myfeature<br/>
-                git merge master</code>
-            </div>
-
-            <h3>방법 2: Rebase로 깔끔하게</h3>
-            <p>마스터의 최신 커밋을 기반으로 다시 정렬합니다:</p>
-            <div class="code-block">
-                <code>git fetch origin<br/>
-                git rebase origin/master</code>
-            </div>
-
-            <h3>방법 3: 정기적인 병합</h3>
-            <p>일주일에 한 번씩 master를 병합합니다:</p>
-            <div class="code-block">
-                <code>git merge origin/master<br/>
-                # 충돌이 있으면 해결<br/>
-                git add .<br/>
-                git commit -m "Merge latest master"<br/>
-                git push origin feature/myfeature</code>
-            </div>
-
-            <div class="solution">
-                <strong>✅ 해결!</strong> 최신 코드와 동기화되었고, 나중에 병합할 때 충돌이 적을 것입니다.
+            <div class="success-box">
+                <strong>✅ 해결!</strong><br/>
+                내 브랜치에 master의 최신 코드가 반영되었습니다. 충돌이 있었다면 이 시점에서 작은 범위로 해결할 수 있습니다.
             </div>
 
             <h3>팀 협업 Best Practices</h3>
-            <ul>
-                <li><strong>매일 시작 전:</strong> git pull origin master</li>
-                <li><strong>작은 단위로:</strong> 자주 commit하기 (하루에 5~10번)</li>
-                <li><strong>자주 push하기:</strong> 로컬에만 두면 나중에 충돌 위험</li>
-                <li><strong>코드 리뷰:</strong> Pull Request로 병합하기</li>
-                <li><strong>충돌 빨리 해결:</strong> 충돌이 커지기 전에 해결</li>
-            </ul>
+            <table>
+                <tr>
+                    <th>습관</th>
+                    <th>이유</th>
+                </tr>
+                <tr>
+                    <td><strong>매일 시작 전 git pull</strong></td>
+                    <td>최신 코드로 시작하면 충돌이 줄어듦</td>
+                </tr>
+                <tr>
+                    <td><strong>작은 단위로 자주 커밋</strong></td>
+                    <td>문제가 생겨도 작은 범위에서 해결 가능</td>
+                </tr>
+                <tr>
+                    <td><strong>2~3일마다 master 병합</strong></td>
+                    <td>차이가 커지기 전에 합치면 충돌이 적음</td>
+                </tr>
+                <tr>
+                    <td><strong>PR로 병합하기</strong></td>
+                    <td>코드 리뷰로 실수 방지</td>
+                </tr>
+                <tr>
+                    <td><strong>팀원과 소통하기</strong></td>
+                    <td>같은 파일 동시 수정 방지</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- 5.5 잘못된 브랜치에 커밋 -->
+        <section id="scenario5">
+            <h2><span class="emoji">😱</span>시나리오 5: 잘못된 브랜치에 커밋했어요!</h2>
+
+            <div class="scenario">
+                <strong>상황:</strong> feature 브랜치에서 작업해야 했는데, 실수로 master에 커밋해버렸습니다!
+            </div>
+
+            <div class="reproduce-box">
+                <h4>상황 재현하기</h4>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> mkdir wrong-branch-test && cd wrong-branch-test<br/>
+<span class="prompt">$</span> git init<br/>
+<span class="prompt">$</span> echo "Base" > base.txt<br/>
+<span class="prompt">$</span> git add . && git commit -m "Initial"<br/>
+<br/>
+<span style="color: #6A9955;"># 실수로 master에서 작업!</span><br/>
+<span class="prompt">$</span> echo "This should be in feature branch" > oops.txt<br/>
+<span class="prompt">$</span> git add . && git commit -m "Feature work (on wrong branch!)"</code>
+                </div>
+            </div>
+
+            <h3>해결 방법</h3>
+
+            <div class="safety-box">
+                <h4>안심하세요</h4>
+                <p>이 방법은 아직 push하지 않은 커밋에 안전하게 사용할 수 있습니다. 커밋 내용은 절대 사라지지 않고, 올바른 브랜치로 옮겨집니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 1: 새 브랜치를 만들어 커밋 보존</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git branch feature/moved-work</code>
+                </div>
+                <p style="margin-top: 10px;">현재 위치(실수 커밋 포함)에서 새 브랜치를 만듭니다. 아직 이동은 하지 않습니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: master에서 실수 커밋 제거</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git reset --hard HEAD~1</code>
+                </div>
+                <p style="margin-top: 10px;">master에서 마지막 커밋이 제거됩니다. 하지만 <code>feature/moved-work</code> 브랜치에는 남아있습니다!</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: 확인하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> ls    <span style="color: #6A9955;"># master: oops.txt 없음</span></code>
+                </div>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git checkout feature/moved-work<br/>
+<span class="prompt">$</span> ls    <span style="color: #6A9955;"># feature: oops.txt 있음!</span></code>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 해결!</strong><br/>
+                master는 깨끗해졌고, 커밋은 올바른 브랜치로 옮겨졌습니다!
+            </div>
         </section>
 
         <!-- 빠른 참조 -->
-        <section>
+        <section id="quick-reference">
             <h2><span class="emoji">⚡</span>빠른 참조 - 자주 사용하는 명령어</h2>
 
             <div class="quick-ref">
-                <h4>기본 작업</h4>
+                <h4>기본 작업 (매일 사용)</h4>
                 <div class="code-block">
-                    <code>git status          # 상태 확인<br/>
-                    git add .             # 모든 파일 추가<br/>
-                    git commit -m "msg"   # 커밋<br/>
-                    git push              # 원격에 올리기<br/>
-                    git pull              # 원격에서 가져오기</code>
+                    <code><span class="prompt">$</span> git status              <span style="color: #6A9955;"># 현재 상태 확인</span><br/>
+<span class="prompt">$</span> git add .                <span style="color: #6A9955;"># 모든 변경 파일 스테이징</span><br/>
+<span class="prompt">$</span> git commit -m "msg"      <span style="color: #6A9955;"># 변경사항 저장</span><br/>
+<span class="prompt">$</span> git push                 <span style="color: #6A9955;"># GitHub에 올리기</span><br/>
+<span class="prompt">$</span> git pull                 <span style="color: #6A9955;"># GitHub에서 받기</span></code>
                 </div>
             </div>
 
             <div class="quick-ref">
                 <h4>브랜치 작업</h4>
                 <div class="code-block">
-                    <code>git branch                  # 브랜치 목록<br/>
-                    git checkout -b name            # 새 브랜치 생성<br/>
-                    git checkout name               # 브랜치 전환<br/>
-                    git merge name                  # 병합<br/>
-                    git branch -d name              # 브랜치 삭제</code>
+                    <code><span class="prompt">$</span> git branch                      <span style="color: #6A9955;"># 브랜치 목록</span><br/>
+<span class="prompt">$</span> git checkout -b name            <span style="color: #6A9955;"># 새 브랜치 만들고 이동</span><br/>
+<span class="prompt">$</span> git checkout name               <span style="color: #6A9955;"># 브랜치 전환</span><br/>
+<span class="prompt">$</span> git merge name                  <span style="color: #6A9955;"># 브랜치 합치기</span><br/>
+<span class="prompt">$</span> git branch -d name              <span style="color: #6A9955;"># 브랜치 삭제</span></code>
                 </div>
             </div>
 
             <div class="quick-ref">
-                <h4>히스토리 확인</h4>
+                <h4>기록 확인</h4>
                 <div class="code-block">
-                    <code>git log --oneline           # 커밋 로그<br/>
-                    git diff                        # 변경사항<br/>
-                    git show abc1234                # 특정 커밋 확인<br/>
-                    git blame file.txt              # 누가 수정했는지</code>
+                    <code><span class="prompt">$</span> git log --oneline               <span style="color: #6A9955;"># 커밋 기록 (간단히)</span><br/>
+<span class="prompt">$</span> git diff                        <span style="color: #6A9955;"># 변경 내용 비교</span><br/>
+<span class="prompt">$</span> git show abc1234                <span style="color: #6A9955;"># 특정 커밋 상세 보기</span><br/>
+<span class="prompt">$</span> git blame file.txt              <span style="color: #6A9955;"># 누가 수정했는지 확인</span></code>
                 </div>
             </div>
 
             <div class="quick-ref">
-                <h4>문제 해결</h4>
+                <h4>실수 바로잡기</h4>
                 <div class="code-block">
-                    <code>git revert abc1234          # 커밋 되돌리기<br/>
-                    git reset --hard HEAD~1         # 마지막 커밋 삭제<br/>
-                    git stash                       # 변경사항 임시 저장<br/>
-                    git cherry-pick abc1234         # 특정 커밋 적용</code>
+                    <code><span class="prompt">$</span> git revert abc1234              <span style="color: #6A9955;"># 안전하게 커밋 되돌리기</span><br/>
+<span class="prompt">$</span> git reset --soft HEAD~1         <span style="color: #6A9955;"># 커밋만 취소 (파일 유지)</span><br/>
+<span class="prompt">$</span> git stash                       <span style="color: #6A9955;"># 임시 저장</span><br/>
+<span class="prompt">$</span> git stash pop                   <span style="color: #6A9955;"># 임시 저장 복구</span><br/>
+<span class="prompt">$</span> git reflog                      <span style="color: #6A9955;"># 모든 작업 기록 (복구용)</span></code>
                 </div>
             </div>
         </section>
 
-        <!-- 최종 조언 -->
-        <section>
-            <h2><span class="emoji">🎓</span>Git 사용 시 핵심 팁</h2>
+        <!-- 마무리 -->
+        <section id="conclusion">
+            <h2><span class="emoji">🎓</span>축하합니다! Git 입문을 마쳤습니다!</h2>
 
-            <div class="tip">
-                <strong>1️⃣ 자주 commit하기</strong><br/>
-                큰 단위가 아니라 작은 단위로 자주 커밋하세요. 나중에 문제가 생기면 더 쉽게 찾을 수 있습니다.
-            </div>
+            <p>5개 장을 모두 학습했습니다. 이제 Git을 사용하는 데 필요한 기본기를 갖추었습니다.</p>
 
-            <div class="tip">
-                <strong>2️⃣ 명확한 커밋 메시지</strong><br/>
-                "update", "fix" 대신 "Add login validation" 처럼 구체적으로 작성하세요.
-            </div>
+            <h3>핵심 체크리스트</h3>
+            <table>
+                <tr>
+                    <th>배운 것</th>
+                    <th>관련 명령어</th>
+                </tr>
+                <tr>
+                    <td>저장소 만들기</td>
+                    <td>git init</td>
+                </tr>
+                <tr>
+                    <td>파일 저장하기</td>
+                    <td>git add, git commit</td>
+                </tr>
+                <tr>
+                    <td>GitHub 활용</td>
+                    <td>git push, git pull</td>
+                </tr>
+                <tr>
+                    <td>브랜치와 병합</td>
+                    <td>git branch, git merge</td>
+                </tr>
+                <tr>
+                    <td>충돌 해결</td>
+                    <td>수동 편집 후 git add, git commit</td>
+                </tr>
+                <tr>
+                    <td>실수 되돌리기</td>
+                    <td>git revert, git reset</td>
+                </tr>
+                <tr>
+                    <td>임시 저장</td>
+                    <td>git stash</td>
+                </tr>
+                <tr>
+                    <td>복구</td>
+                    <td>git reflog</td>
+                </tr>
+            </table>
 
-            <div class="tip">
-                <strong>3️⃣ 매일 pull로 시작</strong><br/>
-                작업을 시작하기 전에 항상 최신 코드를 받으세요.
-            </div>
-
-            <div class="tip">
-                <strong>4️⃣ 브랜치 활용하기</strong><br/>
-                master는 항상 안정적으로 유지하고, feature 브랜치에서 개발하세요.
-            </div>
-
-            <div class="tip">
-                <strong>5️⃣ 위험한 명령어는 신중하게</strong><br/>
-                --force, --hard 같은 옵션은 매우 조심해서 사용하세요.
-            </div>
-        </section>
-
-        <!-- 다음 스텝 -->
-        <section>
-            <h2><span class="emoji">🚀</span>축하합니다! 이제 뭘 해야 할까요?</h2>
-
-            <h3>다음 학습 주제들</h3>
+            <h3>다음에 배울 것들</h3>
             <ul>
-                <li><strong>GitHub 고급:</strong> Workflow, Actions, 이슈 관리</li>
-                <li><strong>팀 정책:</strong> Commit convention, branching strategy</li>
-                <li><strong>고급 Git:</strong> Submodule, Worktree, 성능 최적화</li>
-                <li><strong>CLI 도구:</strong> 더 빠른 작업을 위한 별칭(alias) 설정</li>
+                <li><strong>GitHub Actions:</strong> 자동화된 테스트와 배포</li>
+                <li><strong>커밋 컨벤션:</strong> 팀에서 통일된 커밋 메시지 규칙</li>
+                <li><strong>Git alias:</strong> 자주 쓰는 명령어 줄여쓰기</li>
+                <li><strong>Git hooks:</strong> 커밋 전 자동 검사</li>
             </ul>
 
-            <h3>자주 방문할 사이트</h3>
-            <ul>
-                <li><a href="https://git-scm.com/docs" target="_blank">공식 Git 문서</a></li>
-                <li><a href="https://github.com" target="_blank">GitHub</a></li>
-                <li><a href="https://gitignore.io" target="_blank">gitignore.io</a> - .gitignore 생성</li>
-            </ul>
-
-            <h3>유용한 Git alias 만들기</h3>
+            <h3>유용한 Git alias 설정</h3>
             <div class="code-block">
-                <code>git config --global alias.st status<br/>
-                git config --global alias.co checkout<br/>
-                git config --global alias.br branch<br/>
-                git config --global alias.cm commit<br/>
-                git config --global alias.unstage 'reset HEAD --'</code>
+                <code><span class="prompt">$</span> git config --global alias.st status<br/>
+<span class="prompt">$</span> git config --global alias.co checkout<br/>
+<span class="prompt">$</span> git config --global alias.br branch<br/>
+<span class="prompt">$</span> git config --global alias.lg "log --oneline --graph"</code>
             </div>
+            <p>이제 <code>git st</code>만 입력하면 <code>git status</code>와 같습니다!</p>
 
-            <p style="margin-top: 20px;">이제 <code>git st</code>만으로 status를 볼 수 있습니다!</p>
+            <div class="tip">
+                <strong>마지막 조언</strong><br/>
+                Git은 사용할수록 익숙해집니다. 처음에는 <code>add</code>, <code>commit</code>, <code>push</code> 세 가지만 사용하세요. 나머지는 필요할 때 이 교재를 다시 찾아보면 됩니다. 실수해도 괜찮습니다 - <code>git reflog</code>가 여러분의 안전망입니다!
+            </div>
         </section>
 
         <div class="nav">
-            <a href="chapter4.html">← 이전 장</a>
+            <a href="chapter4.html">&larr; 이전 장</a>
             <a href="index.html">목차로 돌아가기</a>
         </div>
 
         <div class="footer">
-            <p>🎉 모든 장을 완료했습니다! 축하합니다! 🎉</p>
+            <p>모든 장을 완료했습니다! 축하합니다!</p>
             <p style="margin-top: 15px;">이제 Git을 자신 있게 사용할 수 있습니다. 계속 연습하면서 더 깊이 있게 배워나가세요!</p>
-            <p style="margin-top: 20px; opacity: 0.8;">Git 입문 교재 © 2026 - 초보자부터 전문가까지!</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Git 입문 교재 &copy; 2026</p>
         </div>
     </div>
 </body>

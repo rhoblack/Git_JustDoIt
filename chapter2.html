@@ -43,6 +43,29 @@
             opacity: 0.95;
         }
 
+        .learning-objectives {
+            background: linear-gradient(135deg, #2196F315, #1976D215);
+            border: 2px solid #2196F3;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0 30px 0;
+        }
+
+        .learning-objectives h3 {
+            color: #2196F3;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .learning-objectives ul {
+            margin-bottom: 0;
+        }
+
+        .learning-objectives li {
+            color: #444;
+        }
+
         .nav {
             display: flex;
             justify-content: space-between;
@@ -103,8 +126,8 @@
         }
 
         .code-block {
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
+            background: #1e1e1e;
+            border: 1px solid #333;
             border-radius: 5px;
             padding: 15px;
             margin: 15px 0;
@@ -114,7 +137,15 @@
         }
 
         .code-block code {
-            color: #d63384;
+            color: #d4d4d4;
+        }
+
+        .code-block .prompt {
+            color: #6A9955;
+        }
+
+        .code-block .output {
+            color: #9cdcfe;
         }
 
         .step {
@@ -140,6 +171,45 @@
 
         .tip strong {
             color: #1b5e20;
+        }
+
+        .term {
+            background: #e3f2fd;
+            border-left: 4px solid #1565C0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .term h4 {
+            color: #1565C0;
+            margin-bottom: 8px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .success-box strong {
+            color: #2e7d32;
+            font-size: 1.2em;
+        }
+
+        .error-box {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .error-box strong {
+            color: #c62828;
         }
 
         ul, ol {
@@ -219,303 +289,518 @@
         </div>
 
         <header>
-            <h1>2️⃣ 기본 작업 - 매일 사용하는 명령어</h1>
-            <p>Git의 기본 워크플로우를 배워봅시다!</p>
+            <h1>2장: 기본 작업 - 매일 사용하는 명령어</h1>
+            <p>파일을 저장하고, 기록을 확인하고, GitHub에 올려봅시다!</p>
         </header>
 
-        <div class="nav">
-            <a href="chapter1.html">← 이전 장</a>
-            <a href="chapter3.html">다음 장 →</a>
+        <div class="learning-objectives">
+            <h3>🎯 이 장을 마치면 다음을 할 수 있습니다:</h3>
+            <ul>
+                <li>파일을 Git에 등록(add)하고 변경사항을 저장(commit)할 수 있다</li>
+                <li>스테이징 영역이 왜 필요한지 설명할 수 있다</li>
+                <li>변경 기록(log)과 변경 내용(diff)을 확인할 수 있다</li>
+                <li>GitHub에 코드를 올리고(push) 받아올(pull) 수 있다</li>
+                <li>.gitignore로 불필요한 파일을 제외할 수 있다</li>
+            </ul>
         </div>
 
-        <!-- 2.1 파일 추가하기 -->
-        <section>
-            <h2><span class="emoji">📝</span>2.1 파일 추가하기 (git add)</h2>
+        <div class="nav">
+            <a href="chapter1.html">&larr; 이전 장</a>
+            <a href="chapter3.html">다음 장 &rarr;</a>
+        </div>
 
-            <p>이제 실제로 파일을 만들고 Git에 추가해봅시다. 파일을 Git에 추가하는 것은 "이 파일의 변경사항을 기록해주세요"라고 말하는 것입니다.</p>
+        <!-- 왜 배우나요? -->
+        <section id="intro">
+            <h2><span class="emoji">💡</span>왜 배우나요?</h2>
+            <p>1장에서 Git 저장소를 만들었지만, 아직 아무것도 저장하지 않았습니다. 이 장에서 배우는 <strong>add &rarr; commit &rarr; push</strong>가 Git의 가장 기본이자, 매일 사용하는 핵심 워크플로우입니다.</p>
+            <p>이 세 가지만 익히면 Git의 80%를 활용하는 것과 같습니다!</p>
+        </section>
 
-            <h3>따라하기</h3>
+        <!-- 2.1 스테이징과 add -->
+        <section id="staging">
+            <h2><span class="emoji">📝</span>2.1 파일 등록하기 (git add)</h2>
+
+            <div class="term">
+                <h4>📌 용어: 스테이징 영역 (Staging Area)</h4>
+                <p><strong>한글 정의:</strong> 커밋(저장)하기 전에, "이번에 저장할 파일"을 골라 놓는 대기 공간입니다.</p>
+                <p><strong>일상 비유:</strong> 택배를 보낼 때를 생각해보세요. 모든 물건을 한꺼번에 보내지 않고, 보낼 물건만 "포장 대기 테이블"에 올려놓죠? 스테이징 영역이 바로 그 테이블입니다.</p>
+                <p><strong>왜 필요한가?</strong> 10개 파일을 수정했지만, 지금은 3개만 저장하고 싶을 때가 있습니다. 스테이징 영역이 있으면 원하는 파일만 골라서 저장할 수 있습니다.</p>
+            </div>
+
+            <div class="workflow-diagram">
+                <strong>파일의 상태 변화</strong><br/><br/>
+                [작업 폴더] &rarr; <strong>git add</strong> &rarr; [스테이징 영역] &rarr; <strong>git commit</strong> &rarr; [저장소]<br/><br/>
+                파일 수정 &rarr; 포장 대기 테이블 &rarr; 택배 발송 완료
+            </div>
+
+            <h3>직접 해보기</h3>
+            <p>1장에서 만든 <code>my-first-project</code> 폴더에서 계속 진행합니다.</p>
 
             <div class="step">
-                <strong>Step 1: 텍스트 파일 만들기</strong>
-                <p>텍스트 에디터(메모장 등)로 파일을 만듭니다:</p>
+                <strong>Step 1: 파일 만들기</strong>
                 <div class="code-block">
-                    <code>echo "Hello, Git!" > hello.txt</code>
+                    <code><span class="prompt">$</span> echo "Hello, Git!" > hello.txt</code>
                 </div>
+                <p style="margin-top: 10px;">"Hello, Git!"이라는 내용의 파일이 만들어집니다. 이미 1장에서 만들었다면 이 단계는 건너뛰세요.</p>
             </div>
 
             <div class="step">
-                <strong>Step 2: 저장소 상태 확인</strong>
+                <strong>Step 2: 상태 확인하기</strong>
                 <div class="code-block">
-                    <code>git status</code>
+                    <code><span class="prompt">$</span> git status</code>
                 </div>
-                <p style="margin-top: 10px;">출력 예시:</p>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
                 <div class="code-block">
-                    <code>Untracked files:<br/>
-                    hello.txt</code>
+                    <code><span class="output">Untracked files:<br/>
+  (use "git add &lt;file&gt;..." to include in what will be committed)<br/>
+        hello.txt</span></code>
                 </div>
-                <p style="margin-top: 10px;">"Untracked"는 "Git이 추적하지 않고 있는" 파일이라는 뜻입니다.</p>
+                <p>"Untracked"는 "Git이 아직 추적하지 않는 파일"입니다. Git에게 "이 파일을 관리해줘"라고 알려줘야 합니다.</p>
             </div>
 
             <div class="step">
-                <strong>Step 3: 파일을 Git에 추가</strong>
+                <strong>Step 3: 파일을 스테이징 영역에 올리기</strong>
                 <div class="code-block">
-                    <code>git add hello.txt</code>
+                    <code><span class="prompt">$</span> git add hello.txt</code>
                 </div>
-                <p style="margin-top: 10px;">이 명령어는 파일을 "스테이징 영역(Staging Area)"에 추가합니다.</p>
+                <p style="margin-top: 10px;">hello.txt를 "포장 대기 테이블"에 올렸습니다.</p>
             </div>
 
             <div class="step">
                 <strong>Step 4: 다시 상태 확인</strong>
                 <div class="code-block">
-                    <code>git status</code>
+                    <code><span class="prompt">$</span> git status</code>
                 </div>
-                <p style="margin-top: 10px;">이제 "Changes to be committed:" 아래에 파일이 나타납니다!</p>
-            </div>
-
-            <h3>여러 파일 한 번에 추가</h3>
-            <p>모든 파일을 추가하려면:</p>
-            <div class="code-block">
-                <code>git add .</code>
-            </div>
-
-            <p>또는 특정 폴더의 모든 파일:</p>
-            <div class="code-block">
-                <code>git add folder-name/</code>
-            </div>
-
-            <div class="workflow-diagram">
-                <strong>파일의 상태 변화</strong><br/><br/>
-                파일 생성 → Untracked 상태<br/>
-                ↓ (git add)<br/>
-                Staged 상태 (준비 완료)<br/>
-                ↓ (git commit)<br/>
-                Committed 상태 (기록됨)
-            </div>
-        </section>
-
-        <!-- 2.2 변경사항 저장하기 -->
-        <section>
-            <h2><span class="emoji">💾</span>2.2 변경사항 저장하기 (git commit)</h2>
-
-            <p>스테이징된 파일들을 실제로 Git 저장소에 저장하는 것을 "커밋(commit)"이라고 합니다. 각 커밋은 하나의 버전을 만드는 것입니다.</p>
-
-            <h3>따라하기</h3>
-
-            <div class="step">
-                <strong>Step 1: 커밋 메시지와 함께 저장</strong>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
                 <div class="code-block">
-                    <code>git commit -m "Add hello.txt file"</code>
+                    <code><span class="output">Changes to be committed:<br/>
+  (use "git rm --cached &lt;file&gt;..." to unstage)<br/>
+        new file:   hello.txt</span></code>
                 </div>
-                <p style="margin-top: 10px;">"-m" 옵션은 "메시지"를 의미하고, 큰따옴표 안에 변경사항을 설명합니다.</p>
+                <p>이제 "커밋될 변경사항"으로 표시됩니다. 저장할 준비가 된 것입니다!</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                파일을 스테이징 영역에 올렸습니다!
+            </div>
+
+            <h3>여러 파일 한 번에 추가하기</h3>
+            <div class="code-block">
+                <code><span class="prompt">$</span> git add .          <span style="color: #6A9955;"># 현재 폴더의 모든 변경된 파일 추가</span></code>
+            </div>
+            <div class="code-block">
+                <code><span class="prompt">$</span> git add *.txt      <span style="color: #6A9955;"># .txt 파일만 모두 추가</span></code>
+            </div>
+            <div class="code-block">
+                <code><span class="prompt">$</span> git add folder/    <span style="color: #6A9955;"># 특정 폴더의 모든 파일 추가</span></code>
             </div>
 
             <div class="tip">
-                <strong>💡 좋은 커밋 메시지 작성 팁</strong><br/>
-                ✅ 좋은 예: "Add login feature", "Fix bug in calculation"<br/>
-                ❌ 나쁜 예: "asdf", "fixed", "update"<br/>
-                명확하고 간결하게 무엇을 했는지 설명하세요!
+                <strong>💡 실수로 add했다면?</strong><br/>
+                스테이징을 취소하려면: <code>git reset hello.txt</code><br/>
+                파일은 그대로 있고, 스테이징만 취소됩니다. 안전합니다!
+            </div>
+        </section>
+
+        <!-- 2.2 커밋 -->
+        <section id="commit">
+            <h2><span class="emoji">💾</span>2.2 변경사항 저장하기 (git commit)</h2>
+
+            <div class="term">
+                <h4>📌 용어: 커밋 (Commit)</h4>
+                <p><strong>한글 정의:</strong> 스테이징된 파일들의 변경사항을 Git 저장소에 영구적으로 기록하는 행위입니다.</p>
+                <p><strong>일상 비유:</strong> 포장 대기 테이블(스테이징)에 올려놓은 물건들을 "택배로 발송"하는 것입니다. 발송되면 언제 보냈는지, 뭘 보냈는지 기록이 남습니다.</p>
+                <p><strong>왜 필요한가?</strong> 커밋이 있어야 "3일 전 상태로 되돌리기"가 가능합니다. 커밋 = 되돌릴 수 있는 저장 지점입니다.</p>
+            </div>
+
+            <h3>직접 해보기</h3>
+
+            <div class="step">
+                <strong>Step 1: 커밋하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git commit -m "Add hello.txt file"</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">[master (root-commit) a1b2c3d] Add hello.txt file<br/>
+ 1 file changed, 1 insertion(+)</br>
+ create mode 100644 hello.txt</span></code>
+                </div>
+                <p><code>-m</code>은 "message(메시지)"의 약자입니다. 큰따옴표 안에 "무엇을 했는지" 설명을 적습니다.</p>
             </div>
 
             <div class="step">
                 <strong>Step 2: 상태 확인</strong>
                 <div class="code-block">
-                    <code>git status</code>
+                    <code><span class="prompt">$</span> git status</code>
                 </div>
-                <p style="margin-top: 10px;">이제 "nothing to commit, working tree clean"이라는 메시지가 나타납니다!</p>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">nothing to commit, working tree clean</span></code>
+                </div>
+                <p>"더 이상 저장할 것이 없다"는 뜻입니다. 모든 변경사항이 안전하게 기록되었습니다!</p>
             </div>
 
-            <h3>커밋 로그 보기</h3>
-            <p>지금까지 만든 커밋들을 보려면:</p>
-            <div class="code-block">
-                <code>git log</code>
+            <div class="step">
+                <strong>Step 3: 한 번 더 수정하고 커밋해보기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> echo "I am learning Git!" >> hello.txt</code>
+                </div>
+                <p style="margin-top: 10px;"><code>>></code>는 파일 끝에 내용을 추가합니다. (<code>></code>는 덮어쓰기)</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git add hello.txt<br/>
+<span class="prompt">$</span> git commit -m "Add learning message to hello.txt"</code>
+                </div>
             </div>
 
-            <p>더 간단하게 보려면:</p>
-            <div class="code-block">
-                <code>git log --oneline</code>
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                두 번째 커밋까지 완료! 이제 2개의 저장 지점이 생겼습니다.
+            </div>
+
+            <div class="tip">
+                <strong>💡 좋은 커밋 메시지 작성법</strong><br/>
+                &#10004; 좋은 예: "Add login feature", "Fix calculation bug", "Update README"<br/>
+                &#10008; 나쁜 예: "asdf", "수정", "update", "ㅋㅋ"<br/>
+                <strong>무엇을 했는지</strong> 명확하게 적으세요. 나중에 커밋 기록을 볼 때 큰 도움이 됩니다.
             </div>
 
             <div class="highlight">
-                <strong>📌 커밋의 의미</strong><br/>
-                커밋은 타임캡슐처럼, 그 시점에서의 프로젝트 모든 파일의 상태를 기록합니다.
-                언제든지 이전 커밋 상태로 되돌릴 수 있습니다!
+                <strong>📌 add + commit 한 줄로 하기</strong><br/>
+                이미 Git이 추적 중인 파일은 한 줄로 가능합니다:<br/>
+                <code>git commit -am "메시지"</code><br/>
+                (-a는 수정된 추적 파일을 자동으로 add합니다. 새 파일에는 적용되지 않습니다.)
             </div>
         </section>
 
         <!-- 2.3 상태 확인하기 -->
-        <section>
-            <h2><span class="emoji">🔍</span>2.3 저장소 상태 확인하기</h2>
+        <section id="status">
+            <h2><span class="emoji">🔍</span>2.3 기록 확인하기 (git log, git diff)</h2>
 
-            <p>Git 작업을 하다 보면 현재 상태를 파악해야 합니다. 그럴 때 사용하는 명령어들입니다.</p>
-
-            <h3>git status - 현재 상태 확인</h3>
-            <div class="code-block">
-                <code>git status</code>
-            </div>
-            <p>이 명령어로 알 수 있는 것:</p>
-            <ul>
-                <li>현재 브랜치 이름</li>
-                <li>변경되었지만 커밋되지 않은 파일들</li>
-                <li>스테이징된(커밋 준비 완료) 파일들</li>
-            </ul>
-
-            <h3>git log - 커밋 히스토리 보기</h3>
-            <div class="code-block">
-                <code>git log</code>
-            </div>
-
-            <p>한 줄씩 간단하게 보기:</p>
-            <div class="code-block">
-                <code>git log --oneline</code>
-            </div>
-
-            <p>최근 5개 커밋만 보기:</p>
-            <div class="code-block">
-                <code>git log --oneline -5</code>
-            </div>
-
-            <h3>git diff - 변경사항 보기</h3>
-            <p>파일이 어떻게 변경되었는지 보려면:</p>
-            <div class="code-block">
-                <code>git diff</code>
-            </div>
-
-            <p>커밋된 변경사항만 보기:</p>
-            <div class="code-block">
-                <code>git diff --staged</code>
-            </div>
-
-            <h3>따라해보기</h3>
+            <h3>직접 해보기: 커밋 기록 보기</h3>
 
             <div class="step">
-                <strong>Step 1: 파일 수정</strong>
+                <strong>Step 1: 전체 커밋 기록 보기</strong>
                 <div class="code-block">
-                    <code>echo "Hello, Git World!" > hello.txt</code>
+                    <code><span class="prompt">$</span> git log</code>
                 </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">commit b2c3d4e5f6a7... (HEAD -> master)<br/>
+Author: Kim Min-ho &lt;kim@gmail.com&gt;<br/>
+Date:   Mon Mar 15 10:30:00 2026<br/>
+<br/>
+    Add learning message to hello.txt<br/>
+<br/>
+commit a1b2c3d4e5f6...<br/>
+Author: Kim Min-ho &lt;kim@gmail.com&gt;<br/>
+Date:   Mon Mar 15 10:25:00 2026<br/>
+<br/>
+    Add hello.txt file</span></code>
+                </div>
+                <p>각 커밋에 <strong>누가</strong>(Author), <strong>언제</strong>(Date), <strong>무엇을</strong>(메시지) 했는지 기록되어 있습니다.</p>
+                <p>나가려면 <code style="background: #f0f0f0; padding: 2px 5px;">q</code> 키를 누르세요.</p>
             </div>
 
             <div class="step">
-                <strong>Step 2: 변경사항 확인</strong>
+                <strong>Step 2: 한 줄로 간단하게 보기</strong>
                 <div class="code-block">
-                    <code>git status</code>
+                    <code><span class="prompt">$</span> git log --oneline</code>
                 </div>
-                <p style="margin-top: 10px;">"modified: hello.txt"가 나타났나요?</p>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">b2c3d4e Add learning message to hello.txt<br/>
+a1b2c3d Add hello.txt file</span></code>
+                </div>
+                <p>앞의 7자리(<code>b2c3d4e</code>)가 각 커밋의 고유 ID(해시값)입니다. 나중에 특정 커밋을 가리킬 때 사용합니다.</p>
+            </div>
+
+            <h3>직접 해보기: 변경 내용 비교하기</h3>
+
+            <div class="step">
+                <strong>Step 3: 파일 수정 후 변경 내용 확인</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> echo "Git is awesome!" >> hello.txt</code>
+                </div>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git diff</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">diff --git a/hello.txt b/hello.txt<br/>
+--- a/hello.txt<br/>
++++ b/hello.txt<br/>
+@@ -1,2 +1,3 @@<br/>
+ Hello, Git!<br/>
+ I am learning Git!<br/>
+<span style="color: #4EC9B0;">+Git is awesome!</span></span></code>
+                </div>
+                <p><code style="color: #4CAF50;">+</code>로 시작하는 줄은 추가된 내용, <code style="color: #f44336;">-</code>로 시작하는 줄은 삭제된 내용입니다.</p>
             </div>
 
             <div class="step">
-                <strong>Step 3: 정확히 뭐가 바뀌었는지 보기</strong>
+                <strong>Step 4: 변경사항 저장하기</strong>
                 <div class="code-block">
-                    <code>git diff</code>
+                    <code><span class="prompt">$</span> git add hello.txt<br/>
+<span class="prompt">$</span> git commit -m "Add awesome message"</code>
                 </div>
-                <p style="margin-top: 10px;">"-" 로 시작하는 줄은 제거된 부분, "+"로 시작하는 줄은 추가된 부분입니다.</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                세 번째 커밋까지 완료! 커밋 기록과 변경 내용을 확인하는 방법을 배웠습니다.
             </div>
         </section>
 
         <!-- 2.4 Push & Pull -->
-        <section>
-            <h2><span class="emoji">🔄</span>2.4 원격 저장소와 동기화하기</h2>
+        <section id="remote">
+            <h2><span class="emoji">🔄</span>2.4 GitHub에 올리고 받아오기 (push &amp; pull)</h2>
 
-            <p>GitHub, GitLab 같은 원격 서버에 코드를 올리고 가져오는 방법을 배워봅시다.</p>
-
-            <h3>원격 저장소 추가하기</h3>
-            <p>먼저 GitHub에서 저장소를 만든 후, 다음 명령어로 연결합니다:</p>
-            <div class="code-block">
-                <code>git remote add origin https://github.com/당신의username/저장소이름.git</code>
+            <div class="term">
+                <h4>📌 용어: Origin (원격 저장소 이름)</h4>
+                <p><strong>한글 정의:</strong> 원격 저장소(GitHub)의 기본 이름입니다. "origin"은 "원본"이라는 뜻입니다.</p>
+                <p><strong>일상 비유:</strong> 내 컴퓨터의 파일을 Google Drive에 백업할 때, Google Drive를 "origin"이라고 부르는 것과 같습니다.</p>
+                <p><strong>왜 필요한가?</strong> 컴퓨터가 고장나도 GitHub에 백업이 있으면 안전합니다. 또한 다른 사람과 코드를 공유할 수 있습니다.</p>
             </div>
 
-            <p>잘 연결됐는지 확인:</p>
-            <div class="code-block">
-                <code>git remote -v</code>
+            <h3>직접 해보기: GitHub에 올리기</h3>
+
+            <div class="step">
+                <strong>Step 1: GitHub에서 원격 저장소 만들기</strong>
+                <ol>
+                    <li>GitHub.com에 로그인합니다</li>
+                    <li>오른쪽 상단의 "+" 버튼 &rarr; "New repository" 클릭</li>
+                    <li>Repository name에 "my-first-project" 입력</li>
+                    <li>"Create repository" 클릭</li>
+                </ol>
             </div>
 
-            <h3>Push - 로컬에서 원격으로 올리기</h3>
-            <p>로컬 저장소의 커밋을 GitHub에 올립니다:</p>
-            <div class="code-block">
-                <code>git push origin master</code>
+            <div class="step">
+                <strong>Step 2: 로컬 저장소와 GitHub 연결하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git remote add origin https://github.com/사용자이름/my-first-project.git</code>
+                </div>
+                <p style="margin-top: 10px;">GitHub에서 제공하는 URL을 사용합니다. 연결을 확인하려면:</p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git remote -v</code>
+                </div>
+                <p>📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">origin  https://github.com/사용자이름/my-first-project.git (fetch)<br/>
+origin  https://github.com/사용자이름/my-first-project.git (push)</span></code>
+                </div>
             </div>
 
-            <p>이후부터는 더 간단하게:</p>
-            <div class="code-block">
-                <code>git push</code>
+            <div class="step">
+                <strong>Step 3: GitHub에 올리기 (Push)</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git push -u origin master</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">Enumerating objects: 9, done.<br/>
+Counting objects: 100% (9/9), done.<br/>
+...<br/>
+To https://github.com/사용자이름/my-first-project.git<br/>
+ * [new branch]      master -> master<br/>
+Branch 'master' set up to track remote branch 'master' from 'origin'.</span></code>
+                </div>
+                <p><code>-u</code>는 처음 한 번만 필요합니다. 이후에는 <code>git push</code>만 입력하면 됩니다.</p>
             </div>
 
-            <h3>Pull - 원격에서 로컬로 가져오기</h3>
-            <p>다른 사람의 변경사항이나 원격 저장소의 업데이트를 가져옵니다:</p>
-            <div class="code-block">
-                <code>git pull origin master</code>
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                GitHub에서 내 코드를 확인해보세요! 브라우저에서 저장소 페이지를 새로고침하면 파일이 나타납니다.
             </div>
 
-            <p>또는 간단하게:</p>
-            <div class="code-block">
-                <code>git pull</code>
+            <h3>Push 실패 시 해결 방법</h3>
+
+            <div class="error-box">
+                <strong>에러: "rejected - non-fast-forward"</strong>
+                <div class="code-block">
+                    <code><span class="output">! [rejected]        master -> master (non-fast-forward)<br/>
+error: failed to push some refs to '...'</span></code>
+                </div>
+                <p style="margin-top: 10px;"><strong>원인:</strong> 다른 사람(또는 GitHub에서 직접)이 변경사항을 올렸는데, 내가 받지 않고 push하려고 할 때 발생합니다.</p>
+                <p><strong>해결:</strong></p>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git pull origin master   <span style="color: #6A9955;"># 먼저 받아오기</span><br/>
+<span class="prompt">$</span> git push origin master   <span style="color: #6A9955;"># 다시 올리기</span></code>
+                </div>
+            </div>
+
+            <div class="error-box">
+                <strong>에러: "Authentication failed"</strong>
+                <p style="margin-top: 10px;"><strong>원인:</strong> GitHub 인증 정보가 잘못되었을 때 발생합니다.</p>
+                <p><strong>해결:</strong> GitHub에서 Personal Access Token을 생성하고, 비밀번호 대신 토큰을 사용하세요. (GitHub &rarr; Settings &rarr; Developer settings &rarr; Personal access tokens)</p>
+            </div>
+
+            <h3>직접 해보기: GitHub에서 받아오기 (Pull)</h3>
+
+            <div class="step">
+                <strong>Step 4: 원격 저장소에서 가져오기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git pull origin master</code>
+                </div>
+                <p style="margin-top: 10px;">다른 사람이 올린 변경사항이나 GitHub에서 직접 수정한 내용을 내 컴퓨터로 가져옵니다.</p>
+                <p>이후에는 <code>git pull</code>만 입력해도 됩니다.</p>
             </div>
 
             <div class="workflow-diagram">
-                <strong>Git 기본 워크플로우</strong><br/><br/>
+                <strong>Git 기본 워크플로우 (매일 반복!)</strong><br/><br/>
                 1. 파일 수정<br/>
-                2. git add (스테이징)<br/>
-                3. git commit (로컬 저장)<br/>
-                4. git push (원격 올리기)<br/>
-                5. 다른 사람: git pull (받기)
+                2. <strong>git add</strong> (스테이징)<br/>
+                3. <strong>git commit -m "메시지"</strong> (로컬 저장)<br/>
+                4. <strong>git push</strong> (GitHub에 올리기)<br/><br/>
+                팀원이 올린 코드 받기: <strong>git pull</strong>
             </div>
 
             <div class="tip">
                 <strong>💡 Pull을 먼저!</strong><br/>
-                팀 프로젝트에서는 push 전에 항상 pull을 해서 최신 코드를 받으세요!
+                팀 프로젝트에서는 작업 시작 전에 항상 <code>git pull</code>을 해서 최신 코드를 받으세요. 이렇게 하면 충돌을 줄일 수 있습니다.
+            </div>
+        </section>
+
+        <!-- 2.5 .gitignore -->
+        <section id="gitignore">
+            <h2><span class="emoji">🚫</span>2.5 불필요한 파일 제외하기 (.gitignore)</h2>
+
+            <div class="term">
+                <h4>📌 용어: .gitignore</h4>
+                <p><strong>한글 정의:</strong> Git이 무시해야 할 파일 목록을 적어놓는 파일입니다.</p>
+                <p><strong>일상 비유:</strong> 택배를 보낼 때 "이건 안 보내도 돼" 목록을 만드는 것과 같습니다. 비밀번호 파일, 임시 파일 등은 Git에 올리면 안 되니까요.</p>
+                <p><strong>왜 필요한가?</strong> 비밀번호, API 키 같은 민감한 정보가 GitHub에 올라가면 보안 사고가 발생합니다. 또한 컴파일 결과물 같은 임시 파일은 올릴 필요가 없습니다.</p>
+            </div>
+
+            <h3>직접 해보기</h3>
+
+            <div class="step">
+                <strong>Step 1: .gitignore 파일 만들기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> echo "secret.txt" > .gitignore</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: 무시되는지 확인하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> echo "my-password-123" > secret.txt<br/>
+<span class="prompt">$</span> git status</code>
+                </div>
+                <p style="margin-top: 10px;">📊 예상 결과:</p>
+                <div class="code-block">
+                    <code><span class="output">Untracked files:<br/>
+        .gitignore</span></code>
+                </div>
+                <p>secret.txt가 목록에 나타나지 않습니다! Git이 무시하고 있습니다.</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: .gitignore 파일 커밋하기</strong>
+                <div class="code-block">
+                    <code><span class="prompt">$</span> git add .gitignore<br/>
+<span class="prompt">$</span> git commit -m "Add .gitignore file"</code>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ 성공!</strong><br/>
+                이제 secret.txt는 Git이 추적하지 않습니다!
+            </div>
+
+            <h3>자주 사용하는 .gitignore 패턴</h3>
+            <div class="code-block">
+                <code><span style="color: #6A9955;"># 비밀 파일</span><br/>
+.env<br/>
+*.key<br/>
+config/secrets.yml<br/>
+<br/>
+<span style="color: #6A9955;"># 운영체제 파일</span><br/>
+.DS_Store<br/>
+Thumbs.db<br/>
+<br/>
+<span style="color: #6A9955;"># 임시 파일</span><br/>
+*.log<br/>
+*.tmp<br/>
+<br/>
+<span style="color: #6A9955;"># 빌드 결과물</span><br/>
+node_modules/<br/>
+__pycache__/<br/>
+*.class</code>
+            </div>
+
+            <div class="tip">
+                <strong>💡 프로젝트 시작할 때 .gitignore를 먼저 만드세요!</strong><br/>
+                나중에 추가하면, 이미 Git에 올라간 파일은 별도 작업이 필요합니다. 처음부터 설정하는 것이 훨씬 쉽습니다.
             </div>
         </section>
 
         <!-- 요약 -->
-        <section>
+        <section id="summary">
             <h2><span class="emoji">📚</span>2장 핵심 요약</h2>
 
             <table>
                 <tr>
                     <th>명령어</th>
-                    <th>목적</th>
-                    <th>예시</th>
+                    <th>역할</th>
+                    <th>사용 장면</th>
                 </tr>
                 <tr>
-                    <td><strong>git add</strong></td>
+                    <td><strong>git add 파일명</strong></td>
                     <td>파일을 스테이징</td>
-                    <td>git add file.txt</td>
+                    <td>커밋 전 저장할 파일 선택</td>
                 </tr>
                 <tr>
-                    <td><strong>git commit</strong></td>
+                    <td><strong>git add .</strong></td>
+                    <td>모든 변경 파일 스테이징</td>
+                    <td>전부 다 저장하고 싶을 때</td>
+                </tr>
+                <tr>
+                    <td><strong>git commit -m "메시지"</strong></td>
                     <td>변경사항 저장</td>
-                    <td>git commit -m "message"</td>
+                    <td>작업 완료 후 기록</td>
                 </tr>
                 <tr>
-                    <td><strong>git status</strong></td>
-                    <td>현재 상태 확인</td>
-                    <td>git status</td>
+                    <td><strong>git log --oneline</strong></td>
+                    <td>커밋 기록 보기</td>
+                    <td>이전 작업 확인</td>
                 </tr>
                 <tr>
-                    <td><strong>git log</strong></td>
-                    <td>커밋 히스토리</td>
-                    <td>git log --oneline</td>
+                    <td><strong>git diff</strong></td>
+                    <td>변경 내용 비교</td>
+                    <td>뭐가 바뀌었는지 확인</td>
                 </tr>
                 <tr>
                     <td><strong>git push</strong></td>
-                    <td>원격에 올리기</td>
-                    <td>git push</td>
+                    <td>GitHub에 올리기</td>
+                    <td>백업 및 공유</td>
                 </tr>
                 <tr>
                     <td><strong>git pull</strong></td>
-                    <td>원격에서 가져오기</td>
-                    <td>git pull</td>
+                    <td>GitHub에서 받기</td>
+                    <td>팀원 변경사항 받기</td>
+                </tr>
+                <tr>
+                    <td><strong>.gitignore</strong></td>
+                    <td>파일 무시 목록</td>
+                    <td>비밀 파일, 임시 파일 제외</td>
                 </tr>
             </table>
+
+            <div class="highlight">
+                <strong>🎯 다음 장 미리보기</strong><br/>
+                3장에서는 팀과 함께 작업하는 방법을 배웁니다. 브랜치(가지)를 만들어 독립적으로 작업하고, 병합(합치기)하고, 충돌이 발생했을 때 해결하는 방법까지! 협업의 핵심을 배워봅시다.
+            </div>
         </section>
 
         <div class="nav">
-            <a href="chapter1.html">← 이전 장</a>
-            <a href="chapter3.html">다음 장 →</a>
+            <a href="chapter1.html">&larr; 이전 장</a>
+            <a href="chapter3.html">다음 장 &rarr;</a>
         </div>
 
         <div class="footer">
-            <p>🎓 2장 완료! 이제 협업의 세계로 들어가봅시다! <a href="chapter3.html">3장 - 협업하기</a></p>
+            <p>2장 완료! 이제 협업의 세계로 들어가봅시다! <a href="chapter3.html">3장 - 협업하기</a></p>
         </div>
     </div>
 </body>
