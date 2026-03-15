@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부록: Git 옵션 레퍼런스 - 입문 교재</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+
+        .nav a {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #00BCD4;
+            color: #00BCD4;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: #00BCD4;
+            color: white;
+        }
+
+        .nav a:first-child {
+            background: #00BCD4;
+            color: white;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            color: #00BCD4;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #00BCD4;
+        }
+
+        section h3 {
+            color: #0097A7;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .learning-objectives {
+            background: linear-gradient(135deg, #00BCD415, #0097A715);
+            border: 2px solid #00BCD4;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0 30px 0;
+        }
+
+        .learning-objectives h3 {
+            color: #00BCD4;
+            margin-top: 0;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .code-block code {
+            color: #d4d4d4;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .tip {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            color: #2e7d32;
+        }
+
+        .option-card {
+            background: linear-gradient(135deg, #00BCD415 0%, #0097A715 100%);
+            border: 1px solid #00BCD4;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 12px 0;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover {
+            box-shadow: 0 4px 12px rgba(0,188,212,0.2);
+            transform: translateY(-2px);
+        }
+
+        .option-name {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #00BCD4;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .option-desc {
+            color: #0097A7;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .option-example {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            border-top: 1px solid #eee;
+        }
+
+        .footer a {
+            color: #00BCD4;
+            text-decoration: none;
+        }
+
+        .progress {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #00BCD4 0%, #0097A7 100%);
+            height: 100%;
+            width: 100%;
+        }
+
+        ul {
+            margin: 15px 0;
+            margin-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+
+        <header>
+            <h1>부록: Git 옵션 레퍼런스</h1>
+            <p>자주 사용하는 Git 명령어의 옵션 완벽 가이드</p>
+        </header>
+
+        <div class="nav">
+            <a href="chapter5.html">&larr; 이전 장</a>
+            <a href="index.html">목차로 돌아가기</a>
+        </div>
+
+        <div class="learning-objectives">
+            <h3>📚 이 부록에서 배우는 것</h3>
+            <ul>
+                <li>13개 주요 Git 명령어의 자주 사용하는 옵션</li>
+                <li>각 옵션의 의미와 실제 사용 예제</li>
+                <li>옵션 조합 활용법</li>
+            </ul>
+        </div>
+
+        <!-- 1. git init / clone -->
+        <section>
+            <h2>1️⃣ 저장소 생성: git init / clone</h2>
+
+            <h3>git init</h3>
+            <p>로컬에서 새로운 Git 저장소를 만듭니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">git init</div>
+                <div class="option-desc">현재 디렉터리에서 .git 폴더 생성</div>
+                <div class="option-example">$ git init</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git init [directory-name]</div>
+                <div class="option-desc">지정한 디렉터리에 새 저장소 생성</div>
+                <div class="option-example">$ git init my-project</div>
+            </div>
+
+            <h3>git clone</h3>
+            <p>원격 저장소를 로컬에 복제합니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">git clone [URL]</div>
+                <div class="option-desc">저장소를 로컬에 복제</div>
+                <div class="option-example">$ git clone https://github.com/user/repo.git</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git clone [URL] [directory-name]</div>
+                <div class="option-desc">지정한 이름의 폴더에 복제</div>
+                <div class="option-example">$ git clone https://github.com/user/repo.git my-folder</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git clone --depth [number] [URL]</div>
+                <div class="option-desc">얕은 복제 (최근 N개 커밋만)</div>
+                <div class="option-example">$ git clone --depth 1 https://github.com/user/repo.git</div>
+            </div>
+        </section>
+
+        <!-- 2. git add -->
+        <section>
+            <h2>2️⃣ 스테이징: git add</h2>
+            <p>변경사항을 스테이징 영역에 추가합니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">git add [file]</div>
+                <div class="option-desc">특정 파일을 스테이징</div>
+                <div class="option-example">$ git add README.md</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git add .</div>
+                <div class="option-desc">현재 디렉터리의 모든 변경사항 스테이징</div>
+                <div class="option-example">$ git add .</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git add -A / --all</div>
+                <div class="option-desc">전체 저장소의 모든 변경사항 스테이징</div>
+                <div class="option-example">$ git add -A</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git add -p / --patch</div>
+                <div class="option-desc">대화형으로 변경사항 선택해서 스테이징</div>
+                <div class="option-example">$ git add -p</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git add -u / --update</div>
+                <div class="option-desc">추적 중인 파일의 변경사항만 스테이징</div>
+                <div class="option-example">$ git add -u</div>
+            </div>
+        </section>
+
+        <!-- 3. git commit -->
+        <section>
+            <h2>3️⃣ 커밋: git commit</h2>
+            <p>스테이징된 변경사항을 저장합니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">git commit -m [message]</div>
+                <div class="option-desc">커밋 메시지와 함께 커밋</div>
+                <div class="option-example">$ git commit -m "초기 프로젝트 설정"</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git commit -am [message]</div>
+                <div class="option-desc">추적 중인 파일 변경사항을 자동으로 스테이징 후 커밋</div>
+                <div class="option-example">$ git commit -am "버그 수정"</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git commit -v / --verbose</div>
+                <div class="option-desc">변경사항을 자세히 보며 커밋</div>
+                <div class="option-example">$ git commit -v</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git commit --amend</div>
+                <div class="option-desc">직전 커밋 수정 (메시지 변경, 파일 추가 등)</div>
+                <div class="option-example">$ git commit --amend</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git commit --amend --no-edit</div>
+                <div class="option-desc">직전 커밋에 파일 추가 (메시지 유지)</div>
+                <div class="option-example">$ git commit --amend --no-edit</div>
+            </div>
+        </section>
+
+        <!-- 4. git status / diff -->
+        <section>
+            <h2>4️⃣ 상태 확인: git status / diff</h2>
+            <p>변경사항을 확인하고 비교합니다.</p>
+
+            <h3>git status</h3>
+
+            <div class="option-card">
+                <div class="option-name">git status</div>
+                <div class="option-desc">작업 디렉터리와 스테이징 상태 확인</div>
+                <div class="option-example">$ git status</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git status -s / --short</div>
+                <div class="option-desc">축약된 형식으로 상태 표시</div>
+                <div class="option-example">$ git status -s</div>
+            </div>
+
+            <h3>git diff</h3>
+
+            <div class="option-card">
+                <div class="option-name">git diff</div>
+                <div class="option-desc">작업 디렉터리의 변경사항 확인 (스테이징되지 않은 것)</div>
+                <div class="option-example">$ git diff</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git diff --staged</div>
+                <div class="option-desc">스테이징된 변경사항 확인</div>
+                <div class="option-example">$ git diff --staged</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git diff HEAD</div>
+                <div class="option-desc">모든 변경사항 확인 (스테이징 여부 상관없이)</div>
+                <div class="option-example">$ git diff HEAD</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git diff [branch1] [branch2]</div>
+                <div class="option-desc">두 브랜치 간의 차이 비교</div>
+                <div class="option-example">$ git diff main feature</div>
+            </div>
+        </section>
+
+        <!-- 5. git log -->
+        <section>
+            <h2>5️⃣ 히스토리 조회: git log</h2>
+            <p>커밋 히스토리를 확인합니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">git log</div>
+                <div class="option-desc">전체 커밋 히스토리 조회</div>
+                <div class="option-example">$ git log</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git log --oneline</div>
+                <div class="option-desc">각 커밋을 한 줄로 요약 표시</div>
+                <div class="option-example">$ git log --oneline</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git log -n [number]</div>
+                <div class="option-desc">최근 N개 커밋만 조회</div>
+                <div class="option-example">$ git log -5</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git log --graph --all --oneline</div>
+                <div class="option-desc">모든 브랜치를 그래프 형식으로 보기</div>
+                <div class="option-example">$ git log --graph --all --oneline</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git log --author=[name]</div>
+                <div class="option-desc">특정 작가의 커밋만 조회</div>
+                <div class="option-example">$ git log --author="John Doe"</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git log --since=[date] --until=[date]</div>
+                <div class="option-desc">특정 기간의 커밋 조회</div>
+                <div class="option-example">$ git log --since="2024-01-01" --until="2024-12-31"</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git log [file]</div>
+                <div class="option-desc">특정 파일의 변경 히스토리만 조회</div>
+                <div class="option-example">$ git log README.md</div>
+            </div>
+        </section>
+
+        <!-- 6. git branch / checkout / switch -->
+        <section>
+            <h2>6️⃣ 브랜치 관리: git branch / checkout / switch</h2>
+            <p>브랜치를 생성, 전환, 삭제합니다.</p>
+
+            <h3>git branch</h3>
+
+            <div class="option-card">
+                <div class="option-name">git branch</div>
+                <div class="option-desc">로컬 브랜치 목록 조회</div>
+                <div class="option-example">$ git branch</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git branch -a / --all</div>
+                <div class="option-desc">로컬 + 원격 브랜치 모두 조회</div>
+                <div class="option-example">$ git branch -a</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git branch [branch-name]</div>
+                <div class="option-desc">새로운 브랜치 생성</div>
+                <div class="option-example">$ git branch feature/login</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git branch -d [branch-name]</div>
+                <div class="option-desc">브랜치 삭제 (안전 - 병합되지 않으면 경고)</div>
+                <div class="option-example">$ git branch -d feature/login</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git branch -D [branch-name]</div>
+                <div class="option-desc">브랜치 강제 삭제</div>
+                <div class="option-example">$ git branch -D feature/login</div>
+            </div>
+
+            <h3>git checkout</h3>
+
+            <div class="option-card">
+                <div class="option-name">git checkout [branch-name]</div>
+                <div class="option-desc">브랜치로 전환</div>
+                <div class="option-example">$ git checkout feature/login</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git checkout -b [branch-name]</div>
+                <div class="option-desc">새로운 브랜치 생성 및 전환</div>
+                <div class="option-example">$ git checkout -b feature/logout</div>
+            </div>
+
+            <h3>git switch</h3>
+
+            <div class="option-card">
+                <div class="option-name">git switch [branch-name]</div>
+                <div class="option-desc">브랜치로 전환 (최신 방식)</div>
+                <div class="option-example">$ git switch feature/login</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git switch -c [branch-name]</div>
+                <div class="option-desc">새로운 브랜치 생성 및 전환 (최신 방식)</div>
+                <div class="option-example">$ git switch -c feature/logout</div>
+            </div>
+        </section>
+
+        <!-- 7. git merge / rebase -->
+        <section>
+            <h2>7️⃣ 병합: git merge / rebase</h2>
+            <p>브랜치를 병합하거나 재배치합니다.</p>
+
+            <h3>git merge</h3>
+
+            <div class="option-card">
+                <div class="option-name">git merge [branch-name]</div>
+                <div class="option-desc">지정한 브랜치를 현재 브랜치에 병합</div>
+                <div class="option-example">$ git merge feature/login</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git merge --no-ff [branch-name]</div>
+                <div class="option-desc">Fast-forward 병합을 피하고 병합 커밋 생성</div>
+                <div class="option-example">$ git merge --no-ff feature/login</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git merge --squash [branch-name]</div>
+                <div class="option-desc">여러 커밋을 하나로 압축하여 병합</div>
+                <div class="option-example">$ git merge --squash feature/login</div>
+            </div>
+
+            <h3>git rebase</h3>
+
+            <div class="option-card">
+                <div class="option-name">git rebase [branch-name]</div>
+                <div class="option-desc">현재 브랜치를 다른 브랜치 위에 재배치</div>
+                <div class="option-example">$ git rebase main</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git rebase -i HEAD~[number]</div>
+                <div class="option-desc">대화형 리베이스 (최근 N개 커밋 편집)</div>
+                <div class="option-example">$ git rebase -i HEAD~3</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git rebase --abort</div>
+                <div class="option-desc">리베이스 취소</div>
+                <div class="option-example">$ git rebase --abort</div>
+            </div>
+        </section>
+
+        <!-- 8. git push / pull / fetch -->
+        <section>
+            <h2>8️⃣ 원격 동기화: git push / pull / fetch</h2>
+            <p>원격 저장소와 동기화합니다.</p>
+
+            <h3>git push</h3>
+
+            <div class="option-card">
+                <div class="option-name">git push</div>
+                <div class="option-desc">현재 브랜치를 기본 원격(origin)에 푸시</div>
+                <div class="option-example">$ git push</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git push [remote] [branch]</div>
+                <div class="option-desc">지정한 원격과 브랜치에 푸시</div>
+                <div class="option-example">$ git push origin feature/login</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git push -u [remote] [branch]</div>
+                <div class="option-desc">푸시하면서 추적 설정 (다음부터 git push만 가능)</div>
+                <div class="option-example">$ git push -u origin feature/login</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git push --force / -f</div>
+                <div class="option-desc">강제 푸시 (⚠️ 주의: 다른 사람의 커밋 덮어씀)</div>
+                <div class="option-example">$ git push -f</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git push origin --delete [branch]</div>
+                <div class="option-desc">원격 브랜치 삭제</div>
+                <div class="option-example">$ git push origin --delete feature/login</div>
+            </div>
+
+            <h3>git pull</h3>
+
+            <div class="option-card">
+                <div class="option-name">git pull</div>
+                <div class="option-desc">원격 저장소에서 변경사항을 가져와 병합</div>
+                <div class="option-example">$ git pull</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git pull --rebase</div>
+                <div class="option-desc">가져온 후 리베이스로 병합</div>
+                <div class="option-example">$ git pull --rebase</div>
+            </div>
+
+            <h3>git fetch</h3>
+
+            <div class="option-card">
+                <div class="option-name">git fetch</div>
+                <div class="option-desc">원격 저장소에서 변경사항을 가져오기만 함 (병합 안함)</div>
+                <div class="option-example">$ git fetch</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git fetch [remote]</div>
+                <div class="option-desc">지정한 원격에서 가져오기</div>
+                <div class="option-example">$ git fetch origin</div>
+            </div>
+        </section>
+
+        <!-- 9. git remote -->
+        <section>
+            <h2>9️⃣ 원격 저장소 관리: git remote</h2>
+            <p>원격 저장소를 설정하고 관리합니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">git remote</div>
+                <div class="option-desc">원격 저장소 목록 조회</div>
+                <div class="option-example">$ git remote</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git remote -v / --verbose</div>
+                <div class="option-desc">원격 저장소 목록 + URL 확인</div>
+                <div class="option-example">$ git remote -v</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git remote add [name] [URL]</div>
+                <div class="option-desc">새로운 원격 저장소 추가</div>
+                <div class="option-example">$ git remote add upstream https://github.com/user/repo.git</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git remote remove [name]</div>
+                <div class="option-desc">원격 저장소 제거</div>
+                <div class="option-example">$ git remote remove upstream</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git remote set-url [name] [new-URL]</div>
+                <div class="option-desc">원격 저장소 URL 변경</div>
+                <div class="option-example">$ git remote set-url origin https://github.com/newuser/repo.git</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git remote show [name]</div>
+                <div class="option-desc">원격 저장소의 상세 정보</div>
+                <div class="option-example">$ git remote show origin</div>
+            </div>
+        </section>
+
+        <!-- 10. git stash -->
+        <section>
+            <h2>🔟 임시 저장: git stash</h2>
+            <p>작업 중인 변경사항을 임시로 저장합니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">git stash</div>
+                <div class="option-desc">현재 변경사항을 임시 저장</div>
+                <div class="option-example">$ git stash</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git stash save [message]</div>
+                <div class="option-desc">메시지와 함께 변경사항 저장</div>
+                <div class="option-example">$ git stash save "WIP: 로그인 기능"</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git stash list</div>
+                <div class="option-desc">임시 저장된 변경사항 목록</div>
+                <div class="option-example">$ git stash list</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git stash pop</div>
+                <div class="option-desc">가장 최근 stash 복원 및 삭제</div>
+                <div class="option-example">$ git stash pop</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git stash apply [stash-name]</div>
+                <div class="option-desc">지정한 stash 복원 (유지)</div>
+                <div class="option-example">$ git stash apply stash@{0}</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git stash drop [stash-name]</div>
+                <div class="option-desc">지정한 stash 삭제</div>
+                <div class="option-example">$ git stash drop stash@{0}</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git stash clear</div>
+                <div class="option-desc">모든 stash 삭제</div>
+                <div class="option-example">$ git stash clear</div>
+            </div>
+        </section>
+
+        <!-- 11. git reset / revert / restore -->
+        <section>
+            <h2>1️⃣1️⃣ 되돌리기: git reset / revert / restore</h2>
+            <p>변경사항을 되돌립니다.</p>
+
+            <h3>git reset</h3>
+
+            <div class="option-card">
+                <div class="option-name">git reset HEAD [file]</div>
+                <div class="option-desc">파일을 스테이징에서 제거</div>
+                <div class="option-example">$ git reset HEAD README.md</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git reset --soft HEAD~1</div>
+                <div class="option-desc">커밋만 되돌리기 (변경사항 유지)</div>
+                <div class="option-example">$ git reset --soft HEAD~1</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git reset --mixed HEAD~1</div>
+                <div class="option-desc">커밋 + 스테이징 되돌리기 (기본값)</div>
+                <div class="option-example">$ git reset --mixed HEAD~1</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git reset --hard HEAD~1</div>
+                <div class="option-desc">커밋 + 스테이징 + 파일까지 완전히 되돌리기</div>
+                <div class="option-example">$ git reset --hard HEAD~1</div>
+            </div>
+
+            <h3>git revert</h3>
+
+            <div class="option-card">
+                <div class="option-name">git revert [commit]</div>
+                <div class="option-desc">지정한 커밋의 변경사항을 되돌리는 새 커밋 생성</div>
+                <div class="option-example">$ git revert abc1234</div>
+            </div>
+
+            <h3>git restore</h3>
+
+            <div class="option-card">
+                <div class="option-name">git restore [file]</div>
+                <div class="option-desc">파일을 이전 상태로 복원</div>
+                <div class="option-example">$ git restore README.md</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git restore --staged [file]</div>
+                <div class="option-desc">스테이징된 파일 제거</div>
+                <div class="option-example">$ git restore --staged README.md</div>
+            </div>
+        </section>
+
+        <!-- 12. git tag -->
+        <section>
+            <h2>1️⃣2️⃣ 태그: git tag</h2>
+            <p>특정 커밋에 이름을 붙입니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">git tag</div>
+                <div class="option-desc">태그 목록 조회</div>
+                <div class="option-example">$ git tag</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git tag [tag-name]</div>
+                <div class="option-desc">경량 태그 생성 (현재 커밋에)</div>
+                <div class="option-example">$ git tag v1.0.0</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git tag -a [tag-name] -m [message]</div>
+                <div class="option-desc">주석있는 태그 생성</div>
+                <div class="option-example">$ git tag -a v1.0.0 -m "Version 1.0.0"</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git tag -d [tag-name]</div>
+                <div class="option-desc">로컬 태그 삭제</div>
+                <div class="option-example">$ git tag -d v1.0.0</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git push origin [tag-name]</div>
+                <div class="option-desc">특정 태그 푸시</div>
+                <div class="option-example">$ git push origin v1.0.0</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">git push origin --tags</div>
+                <div class="option-desc">모든 태그 푸시</div>
+                <div class="option-example">$ git push origin --tags</div>
+            </div>
+        </section>
+
+        <!-- 13. 공통 옵션 -->
+        <section>
+            <h2>1️⃣3️⃣ 공통 옵션</h2>
+            <p>대부분의 Git 명령어에서 사용 가능한 옵션들입니다.</p>
+
+            <div class="option-card">
+                <div class="option-name">-v / --verbose</div>
+                <div class="option-desc">더 자세한 정보 출력</div>
+                <div class="option-example">$ git remote -v<br>$ git commit -v</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">-h / --help</div>
+                <div class="option-desc">명령어 도움말 표시</div>
+                <div class="option-example">$ git commit --help</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">-q / --quiet</div>
+                <div class="option-desc">조용하게 실행 (에러 메시지만 표시)</div>
+                <div class="option-example">$ git push -q</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">--dry-run</div>
+                <div class="option-desc">실제 실행하지 않고 결과 미리보기</div>
+                <div class="option-example">$ git push --dry-run</div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-name">--no-verify</div>
+                <div class="option-desc">커밋/푸시 훅 스킵 (⚠️ 주의: 필요한 경우만)</div>
+                <div class="option-example">$ git push --no-verify</div>
+            </div>
+
+            <div class="highlight">
+                <strong>💡 팁:</strong> 어떤 명령어든 <code>--help</code> 옵션을 붙이면 상세한 도움말을 볼 수 있습니다.
+                예를 들어 <code>git log --help</code>는 git log의 모든 옵션을 설명해줍니다.
+            </div>
+        </section>
+
+        <div class="nav">
+            <a href="chapter5.html">&larr; 이전 장</a>
+            <a href="index.html">목차로 돌아가기</a>
+        </div>
+
+        <div class="footer">
+            <p>부록 완료! Git 옵션 레퍼런스를 마스터했습니다. 축하합니다!</p>
+            <p style="margin-top: 15px;">이제 Git의 대부분의 옵션을 이해하고 필요할 때마다 이 레퍼런스를 참고할 수 있습니다. 계속해서 Git을 실전에서 사용하며 더욱 능숙해지세요!</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Git 입문 교재 &copy; 2026</p>
+        </div>
+    </div>
+</body>
+</html>
